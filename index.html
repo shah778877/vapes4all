@@ -3,50 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vapes4All</title>
+    <title>Vapes4All - Premium Vapes & E-Liquids</title>
     <style>
-        * {margin:0; padding:0; box-sizing:border-box; font-family:Arial, sans-serif;}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
         body {
-            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            background: linear-gradient(135deg, #1f2f98 0%, #000000 100%);
+            color: white;
             min-height: 100vh;
+        }
+
+        nav {
+            background: rgba(0, 0, 0, 0.85);
+            padding: 15px 40px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        .age-check {
-            background: white;
-            padding: 40px 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            text-align: center;
-            max-width: 400px;
-        }
-        h1 {color: #1e3a8a; margin-bottom: 10px; font-size: 28px;}
-        p {color: #555; margin-bottom: 30px; line-height: 1.5;}
-        .buttons {display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;}
-        button {
-            padding: 14px 35px;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
+
+        .logo {
+            font-size: 24px;
             font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s;
+            color: #00d4ff;
+            text-decoration: none;
         }
-        button:hover {transform: scale(1.05);}
-        .yes {background: #22c55e; color: white;}
-        .no {background: #ef4444; color: white;}
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #00d4ff;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            background: radial-gradient(circle at top, rgba(0, 212, 255, 0.3), transparent 70%);
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .btn {
+            background: linear-gradient(90deg, #00d4ff, #0099cc);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+        }
+
+        .section {
+            padding: 60px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #00d4ff;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            border-color: #00d4ff;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+        }
+
+        .product-card img {
+            width: 100%;
+            max-width: 200px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .product-card h3 {
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+
+        .product-card p {
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #00d4ff;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.9);
+            text-align: center;
+            padding: 20px;
+            margin-top: 60px;
+        }
     </style>
 </head>
 <body>
-    <div class="age-check">
-        <h1>Vapes4All</h1>
-        <p>Are you 18 years of age or older?</p>
-        <div class="buttons">
-            <button class="yes" onclick="window.location.href='home.html'">Yes, I am 18+</button>
-            <button class="no" onclick="window.location.href='https://google.com'">No</button>
+
+    <nav>
+        <a href="index.html" class="logo">Vapes4All</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="products.html">Products</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <h1>Welcome to Vapes4All</h1>
+        <p>Premium vapes, e-liquids, and disposable devices at unbeatable prices</p>
+        <a href="products.html" class="btn">Shop Now</a>
+    </div>
+
+    <div class="section">
+        <h2>Featured Products</h2>
+        <div class="products-grid">
+
+            <div class="product-card">
+                <img src="https://i.imgur.com/7Zk8fLc.png" alt="Hayati Pro 6000">
+                <h3>Hayati Pro 6000</h3>
+                <p>Compact disposable vape with up to 6000 puffs, smooth flavour, and long-lasting battery.</p>
+                <div class="price">£12.99</div>
+                <a href="products.html" class="btn">View</a>
+            </div>
+
+            <div class="product-card">
+                <img src="https://i.imgur.com/9Xj2mPw.png" alt="Hayati Pro 25000">
+                <h3>Hayati Pro 25000</h3>
+                <p>High-capacity disposable with 25000 puffs, rich flavour, and all-day performance.</p>
+                <div class="price">£19.99</div>
+                <a href="products.html" class="btn">View</a>
+            </div>
+
+            <div class="product-card">
+                <img src="https://i.imgur.com/3QrFd7h.png" alt="E-Liquid Bottles">
+                <h3>Premium E-Liquids</h3>
+                <p>Available in multiple flavours – perfect for every style of vaping.</p>
+                <div class="price">£4.99</div>
+                <a href="products.html" class="btn">View</a>
+            </div>
+
+            <div class="product-card">
+                <img src="https://i.imgur.com/5KsPn9r.png" alt="Vape Pods">
+                <h3>Pods & Cartridges</h3>
+                <p>Top-quality pods and cartridges for consistent flavour and smooth hits.</p>
+                <div class="price">£8.99</div>
+                <a href="products.html" class="btn">View</a>
+            </div>
+
         </div>
     </div>
+
+    <footer>
+        <p>&copy; 2025 Vapes4All. All rights reserved.</p>
+    </footer>
+
 </body>
 </html>
