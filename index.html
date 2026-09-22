@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vapes4All</title>
+    <style>
+        * {margin:0; padding:0; box-sizing:border-box; font-family:Arial, sans-serif;}
+        body {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .age-check {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 400px;
+        }
+        h1 {color: #1e3a8a; margin-bottom: 10px; font-size: 28px;}
+        p {color: #555; margin-bottom: 30px; line-height: 1.5;}
+        .buttons {display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;}
+        button {
+            padding: 14px 35px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        button:hover {transform: scale(1.05);}
+        .yes {background: #22c55e; color: white;}
+        .no {background: #ef4444; color: white;}
+    </style>
+</head>
+<body>
+    <div class="age-check">
+        <h1>Vapes4All</h1>
+        <p>Are you 18 years of age or older?</p>
+        <div class="buttons">
+            <button class="yes" onclick="window.location.href='home.html'">Yes, I am 18+</button>
+            <button class="no" onclick="window.location.href='https://google.com'">No</button>
+        </div>
+    </div>
+</body>
+</html>
