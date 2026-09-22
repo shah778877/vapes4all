@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products — Vapes4All</title>
+    <style>
+        * {margin:0; padding:0; box-sizing:border-box; font-family:Arial, sans-serif;}
+        body {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            min-height: 100vh;
+            color: white;
+            padding: 30px 20px;
+        }
+        nav {
+            background: rgba(255,255,255,0.15);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        nav a {color: white; text-decoration: none; font-weight: bold; font-size: 18px;}
+        nav a:hover {text-decoration: underline;}
+        h1 {font-size: 36px; margin-bottom: 30px;}
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            max-width: 900px;
+        }
+        .product-card {
+            background: rgba(255,255,255,0.15);
+            padding: 25px;
+            border-radius: 12px;
+        }
+        .product-card h3 {margin-bottom: 10px; font-size: 20px;}
+        .product-card p {margin-bottom: 8px; opacity: 0.9;}
+        .price {font-weight: bold; font-size: 22px; color: #86efac; margin-top: 10px;}
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="home.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <h1>Our Products</h1>
+
+    <div class="product-list">
+        <div class="product-card">
+            <h3>Disposable Vapes</h3>
+            <p>Top brands — 600+ puffs</p>
+            <p>Many flavours available</p>
+            <p class="price">From £5.99</p>
+        </div>
+
+        <div class="product-card">
+            <h3>Pod Kits</h3>
+            <p>Starter kits & replacement pods</p>
+            <p>Compact & easy to use</p>
+            <p class="price">From £12.99</p>
+        </div>
+
+        <div class="product-card">
+            <h3>E-Liquids</h3>
+            <p>10ml & shortfills</p>
+            <p>50/50 & high VG</p>
+            <p class="price">From £3.99</p>
+        </div>
+
+        <div class="product-card">
+            <h3>Mods & Tanks</h3>
+            <p>Advanced kits & spares</p>
+            <p>All major brands</p>
+            <p class="price">From £24.99</p>
+        </div>
+    </div>
+</body>
+</html>
