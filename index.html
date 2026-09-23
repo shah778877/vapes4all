@@ -11,6 +11,7 @@
             --card: #1a1a35;
             --accent: #ff9500;
             --dojo: #22c55e;
+            --pods: #a855f7;
             --ivg: #3b82f6;
             --text: #fff;
             --muted: #b0b0d0;
@@ -23,36 +24,48 @@
         nav a:hover, nav a.active { color: var(--accent); }
         
         .banner { background: var(--card); text-align: center; padding: 1rem; color: var(--text); font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .banner strong { color: var(--dojo); }
+        .banner strong { color: var(--accent); }
         
         .hero { text-align: center; padding: 3rem 5% 2rem; max-width: 1200px; margin: 0 auto; }
         .hero h1 { font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--accent); }
         .hero p { font-size: 1.2rem; color: var(--muted); max-width: 700px; margin: 0 auto; }
         
-        .grid { max-width: 1200px; margin: 0 auto 4rem; padding: 0 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+        .grid { max-width: 1200px; margin: 0 auto 4rem; padding: 0 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
         
         .card {
             background: var(--card);
             border-radius: 16px;
             padding: 2rem;
-            border: 2px solid transparent;
+            border-top: 4px solid;
             transition: 0.3s;
             text-align: center;
             text-decoration: none;
             color: inherit;
         }
-        .card:hover { transform: translateY(-6px); border-color: var(--accent); box-shadow: 0 10px 30px rgba(255,149,0,0.2); }
-        .card.dojo-kits { border-top: 4px solid var(--dojo); }
-        .card.dojo-pods { border-top: 4px solid #a855f7; }
-        .card.ivg { border-top: 4px solid var(--ivg); }
+        .card:hover { transform: translateY(-6px); box-shadow: 0 10px 30px rgba(255,149,0,0.2); }
+        .card.dojo-units { border-color: var(--dojo); }
+        .card.dojo-pods { border-color: var(--pods); }
+        .card.ivg { border-color: var(--ivg); }
         
-        .card h2 { font-size: 1.5rem; margin: 1rem 0; color: var(--text); }
-        .card .price { font-size: 1.8rem; font-weight: 900; color: var(--accent); margin: 0.5rem 0; }
-        .card .old-price { color: var(--muted); text-decoration: line-through; font-size: 1rem; margin-left: 0.5rem; }
-        .card .deal { background: rgba(34,197,94,0.15); color: var(--dojo); display: inline-block; padding: 0.4rem 1rem; border-radius: 20px; font-weight: 700; margin: 0.5rem 0; }
-        .card img { max-width: 220px; height: 180px; object-fit: contain; margin: 0 auto; }
-        .card .btn { display: inline-block; margin-top: 1rem; background: var(--accent); color: white; padding: 0.8rem 2rem; border-radius: 10px; font-weight: 700; text-decoration: none; transition: 0.2s; }
-        .card .btn:hover { transform: scale(1.05); }
+        .card h2 { font-size: 1.4rem; margin: 1rem 0; }
+        .price { font-size: 1.8rem; font-weight: 900; color: var(--accent); }
+        .old-price { color: var(--muted); text-decoration: line-through; font-size: 1rem; margin-left: 0.5rem; }
+        .deal { margin: 0.8rem 0; padding: 0.5rem 1rem; border-radius: 20px; display: inline-block; font-weight: 700; }
+        .dojo-units .deal { background: rgba(34,197,94,0.15); color: var(--dojo); }
+        .dojo-pods .deal { background: rgba(168,85,247,0.15); color: var(--pods); }
+        .ivg .deal { background: rgba(59,130,246,0.15); color: var(--ivg); }
+        .desc { color: var(--muted); margin: 0.5rem 0 1.2rem; }
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 10px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .btn:hover { transform: scale(1.05); }
         
         footer { text-align: center; padding: 2rem; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem; }
     </style>
@@ -66,6 +79,7 @@
             <a href="index.html" class="active">Home</a>
             <a href="dojo-units.html">10K Units</a>
             <a href="dojo-pods.html">10K Pods</a>
+            <a href="products.html">IVG 10K</a>
             <a href="checkout.html">Basket</a>
             <a href="contact.html">Contact</a>
         </nav>
@@ -73,7 +87,7 @@
 </header>
 
 <div class="banner">
-    🚚 <strong>FREE DPD Delivery</strong> on all orders £23 and over — Tracked & Signed For
+    🚚 <strong>FREE DPD Delivery</strong> on all orders £23 and over — Tracked & Signed
 </div>
 
 <section class="hero">
@@ -82,33 +96,30 @@
 </section>
 
 <section class="grid">
-    <!-- DOJO BLAST 10K KITS -->
-    <a href="dojo-units.html" class="card dojo-kits">
-        <img src="https://i.imgur.com/9ZxQ8Lk.png" alt="Dojo Blast 10K Kits" onerror="this.src='https://via.placeholder.com/220x180/1a1a35/ffffff?text=Dojo+Blast+10K+Kits'">
+    <!-- DOJO BLAST 10K UNITS -->
+    <a href="dojo-units.html" class="card dojo-units">
         <h2>Dojo Blast 10K Kits</h2>
         <div class="price">£6.99 each</div>
-        <div class="deal">🔥 3 for £12.00</div>
-        <p style="color:var(--muted);margin-top:0.5rem;">Rechargeable • 10,000 Puffs • 20mg</p>
+        <div class="deal">🔥 Any 3 for £12.00</div>
+        <p class="desc">Rechargeable Kit • 10,000 Puffs • 20mg</p>
         <span class="btn">Shop Now →</span>
     </a>
 
     <!-- DOJO BLAST 10K PODS -->
     <a href="dojo-pods.html" class="card dojo-pods">
-        <img src="https://i.imgur.com/yR7s9X7.png" alt="Dojo Blast 10K Pods" onerror="this.src='https://via.placeholder.com/220x180/1a1a35/ffffff?text=Dojo+Blast+10K+Pods'">
         <h2>Dojo Blast 10K Pods</h2>
         <div class="price">£4.99 each</div>
-        <div class="deal">🔥 7 for £20.00</div>
-        <p style="color:var(--muted);margin-top:0.5rem;">Pre-Filled • 2ml • 20mg Nicotine</p>
+        <div class="deal">🔥 Any 7 for £20.00</div>
+        <p class="desc">Replacement Pods • 2ml • 20mg</p>
         <span class="btn">Shop Now →</span>
     </a>
 
     <!-- IVG 10K MAX -->
     <a href="products.html" class="card ivg">
-        <img src="https://i.imgur.com/3dFmP9r.png" alt="IVG 10K Max" onerror="this.src='https://via.placeholder.com/220x180/1a1a35/ffffff?text=IVG+10K+Max'">
         <h2>IVG 10K Max</h2>
         <div class="price">£4.99 <span class="old-price">£9.99</span></div>
         <div class="deal">⚡ HALF PRICE — Was £9.99</div>
-        <p style="color:var(--muted);margin-top:0.5rem;">10,000 Puffs • 12mg • All Flavours</p>
+        <p class="desc">10,000 Puffs • 12mg • All Flavours</p>
         <span class="btn">Shop Now →</span>
     </a>
 </section>
