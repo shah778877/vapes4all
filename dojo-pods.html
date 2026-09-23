@@ -6,29 +6,54 @@
     <title>Dojo Blast 10K Pods — Vapes4All</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        :root { --bg: #0f0f23; --card: #1a1a35; --accent: #ff9500; --pods: #a855f7; --text: #fff; --muted: #b0b0d0; }
+        :root {
+            --bg: #0f0f1a;
+            --card: #1a1a2e;
+            --accent: #ff9500;
+            --red: #ef4444;
+            --pods: #a855f7;
+            --text: #ffffff;
+            --muted: #9ca3af;
+        }
         body { background: var(--bg); color: var(--text); line-height: 1.6; }
         header { background: rgba(0,0,0,0.4); padding: 1rem 5%; border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; z-index: 100; }
         .nav-wrap { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-        .logo { font-size: 1.8rem; font-weight: 900; color: var(--accent); text-decoration: none; }
-        nav a { color: var(--text); text-decoration: none; margin-left: 1.2rem; font-weight: 600; transition: 0.2s; }
+        .logo { font-size: 1.6rem; font-weight: 900; color: var(--accent); text-decoration: none; }
+        nav { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+        nav a { color: var(--text); text-decoration: none; padding: 0.5rem 0.8rem; font-weight: 500; position: relative; }
         nav a:hover, nav a.active { color: var(--accent); }
-        .banner { background: rgba(168,85,247,0.1); text-align: center; padding: 1rem; border-bottom: 1px solid rgba(168,85,247,0.2); }
-        .banner strong { color: var(--pods); font-size: 1.2rem; }
+        .basket-link { position: relative; }
+        .badge {
+            position: absolute;
+            top: -10px;
+            right: -12px;
+            background: var(--red);
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            min-width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .badge.hidden { display: none; }
+
+        .banner { background: rgba(168,85,247,0.1); text-align: center; padding: 1rem; border-bottom: 1px solid rgba(168,85,247,0.2); color: var(--pods); font-weight: 600; }
         .page-wrap { max-width: 1200px; margin: 0 auto; padding: 2rem 5%; }
         h1 { font-size: 2rem; color: var(--pods); margin-bottom: 0.5rem; }
         .intro { color: var(--muted); margin-bottom: 2rem; font-size: 1.1rem; }
         .price-banner { background: var(--card); padding: 1.5rem; border-radius: 12px; text-align: center; margin-bottom: 2rem; border-left: 4px solid var(--pods); }
         .price-banner .main { font-size: 2rem; font-weight: 900; color: var(--accent); }
         .price-banner .deal { font-size: 1.3rem; color: var(--pods); font-weight: 700; margin-top: 0.5rem; }
-        .flavours-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
         .flavour-card { background: var(--card); border-radius: 12px; padding: 1.5rem; text-align: center; border-bottom: 3px solid var(--pods); transition: 0.2s; }
         .flavour-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(168,85,247,0.2); }
         .flavour-card h3 { margin: 1rem 0; font-size: 1.1rem; }
         .add-btn { background: var(--accent); color: white; border: none; padding: 0.7rem 1.5rem; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 0.5rem; transition: 0.2s; width: 100%; }
         .add-btn:hover { transform: scale(1.05); }
-        .info-box { background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 12px; margin-top: 3rem; }
-        .info-box h3 { margin-bottom: 1rem; color: var(--accent); }
+        .info { background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 12px; margin-top: 3rem; }
         footer { text-align: center; padding: 2rem; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem; }
     </style>
 </head>
@@ -41,49 +66,57 @@
             <a href="dojo-units.html">10K Units</a>
             <a href="dojo-pods.html" class="active">10K Pods</a>
             <a href="ivg.html">IVG 10K</a>
-            <a href="checkout.html">Basket</a>
+            <a href="checkout.html" class="basket-link">
+                Basket
+                <span class="badge hidden" id="nav-badge">0</span>
+            </a>
             <a href="contact.html">Contact</a>
         </nav>
     </div>
 </header>
+
 <div class="banner">🚚 FREE DPD Delivery on orders £23+ — Tracked & Signed</div>
+
 <div class="page-wrap">
-    <h1>Dojo Blast 10K Pods</h1>
-    <p class="intro">Genuine Replacement Pods — For Dojo Blast 10K Kit Only • 2ml Pre-Filled • Mesh Coil</p>
+    <h1>Dojo Blast 10K Replacement Pods</h1>
+    <p class="intro">Genuine Vaporesso Pods • 2ml Pre-Filled • 20mg Nicotine • Pack of 1</p>
     <div class="price-banner">
         <div class="main">£4.99 each</div>
-        <div class="deal">🔥 BUNDLE DEAL — Any 7 for just £20.00</div>
+        <div class="deal">🔥 Any 7 for just £20.00</div>
     </div>
     <h2 style="margin-bottom:1rem">Select Your Flavour</h2>
-    <div class="flavours-grid">
-        <div class="flavour-card"><h3>Blue Razz Lemonade</h3><button class="add-btn" onclick="addToBasket('Dojo Pod — Blue Razz Lemonade', 4.99, 'pod')">Add to Basket</button></div>
-        <div class="flavour-card"><h3>Watermelon Ice</h3><button class="add-btn" onclick="addToBasket('Dojo Pod — Watermelon Ice', 4.99, 'pod')">Add to Basket</button></div>
-        <div class="flavour-card"><h3>Strawberry Kiwi</h3><button class="add-btn" onclick="addToBasket('Dojo Pod — Strawberry Kiwi', 4.99, 'pod')">Add to Basket</button></div>
-        <div class="flavour-card"><h3>Mango Ice</h3><button class="add-btn" onclick="addToBasket('Dojo Pod — Mango Ice', 4.99, 'pod')">Add to Basket</button></div>
-        <div class="flavour-card"><h3>Cherry Berry</h3><button class="add-btn" onclick="addToBasket('Dojo Pod — Cherry Berry', 4.99, 'pod')">Add to Basket</button></div>
-        <div class="flavour-card"><h3>Pineapple Ice</h3><button class="add-btn" onclick="addToBasket('Dojo Pod — Pineapple Ice', 4.99, 'pod')">Add to Basket</button></div>
-        <div class="flavour-card"><h3>Grape Ice</h3><button class="add-btn" onclick="addToBasket('Dojo Pod — Grape Ice', 4.99, 'pod')">Add to Basket</button></div>
-        <div class="flavour-card"><h3>Double Apple</h3><button class="add-btn" onclick="addToBasket('Dojo Pod — Double Apple', 4.99, 'pod')">Add to Basket</button></div>
+    <div class="grid">
+        <div class="flavour-card"><h3>Watermelon Ice</h3><button class="add-btn" onclick="addToBasket('Dojo Pod — Watermelon Ice', 4.99)">Add to Basket</button></div>
+        <div class="flavour-card"><h3>Grape Ice</h3><button class="add-btn" onclick="addToBasket('Dojo Pod — Grape Ice', 4.99)">Add to Basket</button></div>
+        <div class="flavour-card"><h3>Double Apple</h3><button class="add-btn" onclick="addToBasket('Dojo Pod — Double Apple', 4.99)">Add to Basket</button></div>
+        <div class="flavour-card"><h3>Blueberry Raspberry</h3><button class="add-btn" onclick="addToBasket('Dojo Pod — Blueberry Raspberry', 4.99)">Add to Basket</button></div>
+        <div class="flavour-card"><h3>Strawberry Kiwi</h3><button class="add-btn" onclick="addToBasket('Dojo Pod — Strawberry Kiwi', 4.99)">Add to Basket</button></div>
+        <div class="flavour-card"><h3>Mango Ice</h3><button class="add-btn" onclick="addToBasket('Dojo Pod — Mango Ice', 4.99)">Add to Basket</button></div>
+        <div class="flavour-card"><h3>Cool Mint</h3><button class="add-btn" onclick="addToBasket('Dojo Pod — Cool Mint', 4.99)">Add to Basket</button></div>
+        <div class="flavour-card"><h3>Lemon Lime</h3><button class="add-btn" onclick="addToBasket('Dojo Pod — Lemon Lime', 4.99)">Add to Basket</button></div>
     </div>
-    <div class="info-box">
+    <div class="info">
         <h3>Product Information</h3>
         <p><strong>Brand:</strong> Vaporesso Dojo Blast</p>
         <p><strong>Compatibility:</strong> Dojo Blast 10K Kit only</p>
         <p><strong>Capacity:</strong> 2ml Pre-Filled</p>
-        <p><strong>Nicotine:</strong> 20mg / 2%</p>
-        <p><strong>Coil:</strong> Built-in Mesh Coil</p>
+        <p><strong>Nicotine:</strong> 20mg</p>
         <p style="margin-top:1rem; color:var(--muted);"><em>Must be 18+ to purchase. Age verification applies to all orders.</em></p>
     </div>
 </div>
-<footer><p>Vapes4All © 2026 | info@vapes4all.co.uk | 18+ Only</p></footer>
+
+<footer>
+    <p>Vapes4All © 2026 | info@vapes4all.co.uk | 18+ Only</p>
+</footer>
+
 <script>
-function addToBasket(name, price, type) {
+function addToBasket(name, price) {
   let basket = JSON.parse(localStorage.getItem('vapes4all_basket') || '[]');
   const existing = basket.find(i => i.name === name);
   if (existing) {
     existing.qty++;
   } else {
-    basket.push({ name, price, qty: 1, type });
+    basket.push({ name, price, qty: 1 });
   }
   localStorage.setItem('vapes4all_basket', JSON.stringify(basket));
   updateBadge();
@@ -95,7 +128,7 @@ function updateBadge() {
   const badge = document.getElementById('nav-badge');
   if (badge) {
     badge.textContent = total;
-    badge.style.display = total > 0 ? 'flex' : 'none';
+    badge.classList.toggle('hidden', total === 0);
   }
 }
 
