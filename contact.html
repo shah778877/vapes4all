@@ -3,214 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us — Vapes4All</title>
+    <title>Your Basket | Vapes4All</title>
     <style>
-        * {margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', sans-serif;}
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        :root {
+            --bg: #050510; --card: #1a1a30; --accent: #ff9500; --green: #4cd964; --red: #ff3b3b; --text: #fff; --subtext: #b8b8d1;
+        }
+        body { background: radial-gradient(circle at top, #1a1a30 0%, #050510 65%); color: var(--text); min-height: 100vh; }
+        header { background: rgba(0,0,0,0.6); backdrop-filter: blur(12px); padding:1.2rem 5%; position:sticky; top:0; z-index:100; border-bottom:1px solid rgba(255,149,0,0.18); }
+        .logo { font-size:2rem; font-weight:900; background:linear-gradient(90deg, #ff9500, #ffcc00); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-decoration:none; }
+        nav { float:right; margin-top:0.5rem; }
+        nav a { color:var(--text); margin-left:2rem; text-decoration:none; font-weight:600; transition:0.3s; }
+        nav a:hover, nav a.active { color:var(--accent); }
+        .container { max-width:900px; margin:0 auto; padding:3rem 5%; }
+        h1 { font-size:2.5rem; margin-bottom:2rem; text-align:center; }
+        .back-link { color:var(--accent); text-decoration:none; display:inline-block; margin-bottom:2rem; }
+        .back-link:hover { text-decoration:underline; }
         
-        body {
-            background: #121212;
-            color: white;
-            min-height: 100vh;
+        .cart-item {
+            background:var(--card); border-radius:14px; padding:1.2rem 1.5rem; margin-bottom:1rem;
+            display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;
+            border:1px solid rgba(255,255,255,0.08);
         }
-
-        nav {
-            background: #1a1a1a;
-            padding: 18px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            border-bottom: 2px solid #2d2d2d;
+        .item-left { display:flex; align-items:center; gap:1rem; flex:1; min-width:250px; }
+        .item-info h3 { font-size:1rem; margin-bottom:0.2rem; }
+        .item-type { font-size:0.8rem; color:var(--subtext); text-transform:uppercase; letter-spacing:1px; }
+        
+        .qty-box { display:flex; align-items:center; gap:0.5rem; background:rgba(255,255,255,0.05); border-radius:10px; padding:0.4rem 0.8rem; }
+        .qty-btn { width:32px; height:32px; border-radius:50%; border:none; background:var(--accent); color:#000; font-weight:bold; cursor:pointer; font-size:1rem; transition:0.2s; }
+        .qty-btn:hover { transform:scale(1.1); }
+        .qty-num { min-width:28px; text-align:center; font-weight:bold; font-size:1.1rem; }
+        
+        .item-right { display:flex; align-items:center; gap:1.2rem; }
+        .item-price { font-weight:700; font-size:1.1rem; min-width:80px; text-align:right; }
+        .remove-btn { background:rgba(255,59,59,0.2); color:var(--red); border:none; padding:0.5rem 1rem; border-radius:8px; cursor:pointer; font-weight:bold; transition:0.3s; white-space:nowrap; }
+        .remove-btn:hover { background:var(--red); color:white; }
+        
+        .empty-cart { text-align:center; padding:4rem 2rem; color:var(--subtext); }
+        .empty-cart h2 { margin-bottom:1rem; }
+        .summary-box {
+            background:var(--card); border-radius:18px; padding:2rem; margin-top:2rem;
+            border:1px solid rgba(255,149,0,0.25);
         }
-
-        .logo {
-            font-size: 26px;
-            font-weight: bold;
-            background: linear-gradient(90deg, #ff6b35, #ffd000);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-decoration: none;
+        .summary-row { display:flex; justify-content:space-between; padding:0.8rem 0; border-bottom:1px solid rgba(255,255,255,0.08); }
+        .summary-row.total { border-bottom:none; font-size:1.5rem; font-weight:900; color:var(--accent); padding-top:1rem; }
+        .deal-msg { color:var(--green); font-weight:bold; margin:0.5rem 0; }
+        .delivery-msg { color:var(--accent); margin:0.5rem 0; }
+        .checkout-btn {
+            width:100%; background:linear-gradient(90deg, #ff9500, #ffcc00); color:#000; border:none;
+            padding:1.2rem; border-radius:50px; font-size:1.1rem; font-weight:900; margin-top:1.5rem; cursor:pointer; transition:0.3s;
         }
-
-        .nav-links {display: flex; gap: 35px;}
-        .nav-links a {
-            color: #ccc;
-            text-decoration: none;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-        .nav-links a:hover, .nav-links a.active {color: #ff6b35;}
-
-        .page-header {
-            text-align: center;
-            padding: 50px 20px;
-            background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
-            border-bottom: 2px solid #2d2d2d;
-        }
-        .page-header h1 {
-            font-size: 42px;
-            background: linear-gradient(90deg, #ff6b35, #ffd000);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-        }
-        .page-header p {color: #999; font-size: 18px;}
-
-        .section {padding: 60px 40px; max-width: 900px; margin: 0 auto;}
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-
-        .contact-card {
-            background: #1e1e1e;
-            border-radius: 16px;
-            padding: 30px;
-            text-align: center;
-            border: 1px solid #333;
-            transition: 0.3s;
-        }
-        .contact-card:hover {
-            border-color: #ff6b35;
-            transform: translateY(-5px);
-        }
-        .contact-card h3 {
-            color: #ff6b35;
-            margin-bottom: 15px;
-            font-size: 20px;
-        }
-        .contact-card p {
-            color: #aaa;
-            margin-bottom: 8px;
-        }
-
-        .form-box {
-            background: #1e1e1e;
-            border-radius: 16px;
-            padding: 40px;
-            border: 1px solid #333;
-        }
-        .form-box h2 {
-            color: #ff6b35;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #ddd;
-        }
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            background: #2a2a2a;
-            border: 1px solid #444;
-            border-radius: 8px;
-            color: white;
-            font-size: 16px;
-        }
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: #ff6b35;
-        }
-        .btn {
-            display: inline-block;
-            background: linear-gradient(90deg, #ff6b35, #ff8000);
-            color: white;
-            padding: 12px 35px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 18px;
-            border: none;
-            cursor: pointer;
-            transition: 0.3s;
-            width: 100%;
-        }
-        .btn:hover {transform: scale(1.02);}
-
-        footer {
-            background: #1a1a1a;
-            text-align: center;
-            padding: 30px;
-            margin-top: 40px;
-            border-top: 2px solid #2d2d2d;
-            color: #777;
-        }
+        .checkout-btn:hover { transform:scale(1.02); }
+        .clear-btn { background:transparent; color:var(--red); border:1px solid var(--red); padding:0.7rem 1.5rem; border-radius:8px; margin-top:1rem; cursor:pointer; width:100%; font-weight:bold; transition:0.3s; }
+        .clear-btn:hover { background:var(--red); color:white; }
+        footer { text-align:center; padding:3rem 2rem; color:var(--subtext); border-top:1px solid rgba(255,255,255,0.08); margin-top:3rem; }
     </style>
 </head>
 <body>
 
+<header>
+    <a href="index.html" class="logo">Vapes4All</a>
     <nav>
-        <a href="index.html" class="logo">Vapes4All</a>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="products.html">Products</a>
-            <a href="contact.html" class="active">Contact</a>
-        </div>
+        <a href="index.html">Home</a>
+        <a href="dojo-units.html">10K Units</a>
+        <a href="dojo-pods.html">10K Pods</a>
+        <a href="checkout.html" class="active">Basket</a>
+        <a href="contact.html">Contact</a>
     </nav>
+</header>
 
-    <div class="page-header">
-        <h1>Get In Touch</h1>
-        <p>Questions, orders, or enquiries — we're here to help</p>
+<div class="container">
+    <a href="index.html" class="back-link">← Continue Shopping</a>
+    <h1>🛒 Your Basket</h1>
+
+    <div id="cart-items"></div>
+    <div id="summary" style="display:none;"></div>
+
+    <div id="empty-msg" class="empty-cart" style="display:none;">
+        <h2>Your basket is empty</h2>
+        <p>Add some Units or Pods to get started</p>
+        <br>
+        <a href="dojo-units.html" class="checkout-btn" style="display:inline-block; text-decoration:none; width:auto; padding:1rem 2rem;">BROWSE UNITS</a>
+        &nbsp;
+        <a href="dojo-pods.html" class="checkout-btn" style="display:inline-block; text-decoration:none; width:auto; padding:1rem 2rem; background:linear-gradient(90deg, #4cd964, #22c55e);">BROWSE PODS</a>
     </div>
+</div>
 
-    <div class="section">
-        <div class="contact-grid">
-            <div class="contact-card">
-                <h3>📞 Phone</h3>
-                <p>Call us anytime</p>
-                <p><strong>07000 000 000</strong></p>
-                <p style="font-size:13px; color:#666;">Mon–Sat: 9am–8pm</p>
+<footer>
+    <p style="font-weight:600;">Vapes4All — Checkout</p>
+    <p>info@vapes4all.co.uk</p>
+    <p style="margin-top:1rem; font-size:0.85rem; color:#666;">⚠️ 18+ only. Age verification applies. Nicotine products.</p>
+</footer>
+
+<script>
+function getCart() {
+    return JSON.parse(localStorage.getItem('v4a_cart') || '[]');
+}
+
+function saveCart(cart) {
+    localStorage.setItem('v4a_cart', JSON.stringify(cart));
+}
+
+// Group same items together
+function getGroupedCart() {
+    const cart = getCart();
+    const grouped = {};
+    cart.forEach(item => {
+        const key = `${item.type}||${item.name}`;
+        if(!grouped[key]) {
+            grouped[key] = { ...item, qty: 1 };
+        } else {
+            grouped[key].qty++;
+        }
+    });
+    return Object.values(grouped);
+}
+
+function updateQty(name, type, delta) {
+    let cart = getCart();
+    if(delta > 0) {
+        const template = cart.find(i => i.name === name && i.type === type);
+        if(template) cart.push({ ...template, id: Date.now() });
+    } else {
+        for(let i = cart.length - 1; i >= 0; i--) {
+            if(cart[i].name === name && cart[i].type === type) {
+                cart.splice(i, 1);
+                break;
+            }
+        }
+    }
+    saveCart(cart);
+    renderCart();
+}
+
+function removeEntireItem(name, type) {
+    if(confirm('Remove all of this item?')) {
+        let cart = getCart().filter(i => !(i.name === name && i.type === type));
+        saveCart(cart);
+        renderCart();
+    }
+}
+
+function clearCart() {
+    if(confirm('Clear entire basket?')) {
+        saveCart([]);
+        renderCart();
+    }
+}
+
+function calculateDeals(groupedItems) {
+    let units = [];
+    let pods = [];
+    groupedItems.forEach(item => {
+        if(item.type === 'Unit') units.push(...Array(item.qty).fill(item));
+        else pods.push(...Array(item.qty).fill(item));
+    });
+    
+    // Units: £6.99 each or 3 for £12
+    const unitFullPrice = units.length * 6.99;
+    const unitDeals = Math.floor(units.length / 3);
+    const unitRemainder = units.length % 3;
+    const unitDealPrice = unitDeals * 12 + unitRemainder * 6.99;
+    const unitSaving = unitFullPrice - unitDealPrice;
+
+    // Pods: £4.99 each or 7 for £20
+    const podFullPrice = pods.length * 4.99;
+    const podDeals = Math.floor(pods.length / 7);
+    const podRemainder = pods.length % 7;
+    const podDealPrice = podDeals * 20 + podRemainder * 4.99;
+    const podSaving = podFullPrice - podDealPrice;
+
+    const subtotal = unitDealPrice + podDealPrice;
+    
+    // ✅ FREE DELIVERY at £24.00+ — changed from £25!
+    const FREE_DELIVERY_THRESHOLD = 24.00;
+    const delivery = subtotal >= FREE_DELIVERY_THRESHOLD ? 0 : 3.99;
+    const total = subtotal + delivery;
+    const neededForFree = subtotal < FREE_DELIVERY_THRESHOLD ? (FREE_DELIVERY_THRESHOLD - subtotal).toFixed(2) : 0;
+
+    return { units, pods, unitSaving, podSaving, subtotal, delivery, total, neededForFree };
+}
+
+function renderCart() {
+    const grouped = getGroupedCart();
+    const itemsDiv = document.getElementById('cart-items');
+    const summaryDiv = document.getElementById('summary');
+    const emptyDiv = document.getElementById('empty-msg');
+
+    if(grouped.length === 0) {
+        itemsDiv.innerHTML = '';
+        summaryDiv.style.display = 'none';
+        emptyDiv.style.display = 'block';
+        return;
+    }
+
+    emptyDiv.style.display = 'none';
+    summaryDiv.style.display = 'block';
+
+    itemsDiv.innerHTML = grouped.map(item => `
+        <div class="cart-item">
+            <div class="item-left">
+                <div>
+                    <h3>${item.name}</h3>
+                    <span class="item-type">${item.type === 'Unit' ? '🔥 Unit' : '💚 Pod'}</span>
+                </div>
             </div>
-            <div class="contact-card">
-                <h3>📧 Email</h3>
-                <p>Drop us a message</p>
-                <p><strong>info@vapes4all.co.uk</strong></p>
-                <p style="font-size:13px; color:#666;">Reply within 24hrs</p>
+            
+            <div class="qty-box">
+                <button class="qty-btn" onclick="updateQty('${item.name}', '${item.type}', -1)">−</button>
+                <span class="qty-num">${item.qty}</span>
+                <button class="qty-btn" onclick="updateQty('${item.name}', '${item.type}', 1)">+</button>
             </div>
-            <div class="contact-card">
-                <h3>📍 Location</h3>
-                <p>Based in Manchester</p>
-                <p><strong>UK Nationwide Delivery</strong></p>
-                <p style="font-size:13px; color:#666;">Free over £30</p>
+            
+            <div class="item-right">
+                <div class="item-price">£${(item.price * item.qty).toFixed(2)}</div>
+                <button class="remove-btn" onclick="removeEntireItem('${item.name}', '${item.type}')">Remove</button>
             </div>
         </div>
+    `).join('');
 
-        <div class="form-box">
-            <h2>Send Us a Message</h2>
-            <form>
-                <div class="form-group">
-                    <label>Your Name</label>
-                    <input type="text" placeholder="Enter your name">
-                </div>
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" placeholder="your@email.com">
-                </div>
-                <div class="form-group">
-                    <label>Subject</label>
-                    <input type="text" placeholder="Order / Enquiry / Other">
-                </div>
-                <div class="form-group">
-                    <label>Your Message</label>
-                    <textarea rows="5" placeholder="Tell us what you need..."></textarea>
-                </div>
-                <button type="submit" class="btn">Send Message</button>
-            </form>
+    const d = calculateDeals(grouped);
+    summaryDiv.innerHTML = `
+        <div class="summary-box">
+            <h3 style="margin-bottom:1rem;">Order Summary</h3>
+            ${d.unitSaving > 0 ? `<div class="deal-msg">✅ Units Deal Applied — Saved £${d.unitSaving.toFixed(2)}</div>` : ''}
+            ${d.podSaving > 0 ? `<div class="deal-msg">✅ Pods Deal Applied — Saved £${d.podSaving.toFixed(2)}</div>` : ''}
+            <div class="summary-row"><span>Subtotal</span><span>£${d.subtotal.toFixed(2)}</span></div>
+            <div class="summary-row">
+                <span>Delivery</span>
+                <span>${d.delivery === 0 ? '<strong style="color:var(--green)">FREE 🚚</strong>' : '£'+d.delivery.toFixed(2)}</span>
+            </div>
+            ${d.neededForFree > 0 ? `<div class="delivery-msg" style="font-size:0.9rem;">Add £${d.neededForFree} more for FREE delivery! 🚚</div>` : `<div style="color:var(--green); font-weight:bold; margin:0.5rem 0;">✅ You qualify for FREE Delivery! 🚚</div>`}
+            <div class="summary-row total"><span>TOTAL</span><span>£${d.total.toFixed(2)}</span></div>
+            <button class="checkout-btn" onclick="alert('Payment gateway coming next!\\n\\nTotal: £${d.total.toFixed(2)}\\n\\nCard payment system being added.')">PROCEED TO PAYMENT →</button>
+            <button class="clear-btn" onclick="clearCart()">🗑️ Clear Basket</button>
         </div>
-    </div>
+    `;
+}
 
-    <footer>
-        <p>&copy; 2026 Vapes4All. All rights reserved. Must be 18+ to purchase.</p>
-    </footer>
-
+renderCart();
+</script>
 </body>
 </html>
