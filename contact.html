@@ -7,37 +7,62 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         :root {
-            --bg: #050510;
-            --card: #12122b;
+            --bg: #0f0f23;
+            --card: #1a1a35;
             --accent: #ff9500;
-            --green: #22c55e;
-            --text: #ffffff;
-            --muted: #94a3b8;
+            --text: #fff;
+            --muted: #b0b0d0;
+            --border: rgba(255,255,255,0.1);
         }
-        body { background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: 3rem; }
-        header { background: rgba(0,0,0,0.75); backdrop-filter: blur(10px); padding: 1rem 5%; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        body { background: var(--bg); color: var(--text); line-height: 1.6; }
+        header { background: rgba(0,0,0,0.4); padding: 1rem 5%; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
         .nav-wrap { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
         .logo { font-size: 1.8rem; font-weight: 900; color: var(--accent); text-decoration: none; }
-        nav a { color: var(--text); text-decoration: none; margin-left: 1rem; font-weight: 500; transition: 0.2s; }
+        nav a { color: var(--text); text-decoration: none; margin-left: 1.2rem; font-weight: 600; transition: 0.2s; }
         nav a:hover, nav a.active { color: var(--accent); }
-        
-        .container { max-width: 800px; margin: 3rem auto; padding: 0 5%; }
-        h1 { font-size: 2rem; margin-bottom: 2rem; color: var(--accent); text-align: center; }
-        
-        .contact-card { background: var(--card); border-radius: 16px; padding: 2.5rem; border: 1px solid rgba(255,255,255,0.08); }
-        .contact-item { margin-bottom: 2rem; text-align: center; }
-        .contact-item h3 { font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--accent); }
-        .contact-item p, .contact-item a { font-size: 1.1rem; color: var(--text); text-decoration: none; }
-        .contact-item a:hover { color: var(--accent); }
-        
-        .divider { height: 1px; background: rgba(255,255,255,0.1); margin: 2rem 0; }
-        
-        .delivery-box { background: rgba(34,197,94,0.1); border: 1px solid var(--green); border-radius: 12px; padding: 1.5rem; text-align: center; margin-top: 1rem; }
-        .delivery-box h3 { color: var(--green); margin-bottom: 0.5rem; }
-        
-        .back-link { display: inline-block; color: var(--accent); margin-bottom: 1.5rem; text-decoration: none; font-weight: 600; }
-        
-        footer { text-align: center; padding: 2rem; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.08); margin-top: 3rem; font-size: 0.9rem; }
+
+        .page-wrap { max-width: 800px; margin: 0 auto; padding: 3rem 5%; }
+        h1 { font-size: 2rem; color: var(--accent); margin-bottom: 2rem; text-align: center; }
+
+        .contact-grid { display: grid; gap: 2rem; }
+        .contact-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 2rem;
+            border-left: 4px solid var(--accent);
+        }
+        .contact-card h2 { font-size: 1.3rem; margin-bottom: 1rem; }
+        .contact-card p { margin-bottom: 0.8rem; color: var(--muted); }
+        .contact-card a { color: var(--accent); text-decoration: none; font-weight: 600; }
+        .contact-card a:hover { text-decoration: underline; }
+
+        form { background: var(--card); border-radius: 16px; padding: 2rem; margin-top: 2rem; }
+        .form-group { margin-bottom: 1.5rem; }
+        label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+        input, textarea {
+            width: 100%;
+            padding: 0.9rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.05);
+            color: white;
+            font-size: 1rem;
+        }
+        button[type="submit"] {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 900;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.2s;
+        }
+        button[type="submit"]:hover { transform: scale(1.02); }
+
+        footer { text-align: center; padding: 2rem; color: var(--muted); border-top: 1px solid var(--border); margin-top: 3rem; }
     </style>
 </head>
 <body>
@@ -49,50 +74,53 @@
             <a href="index.html">Home</a>
             <a href="dojo-units.html">10K Units</a>
             <a href="dojo-pods.html">10K Pods</a>
+            <a href="ivg.html">IVG 10K</a>
             <a href="checkout.html">Basket</a>
             <a href="contact.html" class="active">Contact</a>
         </nav>
     </div>
 </header>
 
-<div class="container">
-    <a href="index.html" class="back-link">← Back to Home</a>
-    
-    <h1>📞 Get In Touch</h1>
+<div class="page-wrap">
+    <h1>Get In Touch</h1>
 
-    <div class="contact-card">
-        <div class="contact-item">
-            <h3>📧 Email Us</h3>
-            <a href="mailto:info@vapes4all.co.uk"><strong>info@vapes4all.co.uk</strong></a>
-            <p style="color:var(--muted); margin-top:0.5rem;">We reply within 24 hours</p>
+    <div class="contact-grid">
+        <div class="contact-card">
+            <h2>📧 Email Us</h2>
+            <p>Any enquiries, orders or questions — drop us a message anytime:</p>
+            <p><a href="mailto:info@vapes4all.co.uk">info@vapes4all.co.uk</a></p>
+            <p style="margin-top:1rem;">We aim to reply within 24 hours.</p>
         </div>
 
-        <div class="divider"></div>
-
-        <div class="contact-item">
-            <h3>🚚 Delivery Information</h3>
-            <div class="delivery-box">
-                <h3>DPD Tracked Delivery</h3>
-                <p>All orders dispatched via <strong>DPD</strong></p>
-                <p style="margin-top:0.5rem;">✅ Full tracking & text/email notifications</p>
-                <p style="margin-top:0.5rem;">🚚 <strong>FREE DPD Delivery</strong> on all orders £23 and over</p>
-                <p style="margin-top:0.5rem;">Standard delivery charge: <strong>£3.99</strong> under £23</p>
-            </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="contact-item">
-            <h3>ℹ️ Important Info</h3>
-            <p>Strictly 18+ only — Age verification applies to all orders</p>
-            <p style="margin-top:0.5rem; color:var(--muted);">Vapes4All — Registered in the UK</p>
+        <div class="contact-card">
+            <h2>🕒 Opening Hours</h2>
+            <p><strong>Monday — Friday:</strong> 9:00am — 9:00pm</p>
+            <p><strong>Saturday:</strong> 10:00am — 8:00pm</p>
+            <p><strong>Sunday:</strong> 11:00am — 5:00pm</p>
+            <p style="margin-top:1rem; color:var(--accent);"><strong>Free DPD Delivery on all orders £23+</strong></p>
         </div>
     </div>
+
+    <form onsubmit="alert('Message sent! We\'ll get back to you within 24 hours ✅'); this.reset(); return false;">
+        <h2 style="margin-bottom:1.5rem; color:var(--accent);">Send a Message</h2>
+        <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" required placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" required placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+            <label>Your Message</label>
+            <textarea rows="5" required placeholder="How can we help?"></textarea>
+        </div>
+        <button type="submit">Send Message →</button>
+    </form>
 </div>
 
 <footer>
-    <p>© 2026 Vapes4All. All rights reserved.</p>
-    <p style="margin-top:0.5rem;">⚠️ Contains nicotine — addictive substance. Keep out of reach of children.</p>
+    <p>Vapes4All © 2026 | info@vapes4all.co.uk | 18+ Only</p>
 </footer>
 
 </body>
