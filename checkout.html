@@ -121,18 +121,10 @@ function getGroupedCart() {
 
 function updateQty(name, type, delta) {
     let cart = getCart();
-    const key = `${type}||${name}`;
-    let found = false;
-    let removeCount = 0;
-    
     if(delta > 0) {
-        // Add one more
         const template = cart.find(i => i.name === name && i.type === type);
-        if(template) {
-            cart.push({ ...template, id: Date.now() });
-        }
+        if(template) cart.push({ ...template, id: Date.now() });
     } else {
-        // Remove one instance
         for(let i = cart.length - 1; i >= 0; i--) {
             if(cart[i].name === name && cart[i].type === type) {
                 cart.splice(i, 1);
@@ -167,12 +159,14 @@ function calculateDeals(groupedItems) {
         else pods.push(...Array(item.qty).fill(item));
     });
     
+    // Units: £6.99 each or 3 for £12
     const unitFullPrice = units.length * 6.99;
     const unitDeals = Math.floor(units.length / 3);
     const unitRemainder = units.length % 3;
     const unitDealPrice = unitDeals * 12 + unitRemainder * 6.99;
     const unitSaving = unitFullPrice - unitDealPrice;
 
+    // Pods: £4.99 each or 7 for £20
     const podFullPrice = pods.length * 4.99;
     const podDeals = Math.floor(pods.length / 7);
     const podRemainder = pods.length % 7;
@@ -180,10 +174,14 @@ function calculateDeals(groupedItems) {
     const podSaving = podFullPrice - podDealPrice;
 
     const subtotal = unitDealPrice + podDealPrice;
-    const delivery = subtotal >= 25 ? 0 : 3.99;
+    
+    // ✅ FREE DELIVERY at £24.00+ — changed from £25!
+    const FREE_DELIVERY_THRESHOLD = 24.00;
+    const delivery = subtotal >= FREE_DELIVERY_THRESHOLD ? 0 : 3.99;
     const total = subtotal + delivery;
+    const neededForFree = subtotal < FREE_DELIVERY_THRESHOLD ? (FREE_DELIVERY_THRESHOLD - subtotal).toFixed(2) : 0;
 
-    return { units, pods, unitSaving, podSaving, subtotal, delivery, total };
+    return { units, pods, unitSaving, podSaving, subtotal, delivery, total, neededForFree };
 }
 
 function renderCart() {
@@ -233,9 +231,9 @@ function renderCart() {
             <div class="summary-row"><span>Subtotal</span><span>£${d.subtotal.toFixed(2)}</span></div>
             <div class="summary-row">
                 <span>Delivery</span>
-                <span>${d.delivery === 0 ? '<strong style="color:var(--green)">FREE</strong>' : '£'+d.delivery.toFixed(2)}</span>
+                <span>${d.delivery === 0 ? '<strong style="color:var(--green)">FREE 🚚</strong>' : '£'+d.delivery.toFixed(2)}</span>
             </div>
-            ${d.subtotal < 25 ? `<div class="delivery-msg" style="font-size:0.9rem;">Add £${(25 - d.subtotal).toFixed(2)} more for FREE delivery!</div>` : ''}
+            ${d.neededForFree > 0 ? `<div class="delivery-msg" style="font-size:0.9rem;">Add £${d.neededForFree} more for FREE delivery! 🚚</div>` : `<div style="color:var(--green); font-weight:bold; margin:0.5rem 0;">✅ You qualify for FREE Delivery! 🚚</div>`}
             <div class="summary-row total"><span>TOTAL</span><span>£${d.total.toFixed(2)}</span></div>
             <button class="checkout-btn" onclick="alert('Payment gateway coming next!\\n\\nTotal: £${d.total.toFixed(2)}\\n\\nCard payment system being added.')">PROCEED TO PAYMENT →</button>
             <button class="clear-btn" onclick="clearCart()">🗑️ Clear Basket</button>
