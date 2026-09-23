@@ -3,70 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Basket — Vapes4All</title>
-    <script src="https://js.stripe.com/v3/"></script>
+    <title>Vapes4All — Premium Vapes & E-Liquids</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         :root {
-            --bg: #050510;
-            --card: #12122b;
+            --bg: #0f0f23;
+            --card: #1a1a35;
             --accent: #ff9500;
-            --green: #22c55e;
-            --red: #ef4444;
-            --text: #ffffff;
-            --muted: #94a3b8;
+            --dojo: #22c55e;
+            --ivg: #3b82f6;
+            --text: #fff;
+            --muted: #b0b0d0;
         }
-        body { background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: 3rem; }
-        header { background: rgba(0,0,0,0.75); backdrop-filter: blur(10px); padding: 1rem 5%; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        body { background: var(--bg); color: var(--text); line-height: 1.6; }
+        header { background: rgba(0,0,0,0.4); padding: 1rem 5%; border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; z-index: 100; }
         .nav-wrap { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
         .logo { font-size: 1.8rem; font-weight: 900; color: var(--accent); text-decoration: none; }
-        nav a { color: var(--text); text-decoration: none; margin-left: 1rem; font-weight: 500; transition: 0.2s; }
+        nav a { color: var(--text); text-decoration: none; margin-left: 1.2rem; font-weight: 600; transition: 0.2s; }
         nav a:hover, nav a.active { color: var(--accent); }
         
-        .banner { background: linear-gradient(90deg, var(--green), #16b860); color: white; text-align: center; padding: 0.9rem; font-weight: 700; }
+        .banner { background: var(--card); text-align: center; padding: 1rem; color: var(--text); font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .banner strong { color: var(--dojo); }
         
-        .container { max-width: 900px; margin: 2rem auto; padding: 0 5%; }
-        h1 { font-size: 2rem; margin-bottom: 2rem; color: var(--accent); text-align: center; }
+        .hero { text-align: center; padding: 3rem 5% 2rem; max-width: 1200px; margin: 0 auto; }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--accent); }
+        .hero p { font-size: 1.2rem; color: var(--muted); max-width: 700px; margin: 0 auto; }
         
-        .empty { text-align: center; padding: 4rem 2rem; color: var(--muted); }
-        .empty h2 { margin-bottom: 1rem; color: var(--text); }
-        .shop-link { color: var(--accent); font-weight: 700; text-decoration: none; display: inline-block; margin: 0.5rem; font-size: 1.1rem; }
+        .grid { max-width: 1200px; margin: 0 auto 4rem; padding: 0 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
         
-        .cart-item { background: var(--card); border-radius: 12px; padding: 1.2rem; margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-        .item-info h3 { font-size: 1.1rem; margin-bottom: 0.2rem; }
-        .item-info p { color: var(--muted); font-size: 0.9rem; }
-        .item-controls { display: flex; align-items: center; gap: 0.8rem; }
-        .qty-btn { width: 34px; height: 34px; border-radius: 50%; border: none; background: var(--accent); color: white; font-weight: bold; cursor: pointer; font-size: 1rem; transition: 0.2s; }
-        .qty-btn:hover { transform: scale(1.1); }
-        .qty { min-width: 28px; text-align: center; font-weight: bold; font-size: 1.1rem; }
-        .remove-btn { background: var(--red); border: none; padding: 0.5rem 1rem; border-radius: 8px; color: white; cursor: pointer; font-weight: 600; transition: 0.2s; }
-        .remove-btn:hover { background: #dc2626; }
+        .card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 2px solid transparent;
+            transition: 0.3s;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+        }
+        .card:hover { transform: translateY(-6px); border-color: var(--accent); box-shadow: 0 10px 30px rgba(255,149,0,0.2); }
+        .card.dojo-kits { border-top: 4px solid var(--dojo); }
+        .card.dojo-pods { border-top: 4px solid #a855f7; }
+        .card.ivg { border-top: 4px solid var(--ivg); }
         
-        .summary { background: var(--card); border-radius: 16px; padding: 2rem; margin-top: 2rem; border: 1px solid rgba(255,255,255,0.08); }
-        .summary-row { display: flex; justify-content: space-between; padding: 0.6rem 0; font-size: 1.05rem; }
-        .summary-row.total { font-size: 1.4rem; font-weight: 900; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 0.8rem; padding-top: 1rem; color: var(--accent); }
-        .summary-row.free { color: var(--green); font-weight: 700; }
-        .saving { color: var(--green); font-size: 0.95rem; }
-        .need-more { color: #facc15; font-size: 0.9rem; margin-top: 0.5rem; }
+        .card h2 { font-size: 1.5rem; margin: 1rem 0; color: var(--text); }
+        .card .price { font-size: 1.8rem; font-weight: 900; color: var(--accent); margin: 0.5rem 0; }
+        .card .old-price { color: var(--muted); text-decoration: line-through; font-size: 1rem; margin-left: 0.5rem; }
+        .card .deal { background: rgba(34,197,94,0.15); color: var(--dojo); display: inline-block; padding: 0.4rem 1rem; border-radius: 20px; font-weight: 700; margin: 0.5rem 0; }
+        .card img { max-width: 220px; height: 180px; object-fit: contain; margin: 0 auto; }
+        .card .btn { display: inline-block; margin-top: 1rem; background: var(--accent); color: white; padding: 0.8rem 2rem; border-radius: 10px; font-weight: 700; text-decoration: none; transition: 0.2s; }
+        .card .btn:hover { transform: scale(1.05); }
         
-        .checkout-btn { width: 100%; background: linear-gradient(90deg, var(--accent), #e68400); border: none; padding: 1.2rem; border-radius: 12px; color: white; font-size: 1.2rem; font-weight: 900; cursor: pointer; margin-top: 2rem; transition: 0.3s; }
-        .checkout-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255,149,0,0.3); }
-        .checkout-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-        
-        .clear-btn { background: transparent; border: 1px solid var(--muted); color: var(--muted); padding: 0.7rem 1.5rem; border-radius: 8px; cursor: pointer; margin-top: 1rem; font-weight: 600; transition: 0.2s; }
-        .clear-btn:hover { border-color: var(--red); color: var(--red); }
-        
-        #payment-form { margin-top: 2rem; display: none; }
-        .form-group { margin-bottom: 1.2rem; }
-        label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
-        input { width: 100%; padding: 0.9rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: white; font-size: 1rem; }
-        input:focus { outline: none; border-color: var(--accent); }
-        .card-element { padding: 1rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); }
-        .status { margin-top: 1rem; padding: 1rem; border-radius: 8px; display: none; }
-        .status.success { background: rgba(34,197,94,0.15); border: 1px solid var(--green); color: var(--green); }
-        .status.error { background: rgba(239,68,68,0.15); border: 1px solid var(--red); color: var(--red); }
-        
-        .delivery-note { background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.2); border-radius: 10px; padding: 1rem; margin-top: 2rem; text-align: center; }
+        footer { text-align: center; padding: 2rem; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem; }
     </style>
 </head>
 <body>
@@ -75,265 +63,59 @@
     <div class="nav-wrap">
         <a href="index.html" class="logo">Vapes4All</a>
         <nav>
-            <a href="index.html">Home</a>
+            <a href="index.html" class="active">Home</a>
             <a href="dojo-units.html">10K Units</a>
             <a href="dojo-pods.html">10K Pods</a>
-            <a href="checkout.html" class="active">Basket</a>
+            <a href="checkout.html">Basket</a>
             <a href="contact.html">Contact</a>
         </nav>
     </div>
 </header>
 
 <div class="banner">
-    🚚 FREE DPD Delivery on all orders £23 and over — Tracked & Signed for
+    🚚 <strong>FREE DPD Delivery</strong> on all orders £23 and over — Tracked & Signed For
 </div>
 
-<div class="container">
-    <h1>🛒 Your Basket</h1>
+<section class="hero">
+    <h1>Welcome to Vapes4All</h1>
+    <p>Premium Vapes — Best Prices in Manchester</p>
+</section>
 
-    <div id="empty-msg" class="empty">
-        <h2>Your basket is empty</h2>
-        <p>Add some products to get started!</p>
-        <br>
-        <a href="dojo-units.html" class="shop-link">→ Shop 10K Units</a><br>
-        <a href="dojo-pods.html" class="shop-link">→ Shop 10K Pods</a>
-    </div>
+<section class="grid">
+    <!-- DOJO BLAST 10K KITS -->
+    <a href="dojo-units.html" class="card dojo-kits">
+        <img src="https://i.imgur.com/9ZxQ8Lk.png" alt="Dojo Blast 10K Kits" onerror="this.src='https://via.placeholder.com/220x180/1a1a35/ffffff?text=Dojo+Blast+10K+Kits'">
+        <h2>Dojo Blast 10K Kits</h2>
+        <div class="price">£6.99 each</div>
+        <div class="deal">🔥 3 for £12.00</div>
+        <p style="color:var(--muted);margin-top:0.5rem;">Rechargeable • 10,000 Puffs • 20mg</p>
+        <span class="btn">Shop Now →</span>
+    </a>
 
-    <div id="cart-items" style="display: none;"></div>
+    <!-- DOJO BLAST 10K PODS -->
+    <a href="dojo-pods.html" class="card dojo-pods">
+        <img src="https://i.imgur.com/yR7s9X7.png" alt="Dojo Blast 10K Pods" onerror="this.src='https://via.placeholder.com/220x180/1a1a35/ffffff?text=Dojo+Blast+10K+Pods'">
+        <h2>Dojo Blast 10K Pods</h2>
+        <div class="price">£4.99 each</div>
+        <div class="deal">🔥 7 for £20.00</div>
+        <p style="color:var(--muted);margin-top:0.5rem;">Pre-Filled • 2ml • 20mg Nicotine</p>
+        <span class="btn">Shop Now →</span>
+    </a>
 
-    <div id="summary" class="summary" style="display: none;">
-        <div id="summary-rows"></div>
-        
-        <button id="proceed-btn" class="checkout-btn">PROCEED TO PAYMENT</button>
-        <button id="clear-btn" class="clear-btn">Clear Basket</button>
+    <!-- IVG 10K MAX -->
+    <a href="products.html" class="card ivg">
+        <img src="https://i.imgur.com/3dFmP9r.png" alt="IVG 10K Max" onerror="this.src='https://via.placeholder.com/220x180/1a1a35/ffffff?text=IVG+10K+Max'">
+        <h2>IVG 10K Max</h2>
+        <div class="price">£4.99 <span class="old-price">£9.99</span></div>
+        <div class="deal">⚡ HALF PRICE — Was £9.99</div>
+        <p style="color:var(--muted);margin-top:0.5rem;">10,000 Puffs • 12mg • All Flavours</p>
+        <span class="btn">Shop Now →</span>
+    </a>
+</section>
 
-        <form id="payment-form">
-            <h3 style="margin: 2rem 0 1rem;">📦 Delivery Details</h3>
-            <div class="form-group">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" required placeholder="Your full name">
-            </div>
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" required placeholder="Your email">
-            </div>
-            <div class="form-group">
-                <label for="address">Delivery Address</label>
-                <input type="text" id="address" required placeholder="Street address">
-            </div>
-            <div class="form-group">
-                <label for="postcode">Postcode</label>
-                <input type="text" id="postcode" required placeholder="e.g. M1 1AA">
-            </div>
-
-            <h3 style="margin: 2rem 0 1rem;">💳 Card Payment</h3>
-            <div class="form-group">
-                <div id="card-element" class="card-element"></div>
-            </div>
-
-            <button id="submit-btn" class="checkout-btn" style="margin-top: 1rem;">
-                <span id="btn-text">Pay Now</span>
-                <span id="btn-loading" style="display: none;">Processing...</span>
-            </button>
-
-            <div id="payment-status" class="status"></div>
-        </form>
-
-        <div class="delivery-note">
-            ✅ All orders dispatched via <strong>DPD</strong> — Full tracking & notifications sent<br>
-            🚚 FREE DPD Delivery when you spend £23 or more
-        </div>
-    </div>
-</div>
-
-<script>
-const stripe = Stripe('pk_live_51UItZoFJdqaVBhtaeXjI9HTTkFIStttRqqoJqmnzD4ZVixfspc7EdlR3Q3vTCdgVCyORwfSyKfgro9sp9PfUHZRk00WOBKSQOG');
-
-const FREE_DELIVERY_THRESHOLD = 23.00;
-const STANDARD_DELIVERY = 3.99;
-const UNIT_PRICE = 6.99;
-const POD_PRICE = 4.99;
-
-function getCart() {
-    const cart = localStorage.getItem('vapes4all_cart');
-    return cart ? JSON.parse(cart) : { units: 0, pods: [] };
-}
-
-function saveCart(cart) {
-    localStorage.setItem('vapes4all_cart', JSON.stringify(cart));
-    renderCart();
-}
-
-function clearCart() {
-    localStorage.removeItem('vapes4all_cart');
-    renderCart();
-}
-
-function calculateTotals(cart) {
-    const units = cart.units;
-    const podCount = cart.pods.reduce((sum, p) => sum + p.qty, 0);
-    
-    const unitFull = units * UNIT_PRICE;
-    const unitDeals = Math.floor(units / 3);
-    const unitRem = units % 3;
-    const unitSub = unitDeals * 12 + unitRem * UNIT_PRICE;
-    const unitSave = unitFull - unitSub;
-
-    const podFull = podCount * POD_PRICE;
-    const podDeals = Math.floor(podCount / 7);
-    const podRem = podCount % 7;
-    const podSub = podDeals * 20 + podRem * POD_PRICE;
-    const podSave = podFull - podSub;
-
-    const subtotal = unitSub + podSub;
-    const delivery = subtotal >= FREE_DELIVERY_THRESHOLD ? 0 : STANDARD_DELIVERY;
-    const total = subtotal + delivery;
-    const neededFree = subtotal < FREE_DELIVERY_THRESHOLD 
-        ? (FREE_DELIVERY_THRESHOLD - subtotal).toFixed(2) 
-        : 0;
-
-    return { units, podCount, unitSave, podSave, subtotal, delivery, total, neededFree };
-}
-
-function renderCart() {
-    const cart = getCart();
-    const hasItems = cart.units > 0 || cart.pods.length > 0;
-    
-    document.getElementById('empty-msg').style.display = hasItems ? 'none' : 'block';
-    document.getElementById('cart-items').style.display = hasItems ? 'block' : 'none';
-    document.getElementById('summary').style.display = hasItems ? 'block' : 'none';
-
-    if (!hasItems) return;
-
-    let itemsHtml = '';
-    
-    if (cart.units > 0) {
-        itemsHtml += `
-        <div class="cart-item">
-            <div class="item-info">
-                <h3>DOJO BLAST 10K Unit</h3>
-                <p>£${UNIT_PRICE} each ${Math.floor(cart.units/3) > 0 ? `<span class="saving">(${Math.floor(cart.units/3)} × 3 for £12 deal applied)</span>` : ''}</p>
-            </div>
-            <div class="item-controls">
-                <button class="qty-btn" onclick="cart.units=Math.max(0,cart.units-1);saveCart(cart)">−</button>
-                <span class="qty">${cart.units}</span>
-                <button class="qty-btn" onclick="cart.units++;saveCart(cart)">+</button>
-                <button class="remove-btn" onclick="cart.units=0;saveCart(cart)">Remove</button>
-            </div>
-        </div>`;
-    }
-
-    cart.pods.forEach((pod, idx) => {
-        itemsHtml += `
-        <div class="cart-item">
-            <div class="item-info">
-                <h3>${pod.flavour} Pod</h3>
-                <p>£${POD_PRICE} each</p>
-            </div>
-            <div class="item-controls">
-                <button class="qty-btn" onclick="cart.pods[${idx}].qty--;if(cart.pods[${idx}].qty<=0)cart.pods.splice(${idx},1);saveCart(cart)">−</button>
-                <span class="qty">${pod.qty}</span>
-                <button class="qty-btn" onclick="cart.pods[${idx}].qty++;saveCart(cart)">+</button>
-                <button class="remove-btn" onclick="cart.pods.splice(${idx},1);saveCart(cart)">Remove</button>
-            </div>
-        </div>`;
-    });
-
-    document.getElementById('cart-items').innerHTML = itemsHtml;
-
-    const calc = calculateTotals(cart);
-    let summaryHtml = '';
-    if (calc.unitSave > 0) summaryHtml += `<div class="summary-row saving">✅ Units Deal Applied — Saved £${calc.unitSave.toFixed(2)}</div>`;
-    if (calc.podSave > 0) summaryHtml += `<div class="summary-row saving">✅ Pods Deal Applied — Saved £${calc.podSave.toFixed(2)}</div>`;
-    
-    summaryHtml += `
-        <div class="summary-row">
-            <span>Subtotal</span>
-            <span>£${calc.subtotal.toFixed(2)}</span>
-        </div>
-        <div class="summary-row ${calc.delivery === 0 ? 'free' : ''}">
-            <span>DPD Delivery</span>
-            <span>${calc.delivery === 0 ? '✅ FREE' : '£' + calc.delivery.toFixed(2)}</span>
-        </div>
-    `;
-    
-    if (calc.neededFree) {
-        summaryHtml += `<div class="need-more">💡 Add £${calc.neededFree} more for FREE DPD Delivery!</div>`;
-    }
-    
-    summaryHtml += `
-        <div class="summary-row total">
-            <span>TOTAL</span>
-            <span>£${calc.total.toFixed(2)}</span>
-        </div>
-    `;
-    
-    document.getElementById('summary-rows').innerHTML = summaryHtml;
-}
-
-let elements, card;
-
-async function initStripe() {
-    elements = stripe.elements();
-    card = elements.create('card', { style: { base: { color: '#fff', fontFamily: 'sans-serif', fontSize: '16px' } } });
-    card.mount('#card-element');
-}
-
-document.getElementById('proceed-btn').addEventListener('click', () => {
-    document.getElementById('proceed-btn').style.display = 'none';
-    document.getElementById('payment-form').style.display = 'block';
-    initStripe();
-});
-
-document.getElementById('clear-btn').addEventListener('click', () => {
-    if (confirm('Clear your basket?')) clearCart();
-});
-
-document.getElementById('payment-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const btn = document.getElementById('submit-btn');
-    const btnText = document.getElementById('btn-text');
-    const btnLoading = document.getElementById('btn-loading');
-    const status = document.getElementById('payment-status');
-    
-    btn.disabled = true;
-    btnText.style.display = 'none';
-    btnLoading.style.display = 'inline';
-    status.style.display = 'none';
-
-    try {
-        const { error, paymentMethod } = await stripe.createPaymentMethod({
-            type: 'card',
-            card: card,
-            billing_details: {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                address: { line1: document.getElementById('address').value, postal_code: document.getElementById('postcode').value }
-            }
-        });
-
-        if (error) throw error;
-
-        status.className = 'status success';
-        status.style.display = 'block';
-        status.innerHTML = `✅ Order Received!<br><br>Thank you! Your order will be dispatched via DPD.<br>Confirmation sent to ${document.getElementById('email').value}<br>Tracking details will follow shortly.`;
-        
-        localStorage.removeItem('vapes4all_cart');
-        
-    } catch (err) {
-        status.className = 'status error';
-        status.style.display = 'block';
-        status.textContent = 'Error: ' + err.message;
-    } finally {
-        btn.disabled = false;
-        btnText.style.display = 'inline';
-        btnLoading.style.display = 'none';
-    }
-});
-
-renderCart();
-</script>
+<footer>
+    <p>Vapes4All © 2026 | info@vapes4all.co.uk | 18+ Only</p>
+</footer>
 
 </body>
 </html>
