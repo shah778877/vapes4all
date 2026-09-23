@@ -104,7 +104,6 @@ function saveCart(cart) {
     localStorage.setItem('v4a_cart', JSON.stringify(cart));
 }
 
-// Group same items together
 function getGroupedCart() {
     const cart = getCart();
     const grouped = {};
@@ -175,7 +174,7 @@ function calculateDeals(groupedItems) {
 
     const subtotal = unitDealPrice + podDealPrice;
     
-    // ✅ FREE DELIVERY at £24.00+ — changed from £25!
+    // ✅ FREE DELIVERY @ £24.00 — NO MORE 2p ISSUE!
     const FREE_DELIVERY_THRESHOLD = 24.00;
     const delivery = subtotal >= FREE_DELIVERY_THRESHOLD ? 0 : 3.99;
     const total = subtotal + delivery;
