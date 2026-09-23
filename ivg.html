@@ -3,17 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IVG 10K Max — Vapes4All</title>
+    <title>IVG 10K — Vapes4All</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, sans-serif; }
         :root {
-            --bg: #0f0f1a;
-            --card: #1a1a2e;
-            --accent: #ff9500;
-            --red: #ef4444;
-            --ivg: #3b82f6;
-            --text: #ffffff;
-            --muted: #9ca3af;
+            --bg: #0f0f1a; --card: #1a1a2e; --accent: #ff9500;
+            --red: #ef4444; --ivg: #3b82f6; --text: #fff; --muted: #9ca3af;
         }
         body { background: var(--bg); color: var(--text); line-height: 1.6; }
         header { background: rgba(0,0,0,0.4); padding: 1rem 5%; border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; z-index: 100; }
@@ -24,19 +19,10 @@
         nav a:hover, nav a.active { color: var(--accent); }
         .basket-link { position: relative; }
         .badge {
-            position: absolute;
-            top: -10px;
-            right: -12px;
-            background: var(--red);
-            color: white;
-            font-size: 11px;
-            font-weight: bold;
-            min-width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: absolute; top: -8px; right: -10px;
+            background: var(--red); color: white; font-size: 11px; font-weight: bold;
+            min-width: 18px; height: 18px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
         }
         .badge.hidden { display: none; }
 
@@ -46,7 +32,7 @@
         .intro { color: var(--muted); margin-bottom: 2rem; font-size: 1.1rem; }
         .price-banner { background: var(--card); padding: 1.5rem; border-radius: 12px; text-align: center; margin-bottom: 2rem; border-left: 4px solid var(--ivg); }
         .price-banner .main { font-size: 2rem; font-weight: 900; color: var(--accent); }
-        .price-banner .old { color: var(--muted); text-decoration: line-through; font-size: 1.2rem; margin-left: 0.5rem; }
+        .price-banner .old { color: var(--muted); text-decoration: line-through; font-size: 1.1rem; margin-left: 0.5rem; }
         .price-banner .deal { font-size: 1.3rem; color: var(--ivg); font-weight: 700; margin-top: 0.5rem; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
         .flavour-card { background: var(--card); border-radius: 12px; padding: 1.5rem; text-align: center; border-bottom: 3px solid var(--ivg); transition: 0.2s; }
@@ -79,13 +65,13 @@
 <div class="banner">⚡ HALF PRICE — While Stocks Last</div>
 
 <div class="page-wrap">
-    <h1>IVG 10K Max Disposables</h1>
-    <p class="intro">Pre-Charged • 10,000 Puffs • 12mg Nicotine • No Refilling Needed</p>
+    <h1>IVG 10K Disposables</h1>
+    <p class="intro">Ready to Use • 10,000 Puffs • 12mg Nicotine</p>
     <div class="price-banner">
-        <div class="main">£4.99 <span class="old">Was £9.99</span></div>
-        <div class="deal">🔥 Limited Stock — Don't Miss Out</div>
+        <div class="main">£4.99 <span class="old">£9.99</span></div>
+        <div class="deal">🔥 Limited Stock</div>
     </div>
-    <h2 style="margin-bottom:1rem">Select Your Flavour</h2>
+    <h2 style="margin-bottom:1rem">Select Flavour</h2>
     <div class="grid">
         <div class="flavour-card"><h3>Very Cherry</h3><button class="add-btn" onclick="addToBasket('IVG 10K — Very Cherry', 4.99)">Add to Basket</button></div>
         <div class="flavour-card"><h3>Pro Blue</h3><button class="add-btn" onclick="addToBasket('IVG 10K — Pro Blue', 4.99)">Add to Basket</button></div>
@@ -97,12 +83,10 @@
         <div class="flavour-card"><h3>Watermelon</h3><button class="add-btn" onclick="addToBasket('IVG 10K — Watermelon', 4.99)">Add to Basket</button></div>
     </div>
     <div class="info">
-        <h3>Product Information</h3>
+        <h3>Product Info</h3>
         <p><strong>Brand:</strong> IVG</p>
-        <p><strong>Puffs:</strong> Approx 10,000</p>
         <p><strong>Nicotine:</strong> 12mg</p>
-        <p><strong>Charging:</strong> Pre-Charged — Ready to Use</p>
-        <p style="margin-top:1rem; color:var(--muted);"><em>Must be 18+ to purchase. Age verification applies to all orders.</em></p>
+        <p style="margin-top:1rem; color:var(--muted)"><em>18+ only. Age verification on all orders.</em></p>
     </div>
 </div>
 
@@ -114,11 +98,8 @@
 function addToBasket(name, price) {
   let basket = JSON.parse(localStorage.getItem('vapes4all_basket') || '[]');
   const existing = basket.find(i => i.name === name);
-  if (existing) {
-    existing.qty++;
-  } else {
-    basket.push({ name, price, qty: 1 });
-  }
+  if (existing) existing.qty++;
+  else basket.push({ name, price, qty: 1 });
   localStorage.setItem('vapes4all_basket', JSON.stringify(basket));
   updateBadge();
 }
