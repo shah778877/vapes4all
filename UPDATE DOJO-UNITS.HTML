@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dojo Blast 10K Units — All 24 Flavours | Vapes4All</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        :root {
+            --bg: #050510; --card: #1a1a30; --accent: #ff9500; --accent-bright: #ffcc00;
+            --green: #4cd964; --text: #fff; --subtext: #b8b8d1;
+        }
+        body { background: radial-gradient(circle at top, #1a1a30 0%, #050510 65%); color: var(--text); min-height: 100vh; }
+        header { background: rgba(0,0,0,0.6); backdrop-filter: blur(12px); padding:1.2rem 5%; position:sticky; top:0; z-index:100; border-bottom:1px solid rgba(255,149,0,0.18); }
+        .logo { font-size:2rem; font-weight:900; background:linear-gradient(90deg, #ff9500, #ffcc00); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-decoration:none; }
+        nav { float:right; margin-top:0.5rem; }
+        nav a { color:var(--text); margin-left:2rem; text-decoration:none; font-weight:600; transition:0.3s; position:relative; }
+        nav a:hover, nav a.active { color:var(--accent); }
+        .cart-badge {
+            position:absolute; top:-8px; right:-12px; background:#ff3b3b; color:white;
+            font-size:0.7rem; font-weight:bold; padding:2px 6px; border-radius:50%; min-width:20px;
+        }
+        .hero { padding:3rem 5%; max-width:1200px; margin:0 auto; }
+        .back-link { color:var(--accent); text-decoration:none; display:inline-block; margin-bottom:2rem; }
+        .back-link:hover { text-decoration:underline; }
+        .specs-block { background:linear-gradient(145deg, #1a1a30, #121224); border-radius:20px; padding:2.5rem; margin-bottom:3rem; border:1px solid rgba(255,149,0,0.25); }
+        .specs-block h2 { font-size:1.8rem; margin-bottom:1.5rem; color:var(--accent); }
+        .spec-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:1rem; }
+        .spec-item { padding:1rem; background:rgba(255,255,255,0.04); border-radius:12px; }
+        .spec-item strong { color:var(--accent-bright); display:block; margin-bottom:0.3rem; }
+        .flavours-section h2 { font-size:2rem; margin-bottom:2rem; text-align:center; }
+        .flavours-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:1.5rem; }
+        .flavour-card { background:var(--card); border-radius:16px; padding:1.5rem; border:1px solid rgba(255,255,255,0.1); transition:0.3s; display:flex; flex-direction:column; }
+        .flavour-card:hover { border-color:var(--accent); transform:translateY(-3px); box-shadow:0 10px 30px rgba(255,149,0,0.15); }
+        .flavour-img { width:100%; height:140px; border-radius:10px; margin-bottom:1rem; background:rgba(255,149,0,0.1); display:flex; align-items:center; justify-content:center; font-size:2.5rem; }
+        .flavour-name { font-weight:700; font-size:1rem; margin-bottom:0.3rem; }
+        .flavour-strength { font-size:0.85rem; color:var(--green); margin-bottom:1rem; }
+        .price-line { font-size:1.3rem; font-weight:900; color:var(--accent); margin-bottom:0.5rem; }
+        .add-btn { background:linear-gradient(90deg, #ff9500, #ffcc00); color:#000; border:none; padding:0.8rem 1.2rem; border-radius:50px; font-weight:900; cursor:pointer; transition:0.3s; margin-top:auto; width:100%; font-size:0.95rem; }
+        .add-btn:hover { transform:scale(1.03); }
+        .deal-note { text-align:center; margin:2rem 0; padding:1.2rem; background:rgba(255,149,0,0.1); border-radius:12px; border:1px solid rgba(255,204,0,0.3); font-size:1.1rem; }
+        .toast {
+            position:fixed; bottom:2rem; right:2rem; background:var(--green); color:white;
+            padding:1rem 2rem; border-radius:12px; font-weight:bold; z-index:1000;
+            transform:translateY(100px); opacity:0; transition:0.3s;
+        }
+        .toast.show { transform:translateY(0); opacity:1; }
+        footer { text-align:center; padding:3rem 2rem; color:var(--subtext); border-top:1px solid rgba(255,255,255,0.08); margin-top:3rem; }
+        @media(max-width:768px) { .flavours-grid { grid-template-columns:repeat(auto-fill, minmax(160px,1fr)); } }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo">Vapes4All</a>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="dojo-units.html" class="active">10K Units</a>
+        <a href="dojo-pods.html">10K Pods</a>
+        <a href="checkout.html">Basket <span class="cart-badge" id="cart-count">0</span></a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <a href="index.html" class="back-link">← Back to Home</a>
+
+    <div class="specs-block">
+        <h2>🔥 DOJO BLAST 10K UNIT — Powered by Vaporesso</h2>
+        <p style="color:var(--subtext); margin-bottom:1.5rem;">The ultimate disposable — engineered by Vaporesso</p>
+        <div class="spec-grid">
+            <div class="spec-item"><strong>Puffs</strong>Up to 10,000</div>
+            <div class="spec-item"><strong>Nicotine</strong>20mg / 2.0%</div>
+            <div class="spec-item"><strong>Battery</strong>650mAh Built-in</div>
+            <div class="spec-item"><strong>Charging</strong>Type-C (Cable Not Included)</div>
+            <div class="spec-item"><strong>Coil Tech</strong>Vaporesso Mesh Coil — Rich Flavour</div>
+            <div class="spec-item"><strong>E-Liquid</strong>2ml Pre-filled</div>
+            <div class="spec-item"><strong>Rechargeable</strong>Yes — Full Charge ~45 mins</div>
+            <div class="spec-item"><strong>Brand</strong>Official Vaporesso Dojo</div>
+        </div>
+    </div>
+
+    <div class="deal-note">
+        <strong>🔥 PRICE: £6.99 EACH | 3 FOR £12 🔥</strong><br>
+        <small>Free Delivery on all orders over £25</small>
+    </div>
+
+    <div class="flavours-section">
+        <h2>All 24 Flavours — 20mg</h2>
+        <div class="flavours-grid" id="units-grid">
+            <!-- FLAVOURS LOADED BY JS -->
+        </div>
+    </div>
+</section>
+
+<div class="toast" id="toast">Added to Basket! ✅</div>
+
+<footer>
+    <p style="font-weight:600;">Vapes4All — Dojo Blast 10K Units</p>
+    <p>info@vapes4all.co.uk</p>
+    <p style="margin-top:1rem; font-size:0.85rem; color:#666;">⚠️ Contains nicotine. 18+ only. Age verification applies.</p>
+</footer>
+
+<script>
+const unitFlavours = [
+    {name:'Blue Razz Lemonade', emoji:'🫐', price:6.99, type:'Unit'},
+    {name:'Watermelon Ice', emoji:'🍉', price:6.99, type:'Unit'},
+    {name:'Strawberry Kiwi', emoji:'🍓', price:6.99, type:'Unit'},
+    {name:'Mango Ice', emoji:'🥭', price:6.99, type:'Unit'},
+    {name:'Pineapple Ice', emoji:'🍍', price:6.99, type:'Unit'},
+    {name:'Grape Ice', emoji:'🍇', price:6.99, type:'Unit'},
+    {name:'Pink Lemonade', emoji:'🍋', price:6.99, type:'Unit'},
+    {name:'Apple Ice', emoji:'🍏', price:6.99, type:'Unit'},
+    {name:'Orange Ice', emoji:'🍊', price:6.99, type:'Unit'},
+    {name:'Cherry Ice', emoji:'🍒', price:6.99, type:'Unit'},
+    {name:'Candy Ice', emoji:'🍬', price:6.99, type:'Unit'},
+    {name:'Blueberry Sour', emoji:'🫐', price:6.99, type:'Unit'},
+    {name:'Strawberry Ice Cream', emoji:'🍓', price:6.99, type:'Unit'},
+    {name:'Coconut Ice', emoji:'🥥', price:6.99, type:'Unit'},
+    {name:'Watermelon Candy', emoji:'🍉', price:6.99, type:'Unit'},
+    {name:'Blueberry Raspberry', emoji:'🫐', price:6.99, type:'Unit'},
+    {name:'Lemon Lime', emoji:'🍋', price:6.99, type:'Unit'},
+    {name:'Berry Blast', emoji:'🫐', price:6.99, type:'Unit'},
+    {name:'Menthol Ice', emoji:'🧊', price:6.99, type:'Unit'},
+    {name:'Grape Berry', emoji:'🍇', price:6.99, type:'Unit'},
+    {name:'Peach Ice', emoji:'🍑', price:6.99, type:'Unit'},
+    {name:'Strawberry Banana', emoji:'🍌', price:6.99, type:'Unit'},
+    {name:'Citrus Mix', emoji:'🍊', price:6.99, type:'Unit'},
+    {name:'Tropical Candy', emoji:'🍬', price:6.99, type:'Unit'}
+];
+
+function renderFlavours() {
+    const grid = document.getElementById('units-grid');
+    grid.innerHTML = unitFlavours.map((f, i) => `
+        <div class="flavour-card">
+            <div class="flavour-img">${f.emoji}</div>
+            <h3 class="flavour-name">${f.name}</h3>
+            <p class="flavour-strength">20mg Nicotine</p>
+            <p class="price-line">£${f.price.toFixed(2)}</p>
+            <button class="add-btn" onclick="addToCart('${f.name}', ${f.price}, '${f.type}')">ADD TO BASKET</button>
+        </div>
+    `).join('');
+}
+
+function addToCart(name, price, type) {
+    const cart = JSON.parse(localStorage.getItem('v4a_cart') || '[]');
+    cart.push({ name, price, type, id:Date.now() });
+    localStorage.setItem('v4a_cart', JSON.stringify(cart));
+    updateCartCount();
+    showToast();
+}
+
+function updateCartCount() {
+    document.getElementById('cart-count').textContent = JSON.parse(localStorage.getItem('v4a_cart') || '[]').length;
+}
+
+function showToast() {
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+renderFlavours();
+updateCartCount();
+</script>
+</body>
+</html>
