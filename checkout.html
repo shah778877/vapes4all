@@ -7,58 +7,91 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         :root {
-            --bg: #0f0f23;
-            --card: #1a1a35;
+            --bg: #121226;
+            --card: #1e1e3a;
             --accent: #ff9500;
             --success: #22c55e;
-            --text: #fff;
-            --muted: #b0b0d0;
+            --text: #ffffff;
+            --muted: #9ca3af;
             --danger: #ef4444;
+            --border: rgba(255,255,255,0.08);
         }
-        body { background: var(--bg); color: var(--text); line-height: 1.6; }
-        header { background: rgba(0,0,0,0.4); padding: 1rem 5%; border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; z-index: 100; }
-        .nav-wrap { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-        .logo { font-size: 1.8rem; font-weight: 900; color: var(--accent); text-decoration: none; }
-        nav a { color: var(--text); text-decoration: none; margin-left: 1.2rem; font-weight: 600; transition: 0.2s; }
+        body { background: var(--bg); color: var(--text); line-height: 1.5; }
+        header { background: rgba(0,0,0,0.35); padding: 1rem 5%; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+        .nav-wrap { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .logo { font-size: 1.6rem; font-weight: 900; color: var(--accent); text-decoration: none; }
+        nav a { color: var(--text); text-decoration: none; margin-left: 1rem; font-weight: 500; transition: 0.2s; font-size: 0.95rem; }
         nav a:hover, nav a.active { color: var(--accent); }
 
         .page-wrap { max-width: 1000px; margin: 0 auto; padding: 2rem 5%; }
-        h1 { font-size: 2rem; margin-bottom: 2rem; color: var(--accent); }
+        h1 { font-size: 1.8rem; margin-bottom: 2rem; color: var(--accent); }
         
         .basket-empty { text-align: center; padding: 4rem 2rem; color: var(--muted); }
-        .basket-empty h2 { margin-bottom: 1rem; }
-        .btn-home { display: inline-block; margin-top: 1.5rem; background: var(--accent); color: white; padding: 0.8rem 2rem; border-radius: 10px; font-weight: 700; text-decoration: none; }
+        .basket-empty h2 { margin-bottom: 1rem; font-size: 1.4rem; }
+        .btn-home { display: inline-block; margin-top: 1.5rem; background: var(--accent); color: white; padding: 0.8rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; border: none; cursor: pointer; }
 
         .basket-item {
             background: var(--card);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
+            border-radius: 10px;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 0.8rem;
+            display: grid;
+            grid-template-columns: 2fr 120px 100px 90px;
             gap: 1rem;
+            align-items: center;
         }
-        .item-info h3 { font-size: 1.1rem; }
-        .item-info p { color: var(--muted); font-size: 0.9rem; }
-        .item-qty { display: flex; align-items: center; gap: 0.8rem; }
+        .item-name h3 { font-size: 1rem; margin-bottom: 0.2rem; }
+        .item-name p { color: var(--muted); font-size: 0.85rem; }
+        
+        .item-qty { display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
         .qty-btn {
             background: rgba(255,255,255,0.1);
             border: none;
             color: white;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            font-size: 1rem;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            font-size: 0.9rem;
             cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
         }
-        .remove-btn { background: var(--danger); color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .qty-val { font-weight: 700; min-width: 20px; text-align: center; }
+        
+        .item-total { font-weight: 700; font-size: 1rem; text-align: right; }
+        
+        .remove-btn { 
+            background: var(--danger); 
+            color: white; 
+            border: none; 
+            padding: 0.5rem 1rem; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-weight: 600; 
+            font-size: 0.85rem;
+            width: 100%;
+        }
 
-        .summary { background: var(--card); border-radius: 12px; padding: 2rem; margin-top: 2rem; }
-        .summary-row { display: flex; justify-content: space-between; padding: 0.8rem 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
-        .summary-row.total { border-bottom: none; font-size: 1.4rem; font-weight: 900; color: var(--accent); padding-top: 1rem; }
-        .delivery-note { color: var(--success); margin: 1rem 0; font-weight: 600; }
+        .summary { 
+            background: var(--card); 
+            border-radius: 10px; 
+            padding: 1.8rem; 
+            margin-top: 1.5rem; 
+        }
+        .summary-row { 
+            display: grid;
+            grid-template-columns: 1fr auto;
+            padding: 0.8rem 0; 
+            border-bottom: 1px solid var(--border);
+            align-items: center;
+        }
+        .summary-row.total { 
+            border-bottom: none; 
+            font-size: 1.3rem; 
+            font-weight: 900; 
+            color: var(--accent); 
+            padding-top: 1rem;
+        }
+        .delivery-note { color: var(--success); margin: 0.8rem 0; font-weight: 600; }
 
         .checkout-btn {
             width: 100%;
@@ -66,17 +99,25 @@
             color: white;
             border: none;
             padding: 1rem;
-            border-radius: 10px;
-            font-size: 1.1rem;
+            border-radius: 8px;
+            font-size: 1.05rem;
             font-weight: 900;
             cursor: pointer;
-            margin-top: 1.5rem;
+            margin-top: 1rem;
             transition: 0.2s;
         }
-        .checkout-btn:hover { transform: scale(1.02); }
-        .checkout-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .checkout-btn:hover { transform: scale(1.01); }
 
-        footer { text-align: center; padding: 2rem; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.1); margin-top: 3rem; }
+        footer { text-align: center; padding: 2rem; color: var(--muted); border-top: 1px solid var(--border); margin-top: 3rem; font-size: 0.9rem; }
+
+        /* Mobile fix */
+        @media (max-width: 768px) {
+            .basket-item {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+            .item-qty, .item-total { justify-content: flex-start; text-align: left; }
+        }
     </style>
 </head>
 <body>
@@ -98,35 +139,8 @@
 <div class="page-wrap">
     <h1>Your Basket</h1>
 
-    <div id="basket-content">
-        <!-- Items will show here when added -->
-        <div class="basket-empty">
-            <h2>Your basket is empty</h2>
-            <p>Add some products to get started</p>
-            <a href="index.html" class="btn-home">Start Shopping →</a>
-        </div>
-    </div>
-
-    <div id="basket-summary" style="display:none;">
-        <div class="summary">
-            <div class="summary-row">
-                <span>Subtotal</span>
-                <span id="subtotal">£0.00</span>
-            </div>
-            <div class="summary-row">
-                <span>Delivery</span>
-                <span id="delivery">—</span>
-            </div>
-            <div class="delivery-note" id="free-delivery-note" style="display:none;">
-                🎉 You qualify for FREE Delivery!
-            </div>
-            <div class="summary-row total">
-                <span>Total</span>
-                <span id="total">£0.00</span>
-            </div>
-            <button class="checkout-btn" id="checkout-btn">Proceed to Checkout</button>
-        </div>
-    </div>
+    <div id="basket-content"></div>
+    <div id="basket-summary" style="display:none;"></div>
 </div>
 
 <footer>
@@ -139,14 +153,6 @@ let basket = JSON.parse(localStorage.getItem('vapes4all_basket') || '[]');
 function saveBasket() {
     localStorage.setItem('vapes4all_basket', JSON.stringify(basket));
     renderBasket();
-}
-
-function addToBasket(name, price, type) {
-    const existing = basket.find(i => i.name === name);
-    if (existing) existing.qty++;
-    else basket.push({ name, price, qty: 1, type });
-    saveBasket();
-    alert(name + ' added to basket! ✅');
 }
 
 function changeQty(name, delta) {
@@ -181,18 +187,16 @@ function renderBasket() {
     summary.style.display = 'block';
     content.innerHTML = basket.map(item => `
         <div class="basket-item">
-            <div class="item-info">
+            <div class="item-name">
                 <h3>${item.name}</h3>
                 <p>£${item.price.toFixed(2)} each</p>
             </div>
             <div class="item-qty">
                 <button class="qty-btn" onclick="changeQty('${item.name.replace(/'/g, "\\'")}', -1)">−</button>
-                <strong>${item.qty}</strong>
+                <span class="qty-val">${item.qty}</span>
                 <button class="qty-btn" onclick="changeQty('${item.name.replace(/'/g, "\\'")}', 1)">+</button>
             </div>
-            <div>
-                <strong>£${(item.price * item.qty).toFixed(2)}</strong>
-            </div>
+            <div class="item-total">£${(item.price * item.qty).toFixed(2)}</div>
             <button class="remove-btn" onclick="removeItem('${item.name.replace(/'/g, "\\'")}')">Remove</button>
         </div>
     `).join('');
@@ -202,10 +206,24 @@ function renderBasket() {
     const deliveryCost = freeDelivery ? 0 : 2.99;
     const total = subtotal + deliveryCost;
 
-    document.getElementById('subtotal').textContent = `£${subtotal.toFixed(2)}`;
-    document.getElementById('delivery').textContent = freeDelivery ? 'FREE' : `£${deliveryCost.toFixed(2)}`;
-    document.getElementById('free-delivery-note').style.display = freeDelivery ? 'block' : 'none';
-    document.getElementById('total').textContent = `£${total.toFixed(2)}`;
+    summary.innerHTML = `
+        <div class="summary">
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span>£${subtotal.toFixed(2)}</span>
+            </div>
+            <div class="summary-row">
+                <span>Delivery</span>
+                <span>${freeDelivery ? '<strong style="color:var(--success)">FREE</strong>' : '£' + deliveryCost.toFixed(2)}</span>
+            </div>
+            ${!freeDelivery ? `<div class="delivery-note">Add £${(23 - subtotal).toFixed(2)} more for FREE Delivery!</div>` : `<div class="delivery-note">🎉 You qualify for FREE Delivery!</div>`}
+            <div class="summary-row total">
+                <span>Total</span>
+                <span>£${total.toFixed(2)}</span>
+            </div>
+            <button class="checkout-btn">Proceed to Checkout</button>
+        </div>
+    `;
 }
 
 renderBasket();
