@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Your Basket | Vapes4All</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
@@ -57,6 +60,7 @@
         .clear-btn { background:transparent; color:var(--red); border:1px solid var(--red); padding:0.7rem 1.5rem; border-radius:8px; margin-top:1rem; cursor:pointer; width:100%; font-weight:bold; transition:0.3s; }
         .clear-btn:hover { background:var(--red); color:white; }
         footer { text-align:center; padding:3rem 2rem; color:var(--subtext); border-top:1px solid rgba(255,255,255,0.08); margin-top:3rem; }
+        .version-note { font-size:0.7rem; color:#444; margin-top:1rem; }
     </style>
 </head>
 <body>
@@ -93,6 +97,7 @@
     <p style="font-weight:600;">Vapes4All — Checkout</p>
     <p>info@vapes4all.co.uk</p>
     <p style="margin-top:1rem; font-size:0.85rem; color:#666;">⚠️ 18+ only. Age verification applies. Nicotine products.</p>
+    <p class="version-note">v2.1 — Free Delivery @ £24</p>
 </footer>
 
 <script>
@@ -174,7 +179,7 @@ function calculateDeals(groupedItems) {
 
     const subtotal = unitDealPrice + podDealPrice;
     
-    // ✅ FREE DELIVERY @ £24.00 — NO MORE 2p ISSUE!
+    // ✅ FREE DELIVERY @ £24.00 — FINAL FIX
     const FREE_DELIVERY_THRESHOLD = 24.00;
     const delivery = subtotal >= FREE_DELIVERY_THRESHOLD ? 0 : 3.99;
     const total = subtotal + delivery;
