@@ -19,16 +19,26 @@
         h1 { font-size:2.5rem; margin-bottom:2rem; text-align:center; }
         .back-link { color:var(--accent); text-decoration:none; display:inline-block; margin-bottom:2rem; }
         .back-link:hover { text-decoration:underline; }
+        
         .cart-item {
             background:var(--card); border-radius:14px; padding:1.2rem 1.5rem; margin-bottom:1rem;
-            display:flex; align-items:center; justify-content:space-between;
+            display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;
             border:1px solid rgba(255,255,255,0.08);
         }
-        .item-info h3 { font-size:1rem; margin-bottom:0.3rem; }
-        .item-type { font-size:0.85rem; color:var(--subtext); text-transform:uppercase; letter-spacing:1px; }
-        .item-price { font-weight:700; font-size:1.1rem; }
-        .remove-btn { background:rgba(255,59,59,0.2); color:var(--red); border:none; padding:0.5rem 1rem; border-radius:8px; cursor:pointer; font-weight:bold; transition:0.3s; }
+        .item-left { display:flex; align-items:center; gap:1rem; flex:1; min-width:250px; }
+        .item-info h3 { font-size:1rem; margin-bottom:0.2rem; }
+        .item-type { font-size:0.8rem; color:var(--subtext); text-transform:uppercase; letter-spacing:1px; }
+        
+        .qty-box { display:flex; align-items:center; gap:0.5rem; background:rgba(255,255,255,0.05); border-radius:10px; padding:0.4rem 0.8rem; }
+        .qty-btn { width:32px; height:32px; border-radius:50%; border:none; background:var(--accent); color:#000; font-weight:bold; cursor:pointer; font-size:1rem; transition:0.2s; }
+        .qty-btn:hover { transform:scale(1.1); }
+        .qty-num { min-width:28px; text-align:center; font-weight:bold; font-size:1.1rem; }
+        
+        .item-right { display:flex; align-items:center; gap:1.2rem; }
+        .item-price { font-weight:700; font-size:1.1rem; min-width:80px; text-align:right; }
+        .remove-btn { background:rgba(255,59,59,0.2); color:var(--red); border:none; padding:0.5rem 1rem; border-radius:8px; cursor:pointer; font-weight:bold; transition:0.3s; white-space:nowrap; }
         .remove-btn:hover { background:var(--red); color:white; }
+        
         .empty-cart { text-align:center; padding:4rem 2rem; color:var(--subtext); }
         .empty-cart h2 { margin-bottom:1rem; }
         .summary-box {
@@ -94,10 +104,52 @@ function saveCart(cart) {
     localStorage.setItem('v4a_cart', JSON.stringify(cart));
 }
 
-function removeItem(id) {
-    let cart = getCart().filter(i => i.id !== id);
+// Group same items together
+function getGroupedCart() {
+    const cart = getCart();
+    const grouped = {};
+    cart.forEach(item => {
+        const key = `${item.type}||${item.name}`;
+        if(!grouped[key]) {
+            grouped[key] = { ...item, qty: 1 };
+        } else {
+            grouped[key].qty++;
+        }
+    });
+    return Object.values(grouped);
+}
+
+function updateQty(name, type, delta) {
+    let cart = getCart();
+    const key = `${type}||${name}`;
+    let found = false;
+    let removeCount = 0;
+    
+    if(delta > 0) {
+        // Add one more
+        const template = cart.find(i => i.name === name && i.type === type);
+        if(template) {
+            cart.push({ ...template, id: Date.now() });
+        }
+    } else {
+        // Remove one instance
+        for(let i = cart.length - 1; i >= 0; i--) {
+            if(cart[i].name === name && cart[i].type === type) {
+                cart.splice(i, 1);
+                break;
+            }
+        }
+    }
     saveCart(cart);
     renderCart();
+}
+
+function removeEntireItem(name, type) {
+    if(confirm('Remove all of this item?')) {
+        let cart = getCart().filter(i => !(i.name === name && i.type === type));
+        saveCart(cart);
+        renderCart();
+    }
 }
 
 function clearCart() {
@@ -107,9 +159,13 @@ function clearCart() {
     }
 }
 
-function calculateDeals(cart) {
-    let units = cart.filter(i => i.type === 'Unit');
-    let pods = cart.filter(i => i.type === 'Pod');
+function calculateDeals(groupedItems) {
+    let units = [];
+    let pods = [];
+    groupedItems.forEach(item => {
+        if(item.type === 'Unit') units.push(...Array(item.qty).fill(item));
+        else pods.push(...Array(item.qty).fill(item));
+    });
     
     const unitFullPrice = units.length * 6.99;
     const unitDeals = Math.floor(units.length / 3);
@@ -131,12 +187,12 @@ function calculateDeals(cart) {
 }
 
 function renderCart() {
-    const cart = getCart();
+    const grouped = getGroupedCart();
     const itemsDiv = document.getElementById('cart-items');
     const summaryDiv = document.getElementById('summary');
     const emptyDiv = document.getElementById('empty-msg');
 
-    if(cart.length === 0) {
+    if(grouped.length === 0) {
         itemsDiv.innerHTML = '';
         summaryDiv.style.display = 'none';
         emptyDiv.style.display = 'block';
@@ -146,18 +202,29 @@ function renderCart() {
     emptyDiv.style.display = 'none';
     summaryDiv.style.display = 'block';
 
-    itemsDiv.innerHTML = cart.map(item => `
+    itemsDiv.innerHTML = grouped.map(item => `
         <div class="cart-item">
-            <div class="item-info">
-                <h3>${item.name}</h3>
-                <span class="item-type">${item.type === 'Unit' ? '🔥 Unit' : '💚 Pod'}</span>
+            <div class="item-left">
+                <div>
+                    <h3>${item.name}</h3>
+                    <span class="item-type">${item.type === 'Unit' ? '🔥 Unit' : '💚 Pod'}</span>
+                </div>
             </div>
-            <div class="item-price">£${item.price.toFixed(2)}</div>
-            <button class="remove-btn" onclick="removeItem(${item.id})">✕ Remove</button>
+            
+            <div class="qty-box">
+                <button class="qty-btn" onclick="updateQty('${item.name}', '${item.type}', -1)">−</button>
+                <span class="qty-num">${item.qty}</span>
+                <button class="qty-btn" onclick="updateQty('${item.name}', '${item.type}', 1)">+</button>
+            </div>
+            
+            <div class="item-right">
+                <div class="item-price">£${(item.price * item.qty).toFixed(2)}</div>
+                <button class="remove-btn" onclick="removeEntireItem('${item.name}', '${item.type}')">Remove</button>
+            </div>
         </div>
     `).join('');
 
-    const d = calculateDeals(cart);
+    const d = calculateDeals(grouped);
     summaryDiv.innerHTML = `
         <div class="summary-box">
             <h3 style="margin-bottom:1rem;">Order Summary</h3>
@@ -170,7 +237,7 @@ function renderCart() {
             </div>
             ${d.subtotal < 25 ? `<div class="delivery-msg" style="font-size:0.9rem;">Add £${(25 - d.subtotal).toFixed(2)} more for FREE delivery!</div>` : ''}
             <div class="summary-row total"><span>TOTAL</span><span>£${d.total.toFixed(2)}</span></div>
-            <button class="checkout-btn" onclick="alert('Payment gateway coming next!\\n\\nTotal: £${d.total.toFixed(2)}\\n\\nWe will add card payment system shortly.')">PROCEED TO PAYMENT →</button>
+            <button class="checkout-btn" onclick="alert('Payment gateway coming next!\\n\\nTotal: £${d.total.toFixed(2)}\\n\\nCard payment system being added.')">PROCEED TO PAYMENT →</button>
             <button class="clear-btn" onclick="clearCart()">🗑️ Clear Basket</button>
         </div>
     `;
