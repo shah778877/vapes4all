@@ -3,133 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vapes4All — Premium Vapes & E-Liquids</title>
+    <title>Vapes4All — Dojo Blast 10K Specialists</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
         :root {
-            --bg: #0f0f23;
-            --card: #1a1a30;
+            --bg: #050510;
+            --bg-alt: #0f0f23;
+            --card: linear-gradient(145deg, #1a1a30, #121224);
+            --card-border: rgba(255, 149, 0, 0.35);
             --accent: #ff9500;
-            --accent2: #ffcc00;
+            --accent-bright: #ffcc00;
+            --glow: rgba(255, 149, 0, 0.45);
             --green: #4cd964;
+            --green-glow: rgba(76, 217, 100, 0.35);
+            --red: #ff3b3b;
             --text: #ffffff;
             --subtext: #b8b8d1;
-            --red: #ff3b3b;
         }
-        body { background: var(--bg); color: var(--text); line-height: 1.6; }
-        header { background: rgba(0,0,0,0.4); padding: 1rem 5%; position: sticky; top:0; z-index:100; border-bottom: 1px solid rgba(255,149,0,0.2); }
-        .logo { font-size: 1.8rem; font-weight: 800; color: var(--accent); text-decoration: none; }
+        body {
+            background: radial-gradient(circle at top, #1a1a30 0%, #050510 65%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        header {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(12px);
+            padding: 1.2rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 149, 0, 0.18);
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, #ff9500, #ffcc00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
         nav { float: right; margin-top: 0.5rem; }
-        nav a { color: var(--text); margin-left: 2rem; text-decoration: none; font-weight: 500; transition: 0.3s; }
+        nav a {
+            color: var(--text);
+            margin-left: 2.2rem;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
         nav a:hover { color: var(--accent); }
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff9500, #ffcc00);
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after { width: 100%; }
         .free-banner {
-            background: linear-gradient(90deg, #22c55e, #16a34a);
+            background: linear-gradient(90deg, #22c55e, #16a34a, #22c55e);
+            background-size: 200% 100%;
+            animation: shimmer 3s linear infinite;
             color: white;
             text-align: center;
-            padding: 0.9rem;
-            font-weight: 700;
-            font-size: 1.05rem;
+            padding: 1rem;
+            font-weight: 800;
+            font-size: 1.1rem;
             position: sticky;
-            top: 60px;
+            top: 78px;
             z-index: 99;
+            box-shadow: 0 4px 20px rgba(34, 197, 94, 0.25);
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
         .hero {
-            padding: 3rem 5%;
-            max-width: 900px;
+            padding: 3.5rem 5%;
+            max-width: 950px;
             margin: 0 auto;
         }
-        .section-label {
+        .section-header {
             text-align: center;
-            color: var(--accent);
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: 3rem;
+        }
+        .section-label {
+            font-size: 1.4rem;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        .section-sublabel {
+            font-size: 1.1rem;
+            color: var(--subtext);
         }
         .product-card {
             background: var(--card);
-            border-radius: 24px;
-            padding: 2.5rem;
-            margin-bottom: 2.5rem;
+            border-radius: 28px;
+            padding: 3rem;
+            margin-bottom: 3rem;
             border: 2px solid transparent;
-            transition: 0.3s;
+            border-image: linear-gradient(135deg, rgba(255,149,0,0.5), rgba(255,204,0,0.2)) 1;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,149,0,0.08), transparent 60%);
+            pointer-events: none;
         }
         .product-card:hover {
-            border-color: var(--accent);
-            box-shadow: 0 0 35px rgba(255, 149, 0, 0.2);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(255, 149, 0, 0.25), 0 0 40px rgba(255, 149, 0, 0.1);
+            border-image: linear-gradient(135deg, rgba(255,149,0,0.8), rgba(255,204,0,0.4)) 1;
         }
         .product-card.featured {
-            border-color: var(--accent);
-            box-shadow: 0 0 40px rgba(255, 149, 0, 0.25);
+            border-image: linear-gradient(135deg, rgba(255,149,0,0.9), rgba(255,204,0,0.5)) 1;
+            box-shadow: 0 0 50px rgba(255, 149, 0, 0.3);
         }
+        .badge-row { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
         .badge {
             display: inline-block;
-            background: var(--red);
-            color: white;
-            padding: 0.4rem 1.5rem;
+            padding: 0.5rem 1.6rem;
             border-radius: 50px;
             font-weight: 900;
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        h2 { font-size: 2.2rem; margin-bottom: 0.5rem; }
-        .strength { color: var(--accent2); font-weight: 600; margin-bottom: 1.5rem; }
-        .price-row { margin: 1rem 0; }
-        .price-was { color: #666; text-decoration: line-through; font-size: 1.1rem; }
-        .price-now { font-size: 3rem; font-weight: 900; color: var(--accent); }
-        .deal {
-            background: rgba(255,149,0,0.12);
-            border: 1px solid rgba(255,149,0,0.35);
-            border-radius: 12px;
-            padding: 1rem 1.5rem;
-            margin: 1.2rem 0;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--accent2);
+        .badge.hot { background: linear-gradient(90deg, #ff3b3b, #ff6b3b); color: white; box-shadow: 0 4px 15px rgba(255, 59, 59, 0.35); }
+        .badge.pods { background: linear-gradient(90deg, #ff9500, #ffcc00); color: #000; box-shadow: 0 4px 15px rgba(255, 149, 0, 0.35); }
+        .badge.nic { background: rgba(76, 217, 100, 0.18); color: var(--green); border: 1px solid rgba(76, 217, 100, 0.35); }
+        h2 {
+            font-size: 2.6rem;
+            margin-bottom: 0.8rem;
+            background: linear-gradient(90deg, #ffffff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .specs {
+            font-size: 1.15rem;
+            color: var(--accent-bright);
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+        .price-block {
+            display: flex;
+            align-items: baseline;
+            gap: 1.2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .price-was {
+            font-size: 1.3rem;
+            color: #555;
+            text-decoration: line-through;
+        }
+        .price-now {
+            font-size: 3.8rem;
+            font-weight: 900;
+            color: var(--accent);
+            line-height: 1;
+        }
+        .price-unit { font-size: 1.1rem; color: var(--subtext); }
+        .deal-box {
+            background: linear-gradient(90deg, rgba(255,149,0,0.18), rgba(255,204,0,0.08));
+            border: 2px solid rgba(255, 204, 0, 0.35);
+            border-radius: 16px;
+            padding: 1.3rem 2rem;
+            margin: 1.8rem 0;
+            display: inline-block;
+        }
+        .deal-text {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--accent-bright);
+            letter-spacing: 0.5px;
         }
         .cta {
             display: inline-block;
-            background: linear-gradient(90deg, #ff9500, #ffcc00);
+            background: linear-gradient(90deg, #ff9500, #ffcc00, #ff9500);
+            background-size: 200% 100%;
+            animation: buttonShine 2.5s linear infinite;
             color: #000;
-            padding: 1rem 2.5rem;
+            padding: 1.2rem 3.5rem;
             border-radius: 50px;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 900;
             text-decoration: none;
             margin-top: 1rem;
-            transition: 0.3s;
-            border: none;
-            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 25px rgba(255, 149, 0, 0.35);
         }
-        .cta:hover { transform: scale(1.05); }
-        .flavours {
-            margin-top: 1.5rem;
+        @keyframes buttonShine {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        .cta:hover {
+            transform: scale(1.06);
+            box-shadow: 0 10px 35px rgba(255, 149, 0, 0.5);
+        }
+        .cta.green-btn {
+            background: linear-gradient(90deg, #4cd964, #22c55e, #4cd964);
+            background-size: 200% 100%;
+            box-shadow: 0 6px 25px rgba(76, 217, 100, 0.35);
+        }
+        .cta.green-btn:hover {
+            box-shadow: 0 10px 35px rgba(76, 217, 100, 0.5);
+        }
+        .flavour-preview {
+            margin-top: 2rem;
             display: flex;
             flex-wrap: wrap;
-            gap: 0.7rem;
+            gap: 0.8rem;
         }
         .flavour-tag {
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.15);
-            padding: 0.6rem 1.1rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 0.7rem 1.3rem;
             border-radius: 50px;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            transition: 0.2s;
+        }
+        .flavour-tag:hover {
+            border-color: var(--accent);
+            background: rgba(255, 149, 0, 0.1);
         }
         footer {
             text-align: center;
-            padding: 2.5rem;
+            padding: 3rem 2rem;
             color: var(--subtext);
-            font-size: 0.9rem;
-            border-top: 1px solid rgba(255,255,255,0.08);
+            font-size: 0.95rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
             margin-top: 2rem;
         }
         @media(max-width: 768px) {
-            h2 { font-size: 1.6rem; }
-            .price-now { font-size: 2.2rem; }
+            h2 { font-size: 1.8rem; }
+            .price-now { font-size: 2.8rem; }
             nav { float: none; margin-top: 1rem; }
-            nav a { margin: 0 0.6rem; }
-            .product-card { padding: 1.8rem; }
+            nav a { margin: 0 0.7rem; }
+            .product-card { padding: 2rem 1.5rem; }
+            .cta { padding: 1rem 2.5rem; font-size: 1.05rem; }
         }
     </style>
 </head>
@@ -139,79 +269,90 @@
     <a href="index.html" class="logo">Vapes4All</a>
     <nav>
         <a href="index.html">Home</a>
-        <a href="products.html">Products</a>
+        <a href="dojo-units.html">10K Units</a>
+        <a href="dojo-pods.html">10K Pods</a>
         <a href="contact.html">Contact</a>
     </nav>
 </header>
 
 <div class="free-banner">
-    🚚 FREE DELIVERY ON ALL ORDERS OVER £25 🚚
+    🚚 FREE DELIVERY ON ALL ORDERS OVER £25 — NATIONWIDE 🚚
 </div>
 
 <section class="hero">
+    <div class="section-header">
+        <p class="section-label">🔥 DOJO BLAST 10K — OFFICIAL STOCKIST 🔥</p>
+        <p class="section-sublabel">Premium • Authentic • 20mg Nicotine Strength</p>
+    </div>
 
-    <p class="section-label">Top Deals</point>
-
-    <!-- BOX 1 — DOJO BLAST 6K KIT -->
+    <!-- CARD 1 — 10K UNIT -->
     <div class="product-card featured">
-        <span class="badge">BEST SELLER</span>
-        <h2>DOJO BLAST 6K KIT</h2>
-        <p class="strength">20mg Nicotine • 6000 Puffs • Rechargeable</p>
+        <div class="badge-row">
+            <span class="badge hot">BEST SELLER</span>
+            <span class="badge nic">20mg NICOTINE</span>
+        </div>
         
-        <div class="price-row">
-            <span class="price-was">£12.99</span><br>
+        <h2>DOJO BLAST 10K UNIT</h2>
+        <p class="specs">10,000 Puffs • Rechargeable • Ready to Use</p>
+        
+        <div class="price-block">
+            <span class="price-was">£12.99</span>
             <span class="price-now">£6.99</span>
+            <span class="price-unit">each</span>
         </div>
         
-        <div class="deal">
-            OR 3 KITS FOR ONLY £12
+        <div class="deal-box">
+            <p class="deal-text">🔥 3 UNITS FOR ONLY £12 — SAVE OVER 50% 🔥</p>
         </div>
         
-        <p style="color:#999; font-size:0.9rem; margin-bottom:1rem;">20 Fantastic Flavours • Ready to Use</p>
+        <p style="color:#999; font-size:0.95rem;">All 20+ flavours available • Genuine product • Fast dispatch</p>
         
-        <a href="dojo-units.html" class="cta">SHOP UNITS →</a>
+        <a href="dojo-units.html" class="cta">VIEW ALL FLAVOURS &rarr;</a>
         
-        <div class="flavours">
-            <span class="flavour-tag">Blue Razz Lemonade</span>
-            <span class="flavour-tag">Watermelon Ice</span>
-            <span class="flavour-tag">Strawberry Kiwi</span>
-            <span class="flavour-tag">Mango Ice</span>
-            <span class="flavour-tag">Pineapple Ice</span>
-            <span class="flavour-tag">Grape Ice</span>
-            <span class="flavour-tag">Pink Lemonade</span>
-            <span class="flavour-tag">+ 13 More</span>
+        <div class="flavour-preview">
+            <span class="flavour-tag">🫐 Blue Razz Lemonade</span>
+            <span class="flavour-tag">🍉 Watermelon Ice</span>
+            <span class="flavour-tag">🍓 Strawberry Kiwi</span>
+            <span class="flavour-tag">🥭 Mango Ice</span>
+            <span class="flavour-tag">🍍 Pineapple Ice</span>
+            <span class="flavour-tag">+ 15 More</span>
         </div>
     </div>
 
-    <!-- BOX 2 — DOJO PODS -->
+    <!-- CARD 2 — 10K PODS -->
     <div class="product-card">
-        <span class="badge" style="background:#ff9500;">SINGLE PODS</span>
-        <h2>DOJO BLAST REPLACEMENT PODS</h2>
-        <p class="strength">20mg Nicotine • 10K Puffs • Single Pod Only</p>
+        <div class="badge-row">
+            <span class="badge pods">SINGLE PODS</span>
+            <span class="badge nic">20mg NICOTINE</span>
+        </div>
         
-        <div class="price-row">
+        <h2>DOJO BLAST 10K REPLACEMENT PODS</h2>
+        <p class="specs">10,000 Puffs Per Pod • Single Pod Only</p>
+        
+        <div class="price-block">
             <span class="price-now">£4.99</span>
-            <p style="color:#999; font-size:0.9rem;">Per Single Pod</p>
+            <span class="price-unit">per single pod</span>
         </div>
         
-        <div class="deal">
-            7 PODS FOR ONLY £20
+        <div class="deal-box">
+            <p class="deal-text">💥 7 PODS FOR ONLY £20 — BEST VALUE 💥</p>
         </div>
         
-        <p style="color:#999; font-size:0.9rem; margin-bottom:1rem;">Designed for the Dojo Blast 6K Unit</p>
+        <p style="color:#999; font-size:0.95rem;">Perfect fit for Dojo Blast 10K Unit • Same great flavours</p>
         
-        <a href="dojo-pods.html" class="cta" style="background:linear-gradient(90deg, #4cd964, #22c55e);">SHOP PODS →</a>
+        <a href="dojo-pods.html" class="cta green-btn">VIEW ALL FLAVOURS &rarr;</a>
         
-        <div class="flavours">
-            <span class="flavour-tag">Same Great Flavours Available</span>
+        <div class="flavour-preview">
+            <span class="flavour-tag">Same full range as units</span>
         </div>
     </div>
 
 </section>
 
 <footer>
-    <p>Vapes4All • info@vapes4all.co.uk</p>
-    <p style="margin-top:0.5rem;">⚠️ All products contain nicotine. Must be 18+ to purchase.</p>
+    <p style="font-size:1.1rem; font-weight:600; margin-bottom:0.5rem;">Vapes4All — Dojo Blast 10K Specialists</p>
+    <p>📧 info@vapes4all.co.uk</p>
+    <p style="margin-top:1rem; font-size:0.85rem; color:#666;">⚠️ All products contain nicotine. Nicotine is an addictive substance. Strictly 18+ only. Age verification applies to all orders.</p>
 </footer>
 
 </body>
