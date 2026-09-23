@@ -11,32 +11,43 @@
             --card: #12122b;
             --accent: #ff9500;
             --green: #22c55e;
+            --red: #ef4444;
             --text: #ffffff;
             --muted: #94a3b8;
         }
-        body { background: var(--bg); color: var(--text); min-height: 100vh; }
+        body { background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: 3rem; }
         header { background: rgba(0,0,0,0.75); backdrop-filter: blur(10px); padding: 1rem 5%; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.08); }
-        .nav-wrap { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .nav-wrap { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
         .logo { font-size: 1.8rem; font-weight: 900; color: var(--accent); text-decoration: none; }
-        nav a { color: var(--text); text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: 0.2s; }
+        nav a { color: var(--text); text-decoration: none; margin-left: 1rem; font-weight: 500; transition: 0.2s; }
         nav a:hover, nav a.active { color: var(--accent); }
-        .banner { background: linear-gradient(90deg, var(--green), #16a34a); color: white; text-align: center; padding: 0.8rem; font-weight: 700; font-size: 1rem; }
-        .hero { max-width: 1200px; margin: 0 auto; padding: 3rem 5%; text-align: center; }
-        .hero h1 { font-size: 2rem; margin-bottom: 0.5rem; color: var(--accent); }
-        .hero p { color: var(--muted); margin-bottom: 2rem; }
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-        .product-card { background: var(--card); border-radius: 16px; padding: 2rem; border: 1px solid rgba(255,255,255,0.08); transition: 0.3s; cursor: pointer; }
+        
+        .hero { background: linear-gradient(135deg, #1a1a3d 0%, #050510 100%); padding: 3rem 5%; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; color: var(--accent); }
+        .hero p { font-size: 1.2rem; max-width: 700px; margin: 0 auto 2rem; color: var(--muted); }
+        .hero-banner { background: linear-gradient(90deg, var(--green), #15b860); color: white; padding: 1.5rem; border-radius: 12px; margin: 2rem auto; max-width: 800px; }
+        .hero-banner h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .hero-banner p { font-size: 1.1rem; opacity: 0.95; }
+        
+        .container { max-width: 1200px; margin: 3rem auto; padding: 0 5%; }
+        .section-title { font-size: 1.8rem; margin-bottom: 2rem; text-align: center; color: var(--accent); }
+        
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .product-card { background: var(--card); border-radius: 16px; padding: 2rem; border: 1px solid rgba(255,255,255,0.08); transition: 0.3s; }
         .product-card:hover { transform: translateY(-5px); border-color: var(--accent); }
-        .badge { display: inline-block; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin: 0.25rem; }
-        .badge.orange { background: rgba(255,149,0,0.2); color: var(--accent); }
-        .badge.blue { background: rgba(59,130,246,0.2); color: #60a5fa; }
-        .badge.green { background: rgba(34,197,94,0.2); color: var(--green); }
-        .product-icon { font-size: 3rem; margin: 1rem 0; }
         .product-card h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
-        .price { font-size: 1.5rem; font-weight: 900; color: var(--accent); margin: 1rem 0; }
-        .old-price { text-decoration: line-through; color: var(--muted); font-size: 1rem; margin-left: 0.5rem; }
-        .deal { background: rgba(34,197,94,0.15); border: 1px solid var(--green); border-radius: 12px; padding: 0.8rem; margin-top: 1rem; font-weight: 600; color: var(--green); }
-        footer { text-align: center; padding: 3rem 5%; color: var(--muted); font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.08); margin-top: 4rem; }
+        .product-desc { color: var(--muted); margin-bottom: 1rem; font-size: 0.9rem; }
+        .price { font-size: 1.6rem; font-weight: 900; color: var(--accent); margin-bottom: 0.3rem; }
+        .deal { color: var(--green); font-weight: 700; margin-bottom: 1.5rem; }
+        .shop-btn { display: inline-block; background: linear-gradient(90deg, var(--accent), #e68400); color: white; padding: 0.9rem 2rem; border-radius: 10px; text-decoration: none; font-weight: 900; font-size: 1rem; transition: 0.3s; }
+        .shop-btn:hover { transform: translateY(-2px); }
+        
+        .info-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+        .info-box { background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.2); border-radius: 12px; padding: 1.5rem; text-align: center; }
+        .info-box h3 { color: var(--green); margin-bottom: 0.5rem; }
+        .info-box p { color: var(--muted); font-size: 0.95rem; }
+        
+        footer { text-align: center; padding: 2rem; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.08); margin-top: 3rem; }
     </style>
 </head>
 <body>
@@ -54,43 +65,64 @@
     </div>
 </header>
 
-<div class="banner">
-    🚚 FREE DELIVERY ON ALL ORDERS OVER £23 — NATIONWIDE 🚚
-</div>
-
 <section class="hero">
-    <h1>🔥 DOJO BLAST 10K — POWERED BY VAPORESSO 🔥</h1>
-    <p>Official Stockist • Premium Quality • 20mg Nicotine Strength</p>
+    <h1>🔥 Vapes4All — Premium Vaping Products</h1>
+    <p>Top brands, best prices, fast tracked delivery</p>
     
-    <div class="products-grid">
-        <div class="product-card" onclick="window.location.href='dojo-units.html'">
-            <span class="badge orange">BEST SELLER</span>
-            <span class="badge blue">VAPORESSO</span>
-            <span class="badge green">20mg</span>
-            <div class="product-icon">📦</div>
-            <h3>DOJO BLAST 10K UNIT</h3>
-            <p>Powered by Vaporesso • 10,000 Puffs • Rechargeable</p>
-            <div class="price">£6.99 <span class="old-price">£11.50</span></div>
-            <div class="deal">🔥 3 for £12 — SAVE £8.97!</div>
-        </div>
-
-        <div class="product-card" onclick="window.location.href='dojo-pods.html'">
-            <span class="badge yellow">SINGLE PODS</span>
-            <span class="badge blue">VAPORESSO</span>
-            <span class="badge green">20mg</span>
-            <div class="product-icon">💚</div>
-            <h3>DOJO BLAST 10K PODS</h3>
-            <p>Powered by Vaporesso • 10,000 Puffs Each • Single Pod Only</p>
-            <div class="price">£4.99 <span class="old-price">£8.99</span></div>
-            <div class="deal">🔥 7 for £20 — SAVE £34.93!</div>
-        </div>
+    <div class="hero-banner">
+        <h2>🔥 DOJO BLAST 10K — 3 for £12</h2>
+        <p>Just £6.99 each or grab 3 for only £12.00 — Free DPD Delivery on orders £23+</p>
     </div>
 </section>
 
+<div class="container">
+    <h2 class="section-title">Our Top Products</h2>
+    
+    <div class="products-grid">
+        <div class="product-card">
+            <h3>DOJO BLAST 10K Kit</h3>
+            <p class="product-desc">Rechargeable device — up to 10,000 puffs. Genuine Vaporesso quality.</p>
+            <div class="price">£6.99 each</div>
+            <div class="deal">🔥 3 for £12.00</div>
+            <a href="dojo-units.html" class="shop-btn">Shop Now →</a>
+        </div>
+        
+        <div class="product-card">
+            <h3>DOJO Replacement Pods</h3>
+            <p class="product-desc">Pre-filled genuine pods — 20mg nicotine. 8 great flavours available.</p>
+            <div class="price">£4.99 each</div>
+            <div class="deal">🔥 7 for £20.00</div>
+            <a href="dojo-pods.html" class="shop-btn">Shop Now →</a>
+        </div>
+        
+        <div class="product-card">
+            <h3>Free DPD Delivery</h3>
+            <p class="product-desc">Every order dispatched via DPD with full tracking & text/email notifications.</p>
+            <div class="price" style="color:var(--green);">£0.00</div>
+            <div class="deal">On all orders £23 and over</div>
+            <a href="checkout.html" class="shop-btn">View Basket →</a>
+        </div>
+    </div>
+    
+    <div class="info-row">
+        <div class="info-box">
+            <h3>🚚 DPD Delivery</h3>
+            <p>Dispatched same day — tracked to your door</p>
+        </div>
+        <div class="info-box">
+            <h3>✅ Age Verified</h3>
+            <p>Strictly 18+ — ID checks on all orders</p>
+        </div>
+        <div class="info-box">
+            <h3>🔒 Secure Payment</h3>
+            <p>Card payments processed via Stripe</p>
+        </div>
+    </div>
+</div>
+
 <footer>
-    <p><strong>Vapes4All</strong> — Premium Vaping Products</p>
-    <p>📧 info@vapes4all.co.uk</p>
-    <p style="margin-top: 1rem; font-size: 0.8rem;">⚠️ Strictly 18+ only. All products contain nicotine. Keep away from children & pets.</p>
+    <p>Vapes4All — info@vapes4all.co.uk</p>
+    <p style="margin-top:0.5rem; font-size:0.9rem;">⚠️ Strictly 18+ only. Nicotine products. Keep away from children.</p>
 </footer>
 
 </body>
