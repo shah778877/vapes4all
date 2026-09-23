@@ -3,252 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vapes4All — Premium Vapes & E-Liquids</title>
+    <title>Vapes4All — Dojo Blast 6K Special Offer</title>
     <style>
-        * {margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', sans-serif;}
-        
-        body {
-            background: #121212;
-            color: white;
-            min-height: 100vh;
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        :root {
+            --bg: #0f0f23;
+            --card: #1a1a30;
+            --accent: #ff9500;
+            --accent2: #ffcc00;
+            --text: #ffffff;
+            --subtext: #b8b8d1;
         }
-
-        nav {
-            background: #1a1a1a;
-            padding: 18px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            border-bottom: 2px solid #2d2d2d;
-        }
-
-        .logo {
-            font-size: 26px;
-            font-weight: bold;
-            background: linear-gradient(90deg, #ff6b35, #ffd000);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-decoration: none;
-        }
-
-        .nav-links {display: flex; gap: 35px;}
-        .nav-links a {
-            color: #ccc;
-            text-decoration: none;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-        .nav-links a:hover {color: #ff6b35;}
-
+        body { background: var(--bg); color: var(--text); line-height: 1.6; }
+        header { background: rgba(0,0,0,0.3); padding: 1rem 5%; position: sticky; top:0; z-index:100; }
+        .logo { font-size: 1.8rem; font-weight: 800; color: var(--accent); text-decoration: none; }
+        nav { float: right; margin-top: 0.5rem; }
+        nav a { color: var(--text); margin-left: 2rem; text-decoration: none; font-weight: 500; transition: 0.3s; }
+        nav a:hover { color: var(--accent); }
         .hero {
+            padding: 4rem 5%;
             text-align: center;
-            padding: 80px 20px;
-            background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
-            border-bottom: 2px solid #2d2d2d;
+            background: linear-gradient(135deg, #1a1a30 0%, #0f0f23 100%);
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 15px;
-            background: linear-gradient(90deg, #ff6b35, #ffd000);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .hero p {font-size: 20px; color: #aaa; margin-bottom: 30px; max-width: 600px; margin-left:auto; margin-right:auto;}
-        .btn {
-            display:inline-block;
-            background: linear-gradient(90deg, #ff6b35, #ff8000);
+        .badge {
+            display: inline-block;
+            background: #ff3b3b;
             color: white;
-            padding: 14px 35px;
+            padding: 0.5rem 2rem;
             border-radius: 50px;
+            font-weight: 900;
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        h1 { font-size: 3.5rem; margin-bottom: 1rem; }
+        h1 span { color: var(--accent); }
+        .subhead { font-size: 1.4rem; color: var(--subtext); margin-bottom: 2rem; max-width: 700px; margin-left: auto; margin-right: auto; }
+        .price-box {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 600px;
+            margin: 0 auto;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 40px rgba(255, 149, 0, 0.25);
+        }
+        .price-main { font-size: 4rem; font-weight: 900; color: var(--accent); }
+        .price-was { font-size: 1.3rem; color: #666; text-decoration: line-through; margin-bottom: 0.5rem; }
+        .deal-row { font-size: 1.5rem; margin: 1.5rem 0; color: var(--accent2); font-weight: 700; }
+        .cta {
+            display: inline-block;
+            background: linear-gradient(90deg, #ff9500, #ffcc00);
+            color: #000;
+            padding: 1.2rem 3.5rem;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 900;
             text-decoration: none;
-            font-weight: bold;
-            font-size: 18px;
+            margin-top: 2rem;
             transition: 0.3s;
         }
-        .btn:hover {transform: scale(1.05); box-shadow: 0 5px 25px rgba(255,107,53,0.4);}
-
-        .section {padding: 60px 40px; max-width: 1280px; margin: 0 auto;}
-        .section h2 {
-            text-align: center;
-            font-size: 36px;
-            margin-bottom: 50px;
-            color: #ff6b35;
+        .cta:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(255, 149, 0, 0.5); }
+        .flavours {
+            margin-top: 3rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.8rem;
         }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 30px;
+        .flavour-tag {
+            background: rgba(255,149,0,0.15);
+            border: 1px solid rgba(255,149,0,0.4);
+            padding: 0.7rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
         }
-
-        .product-card {
-            background: #1e1e1e;
-            border-radius: 16px;
-            padding: 25px;
-            text-align: center;
-            border: 1px solid #333;
-            transition: 0.3s;
+        .free-del {
+            margin-top: 2.5rem;
+            font-size: 1.1rem;
+            color: #4cd964;
+            font-weight: 600;
         }
-        .product-card:hover {
-            transform: translateY(-8px);
-            border-color: #ff6b35;
-            box-shadow: 0 15px 30px rgba(255,107,53,0.15);
-        }
-        .product-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: contain;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            background: #2a2a2a;
-        }
-        .product-card h3 {font-size: 20px; margin-bottom: 10px; color: #fff;}
-        .product-card p {color: #999; margin-bottom: 15px; font-size: 15px;}
-        .price {
-            font-size: 26px;
-            font-weight: bold;
-            color: #ffd000;
-            margin-bottom: 15px;
-        }
-
         footer {
-            background: #1a1a1a;
             text-align: center;
-            padding: 30px;
-            margin-top: 40px;
-            border-top: 2px solid #2d2d2d;
-            color: #777;
+            padding: 2rem;
+            color: var(--subtext);
+            font-size: 0.9rem;
+        }
+        @media(max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .price-main { font-size: 3rem; }
+            nav { float: none; margin-top: 1rem; }
+            nav a { margin: 0 0.7rem; }
         }
     </style>
 </head>
 <body>
 
+<header>
+    <a href="index.html" class="logo">Vapes4All</a>
     <nav>
-        <a href="index.html" class="logo">Vapes4All</a>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="products.html">Products</a>
-            <a href="contact.html">Contact</a>
-        </div>
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="contact.html">Contact</a>
     </nav>
+</header>
 
-    <div class="hero">
-        <h1>Premium Vapes & E-Liquids</h1>
-        <p>Hayati, Dojo, Vaporesso, Lost Mary — all top brands at the best prices</p>
-        <a href="products.html" class="btn">Shop Now</a>
+<section class="hero">
+    <div class="badge">🔥 LIMITED TIME OFFER 🔥</div>
+    
+    <h1>DOJO BLAST <span>6K</span></h1>
+    <p class="subhead">6000 Puffs • Rechargeable • 20 Amazing Flavours • 10mg & 20mg Nicotine</p>
+    
+    <div class="price-box">
+        <p class="price-was">£12.99</p>
+        <p class="price-main">£6.99</p>
+        <p class="deal-row">🔥 OR 3 FOR JUST £12 🔥</p>
+        <p style="color:#999; font-size:0.9rem;">Save up to 43% — While Stocks Last</p>
+        
+        <a href="products.html" class="cta">SHOP THE DEAL →</a>
+        
+        <p class="free-del">🚚 FREE DELIVERY ON ALL ORDERS OVER £20</p>
     </div>
-
-    <div class="section">
-        <h2>🔥 Best Sellers — 12 Top Picks</h2>
-        <div class="products-grid">
-
-            <!-- ROW 1 -->
-            <div class="product-card">
-                <img src="https://hayatiofficial.com/cdn/shop/files/Hayati-Pro-Max-6000-Puffs-Disposable-Vape-1.jpg?v=1714023412&width=600" alt="Hayati Pro 6000">
-                <h3>Hayati Pro 6000</h3>
-                <p>6000 puffs — 20+ flavours — smooth & long-lasting</p>
-                <div class="price">£12.99</div>
-                <a href="products.html" class="btn">View</a>
-            </div>
-
-            <div class="product-card">
-                <img src="https://m.media-amazon.com/images/I/61qK+Tszx-L._AC_SL1500_.jpg" alt="Hayati Pro 25000">
-                <h3>Hayati Pro 25000</h3>
-                <p>Massive 25,000 puffs — rechargeable — all-day power</p>
-                <div class="price">£19.99</div>
-                <a href="products.html" class="btn">View</a>
-            </div>
-
-            <div class="product-card">
-                <img src="https://www.vapeclub.co.uk/media/catalog/product/cache/200x/el/iqu/el-iquids-fruit.jpg" alt="E-Liquids">
-                <h3>E-Liquids</h3>
-                <p>10ml & Shortfills — fruit, menthol, tobacco & more</p>
-                <div class="price">From £3.99</div>
-                <a href="products.html" class="btn">View</a>
-            </div>
-
-            <div class="product-card">
-                <img src="https://www.eluxvapes.com/cdn/shop/files/Elux-Legend-Pods.jpg?v=1690000000&width=600" alt="Pods">
-                <h3>Pods & Cartridges</h3>
-                <p>Elux, Lost Mary — replacement pods & starter kits</p>
-                <div class="price">From £8.99</div>
-                <a href="products.html" class="btn">View</a>
-            </div>
-
-            <!-- ROW 2 -->
-            <div class="product-card">
-                <img src="https://www.lostmaryvape.com/cdn/shop/products/Lost-Mary-BM6000.jpg?v=1685000000&width=600" alt="Lost Mary BM6000">
-                <h3>Lost Mary BM6000</h3>
-                <p>Top-rated disposable — amazing flavours — long battery</p>
-                <div class="price">£11.99</div>
-                <a href="products.html" class="btn">View</a>
-            </div>
-
-            <div class="product-card">
-                <img src="https://www.vape.co.uk/media/catalog/product/cache/200x/ele/gy/ele-gio-starter-kit.jpg" alt="Starter Kits">
-                <h3>Starter Kits</h3>
-                <p>Beginner-friendly — compact, reliable, great value</p>
-                <div class="price">From £14.99</div>
-                <a href="products.html" class="btn">View</a>
-            </div>
-
-            <div class="product-card">
-                <img src="https://www.vapepotions.co.uk/cdn/shop/products/dojo-pods.jpg?v=1710000000&width=600" alt="Dojo Kits & Pods">
-                <h3>Dojo Kits & Pods</h3>
-                <p>Premium Dojo — sleek kits & pre-filled pods — top quality</p>
-                <div class="price">From £10.99</div>
-                <a href="products.html" class="btn">View</a>
-            </div>
-
-            <div class="product-card">
-                <img src="https://www.vaporesso.com/media/catalog/product/v/a/vaporesso-xros-3-mini.jpg" alt="Vaporesso XROS 3 Mini">
-                <h3>Vaporesso XROS 3 Mini</h3>
-                <p>Compact pod kit — smooth draw — perfect everyday device</p>
-                <div class="price">£19.99</div>
-                <a href="products.html" class="btn">View</a>
-            </div>
-
-            <!-- ROW 3 -->
-            <div class="product-card">
-                <img src="https://www.vaporesso.com/media/catalog/product/v/a/vaporesso-xros-4-mini.jpg" alt="Vaporesso XROS 4 Mini">
-                <h3>Vaporesso XROS 4 Mini</h3>
-                <p>Latest model — bigger battery — faster charging — fresh design</p>
-                <div class="price">£24.99</div>
-                <a href="products.html" class="btn">View</a>
-            </div>
-
-            <div class="product-card">
-                <img src="https://www.vaporesso.com/media/catalog/product/v/a/vaporesso-x-pro.jpg" alt="Vaporesso X-Pro">
-                <h3>Vaporesso X-Pro</h3>
-                <p>Advanced pod mod — adjustable power — versatile performance</p>
-                <div class="price">£29.99</div>
-                <a href="products.html" class="btn">View</a>
-            </div>
-
-            <div class="product-card">
-                <img src="https://www.vaporesso.com/media/catalog/product/v/a/vaporesso-xros-pro.jpg" alt="Vaporesso XROS Pro">
-                <h3>Vaporesso XROS Pro</h3>
-                <p>Flagship XROS — premium finish — long battery — smooth hits</p>
-                <div class="price">£27.99</div>
-                <a href="products.html" class="btn">View</a>
-            </div>
-
-            <div class="product-card">
-                <img src="https://www.vaporesso.com/media/catalog/product/c/a/ca/each-pods.jpg" alt="Vaporesso Replacement Pods">
-                <h3>Vaporesso Pods</h3>
-                <p>XROS & X-Pro compatible — all resistances — genuine spares</p>
-                <div class="price">From £9.99</div>
-                <a href="products.html" class="btn">View</a>
-            </div>
-
-        </div>
+    
+    <div class="flavours">
+        <span class="flavour-tag">Blue Razz Lemonade</span>
+        <span class="flavour-tag">Watermelon Ice</span>
+        <span class="flavour-tag">Strawberry Kiwi</span>
+        <span class="flavour-tag">Mango Ice</span>
+        <span class="flavour-tag">Pineapple Ice</span>
+        <span class="flavour-tag">Grape Ice</span>
+        <span class="flavour-tag">Pink Lemonade</span>
+        <span class="flavour-tag">And 12 More...</span>
     </div>
+</section>
 
-    <footer>
-        <p>&copy; 2026 Vapes4All. All rights reserved. Must be 18+ to purchase.</p>
-    </footer>
+<footer>
+    <p>Vapes4All — Premium Vapes & E-Liquids • info@vapes4all.co.uk</p>
+    <p style="margin-top:0.5rem; font-size:0.8rem;">⚠️ Must be 18+ to purchase. All products contain nicotine.</p>
+</footer>
 
 </body>
 </html>
