@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dojo Blast 10K Pods — Vapes4All</title>
+    <title>Dojo Blast 10K Kits — Vapes4All</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        :root { --bg: #0f0f23; --card: #1a1a35; --accent: #ff9500; --pods: #a855f7; --text: #fff; --muted: #b0b0d0; }
+        :root { --bg: #0f0f23; --card: #1a1a35; --accent: #ff9500; --dojo: #22c55e; --text: #fff; --muted: #b0b0d0; }
         body { background: var(--bg); color: var(--text); line-height: 1.6; }
         header { background: rgba(0,0,0,0.4); padding: 1rem 5%; border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; z-index: 100; }
         .nav-wrap { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
         .logo { font-size: 1.8rem; font-weight: 900; color: var(--accent); text-decoration: none; }
         nav a { color: var(--text); text-decoration: none; margin-left: 1.2rem; font-weight: 600; transition: 0.2s; }
         nav a:hover, nav a.active { color: var(--accent); }
-        .banner { background: rgba(168,85,247,0.1); text-align: center; padding: 1rem; border-bottom: 1px solid rgba(168,85,247,0.2); }
-        .banner strong { color: var(--pods); font-size: 1.2rem; }
+        .banner { background: rgba(34,197,94,0.1); text-align: center; padding: 1rem; border-bottom: 1px solid rgba(34,197,94,0.2); }
+        .banner strong { color: var(--dojo); font-size: 1.2rem; }
         .page-wrap { max-width: 1200px; margin: 0 auto; padding: 2rem 5%; }
-        h1 { font-size: 2rem; color: var(--pods); margin-bottom: 0.5rem; }
+        h1 { font-size: 2rem; color: var(--dojo); margin-bottom: 0.5rem; }
         .intro { color: var(--muted); margin-bottom: 2rem; font-size: 1.1rem; }
-        .price-banner { background: var(--card); padding: 1.5rem; border-radius: 12px; text-align: center; margin-bottom: 2rem; border-left: 4px solid var(--pods); }
+        .price-banner { background: var(--card); padding: 1.5rem; border-radius: 12px; text-align: center; margin-bottom: 2rem; border-left: 4px solid var(--dojo); }
         .price-banner .main { font-size: 2rem; font-weight: 900; color: var(--accent); }
-        .price-banner .deal { font-size: 1.3rem; color: var(--pods); font-weight: 700; margin-top: 0.5rem; }
+        .price-banner .deal { font-size: 1.3rem; color: var(--dojo); font-weight: 700; margin-top: 0.5rem; }
         .flavours-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
-        .flavour-card { background: var(--card); border-radius: 12px; padding: 1.5rem; text-align: center; border-bottom: 3px solid var(--pods); transition: 0.2s; }
-        .flavour-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(168,85,247,0.2); }
+        .flavour-card { background: var(--card); border-radius: 12px; padding: 1.5rem; text-align: center; border-bottom: 3px solid var(--dojo); transition: 0.2s; }
+        .flavour-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(34,197,94,0.2); }
         .flavour-card h3 { margin: 1rem 0; font-size: 1.1rem; }
         .add-btn { background: var(--accent); color: white; border: none; padding: 0.7rem 1.5rem; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 0.5rem; transition: 0.2s; width: 100%; }
         .add-btn:hover { transform: scale(1.05); }
@@ -38,8 +38,8 @@
         <a href="index.html" class="logo">Vapes4All</a>
         <nav>
             <a href="index.html">Home</a>
-            <a href="dojo-units.html">10K Units</a>
-            <a href="dojo-pods.html" class="active">10K Pods</a>
+            <a href="dojo-units.html" class="active">10K Units</a>
+            <a href="dojo-pods.html">10K Pods</a>
             <a href="ivg.html">IVG 10K</a>
             <a href="checkout.html">Basket</a>
             <a href="contact.html">Contact</a>
@@ -48,30 +48,28 @@
 </header>
 <div class="banner">🚚 FREE DPD Delivery on orders £23+ — Tracked & Signed</div>
 <div class="page-wrap">
-    <h1>Dojo Blast 10K Pods</h1>
-    <p class="intro">Genuine Replacement Pods — For Dojo Blast 10K Kit Only • 2ml Pre-Filled • Mesh Coil</p>
+    <h1>Dojo Blast 10K Kits</h1>
+    <p class="intro">Rechargeable Pod Kit — 10,000 Puffs • 2ml Pod Included • 20mg Nicotine</p>
     <div class="price-banner">
-        <div class="main">£4.99 each</div>
-        <div class="deal">🔥 BUNDLE DEAL — Any 7 for just £20.00</div>
+        <div class="main">£6.99 each</div>
+        <div class="deal">🔥 SPECIAL OFFER — Any 3 for just £12.00</div>
     </div>
     <h2 style="margin-bottom:1rem">Select Your Flavour</h2>
     <div class="flavours-grid">
-        <div class="flavour-card"><h3>Blue Razz Lemonade</h3><button class="add-btn" onclick="addToBasket('Dojo Pod — Blue Razz Lemonade', 4.99, 'pod')">Add to Basket</button></div>
-        <div class="flavour-card"><h3>Watermelon Ice</h3><button class="add-btn" onclick="addToBasket('Dojo Pod — Watermelon Ice', 4.99, 'pod')">Add to Basket</button></div>
-        <div class="flavour-card"><h3>Strawberry Kiwi</h3><button class="add-btn" onclick="addToBasket('Dojo Pod — Strawberry Kiwi', 4.99, 'pod')">Add to Basket</button></div>
-        <div class="flavour-card"><h3>Mango Ice</h3><button class="add-btn" onclick="addToBasket('Dojo Pod — Mango Ice', 4.99, 'pod')">Add to Basket</button></div>
-        <div class="flavour-card"><h3>Cherry Berry</h3><button class="add-btn" onclick="addToBasket('Dojo Pod — Cherry Berry', 4.99, 'pod')">Add to Basket</button></div>
-        <div class="flavour-card"><h3>Pineapple Ice</h3><button class="add-btn" onclick="addToBasket('Dojo Pod — Pineapple Ice', 4.99, 'pod')">Add to Basket</button></div>
-        <div class="flavour-card"><h3>Grape Ice</h3><button class="add-btn" onclick="addToBasket('Dojo Pod — Grape Ice', 4.99, 'pod')">Add to Basket</button></div>
-        <div class="flavour-card"><h3>Double Apple</h3><button class="add-btn" onclick="addToBasket('Dojo Pod — Double Apple', 4.99, 'pod')">Add to Basket</button></div>
+        <div class="flavour-card"><h3>Blueberry Raspberry</h3><button class="add-btn" onclick="addToBasket('Dojo 10K — Blueberry Raspberry', 6.99, 'unit')">Add to Basket</button></div>
+        <div class="flavour-card"><h3>Blueberry Sour</h3><button class="add-btn" onclick="addToBasket('Dojo 10K — Blueberry Sour', 6.99, 'unit')">Add to Basket</button></div>
+        <div class="flavour-card"><h3>Some Pomegranate</h3><button class="add-btn" onclick="addToBasket('Dojo 10K — Some Pomegranate', 6.99, 'unit')">Add to Basket</button></div>
+        <div class="flavour-card"><h3>Ten Tangerines</h3><button class="add-btn" onclick="addToBasket('Dojo 10K — Ten Tangerines', 6.99, 'unit')">Add to Basket</button></div>
+        <div class="flavour-card"><h3>Straw-Raspberry Cherry Ice</h3><button class="add-btn" onclick="addToBasket('Dojo 10K — Straw-Raspberry Cherry Ice', 6.99, 'unit')">Add to Basket</button></div>
     </div>
     <div class="info-box">
         <h3>Product Information</h3>
         <p><strong>Brand:</strong> Vaporesso Dojo Blast</p>
-        <p><strong>Compatibility:</strong> Dojo Blast 10K Kit only</p>
-        <p><strong>Capacity:</strong> 2ml Pre-Filled</p>
+        <p><strong>Puffs:</strong> Up to 10,000 per device</p>
         <p><strong>Nicotine:</strong> 20mg / 2%</p>
-        <p><strong>Coil:</strong> Built-in Mesh Coil</p>
+        <p><strong>Capacity:</strong> 2ml Pre-Filled Pod Included</p>
+        <p><strong>Battery:</strong> Rechargeable — USB-C Port</p>
+        <p><strong>Includes:</strong> 1 Device + 1 Pre-Filled Pod</p>
         <p style="margin-top:1rem; color:var(--muted);"><em>Must be 18+ to purchase. Age verification applies to all orders.</em></p>
     </div>
 </div>
