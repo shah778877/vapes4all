@@ -5,118 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Basket — Vapes4All</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, sans-serif; }
         :root {
-            --bg: #121226;
-            --card: #1e1e3a;
-            --accent: #ff9500;
-            --success: #22c55e;
-            --text: #ffffff;
-            --muted: #9ca3af;
-            --danger: #ef4444;
-            --border: rgba(255,255,255,0.08);
+            --bg: #0f0f1a; --card: #1a1a2e; --accent: #ff9500;
+            --red: #ef4444; --green: #22c55e; --text: #fff; --muted: #9ca3af;
         }
-        body { background: var(--bg); color: var(--text); line-height: 1.5; }
-        header { background: rgba(0,0,0,0.35); padding: 1rem 5%; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
-        .nav-wrap { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        body { background: var(--bg); color: var(--text); line-height: 1.6; }
+        header { background: rgba(0,0,0,0.4); padding: 1rem 5%; border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; z-index: 100; }
+        .nav-wrap { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
         .logo { font-size: 1.6rem; font-weight: 900; color: var(--accent); text-decoration: none; }
-        nav a { color: var(--text); text-decoration: none; margin-left: 1rem; font-weight: 500; transition: 0.2s; font-size: 0.95rem; }
+        nav { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+        nav a { color: var(--text); text-decoration: none; padding: 0.5rem 0.8rem; font-weight: 500; position: relative; }
         nav a:hover, nav a.active { color: var(--accent); }
+        .basket-link { position: relative; }
+        .badge {
+            position: absolute; top: -8px; right: -10px;
+            background: var(--red); color: white; font-size: 11px; font-weight: bold;
+            min-width: 18px; height: 18px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .badge.hidden { display: none; }
 
-        .page-wrap { max-width: 1000px; margin: 0 auto; padding: 2rem 5%; }
-        h1 { font-size: 1.8rem; margin-bottom: 2rem; color: var(--accent); }
-        
-        .basket-empty { text-align: center; padding: 4rem 2rem; color: var(--muted); }
-        .basket-empty h2 { margin-bottom: 1rem; font-size: 1.4rem; }
-        .btn-home { display: inline-block; margin-top: 1.5rem; background: var(--accent); color: white; padding: 0.8rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; border: none; cursor: pointer; }
+        .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 5%; }
+        h1 { font-size: 1.8rem; margin-bottom: 0.5rem; color: var(--accent); }
+        .item-count { color: var(--muted); margin-bottom: 1rem; }
+        .clear-row { text-align: right; margin-bottom: 1rem; }
+        .clear-btn { background: transparent; color: var(--red); border: none; cursor: pointer; font-weight: 600; font-size: 0.9rem; }
+
+        .empty-state { text-align: center; padding: 4rem 2rem; color: var(--muted); }
+        .shop-btn { display: inline-block; margin-top: 1.5rem; background: var(--accent); color: white; padding: 0.8rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; border: none; cursor: pointer; }
 
         .basket-item {
-            background: var(--card);
-            border-radius: 10px;
-            padding: 1.2rem 1.5rem;
-            margin-bottom: 0.8rem;
-            display: grid;
-            grid-template-columns: 2fr 120px 100px 90px;
-            gap: 1rem;
-            align-items: center;
+            background: var(--card); border-radius: 12px; padding: 1.2rem 1.5rem; margin-bottom: 0.8rem;
+            display: grid; grid-template-columns: 2fr 110px 110px 90px; gap: 1rem; align-items: center;
         }
         .item-name h3 { font-size: 1rem; margin-bottom: 0.2rem; }
         .item-name p { color: var(--muted); font-size: 0.85rem; }
-        
-        .item-qty { display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+
+        .qty-box { display: flex; align-items: center; gap: 0.5rem; }
         .qty-btn {
-            background: rgba(255,255,255,0.1);
-            border: none;
-            color: white;
-            width: 28px;
-            height: 28px;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            cursor: pointer;
+            background: rgba(255,255,255,0.1); border: none; color: white;
+            width: 28px; height: 28px; border-radius: 6px; font-size: 1rem; cursor: pointer;
             display: flex; align-items: center; justify-content: center;
         }
-        .qty-val { font-weight: 700; min-width: 20px; text-align: center; }
-        
-        .item-total { font-weight: 700; font-size: 1rem; text-align: right; }
-        
-        .remove-btn { 
-            background: var(--danger); 
-            color: white; 
-            border: none; 
-            padding: 0.5rem 1rem; 
-            border-radius: 6px; 
-            cursor: pointer; 
-            font-weight: 600; 
-            font-size: 0.85rem;
-            width: 100%;
+        .qty-val { font-weight: 700; min-width: 24px; text-align: center; }
+
+        .item-total { font-weight: 700; text-align: right; }
+        .remove-btn {
+            background: var(--red); color: white; border: none; padding: 0.5rem 0.6rem;
+            border-radius: 6px; cursor: pointer; font-weight: 600; width: 100%;
         }
 
-        .summary { 
-            background: var(--card); 
-            border-radius: 10px; 
-            padding: 1.8rem; 
-            margin-top: 1.5rem; 
+        .summary { background: var(--card); border-radius: 12px; padding: 1.8rem; margin-top: 1.5rem; }
+        .sum-row {
+            display: flex; justify-content: space-between; padding: 0.7rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
         }
-        .summary-row { 
-            display: grid;
-            grid-template-columns: 1fr auto;
-            padding: 0.8rem 0; 
-            border-bottom: 1px solid var(--border);
-            align-items: center;
-        }
-        .summary-row.total { 
-            border-bottom: none; 
-            font-size: 1.3rem; 
-            font-weight: 900; 
-            color: var(--accent); 
-            padding-top: 1rem;
-        }
-        .delivery-note { color: var(--success); margin: 0.8rem 0; font-weight: 600; }
+        .sum-row.total { border-bottom: none; font-size: 1.3rem; font-weight: 900; color: var(--accent); padding-top: 0.8rem; }
+        .free-del { color: var(--green); margin: 0.8rem 0; font-weight: 600; }
 
         .checkout-btn {
-            width: 100%;
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 1rem;
-            border-radius: 8px;
-            font-size: 1.05rem;
-            font-weight: 900;
-            cursor: pointer;
-            margin-top: 1rem;
-            transition: 0.2s;
+            width: 100%; background: var(--accent); color: white; border: none;
+            padding: 1rem; border-radius: 8px; font-size: 1.05rem; font-weight: 900;
+            cursor: pointer; margin-top: 1rem; transition: 0.2s;
         }
         .checkout-btn:hover { transform: scale(1.01); }
 
-        footer { text-align: center; padding: 2rem; color: var(--muted); border-top: 1px solid var(--border); margin-top: 3rem; font-size: 0.9rem; }
+        footer { text-align: center; padding: 2rem; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.1); margin-top: 3rem; font-size: 0.9rem; }
 
-        /* Mobile fix */
-        @media (max-width: 768px) {
-            .basket-item {
-                grid-template-columns: 1fr;
-                gap: 0.8rem;
-            }
-            .item-qty, .item-total { justify-content: flex-start; text-align: left; }
+        @media (max-width: 700px) {
+            .basket-item { grid-template-columns: 1fr; gap: 0.8rem; }
         }
     </style>
 </head>
@@ -130,7 +88,10 @@
             <a href="dojo-units.html">10K Units</a>
             <a href="dojo-pods.html">10K Pods</a>
             <a href="ivg.html">IVG 10K</a>
-            <a href="checkout.html" class="active">Basket</a>
+            <a href="checkout.html" class="basket-link active">
+                Basket
+                <span class="badge hidden" id="nav-badge">0</span>
+            </a>
             <a href="contact.html">Contact</a>
         </nav>
     </div>
@@ -138,9 +99,14 @@
 
 <div class="page-wrap">
     <h1>Your Basket</h1>
+    <p class="item-count" id="item-count"></p>
 
-    <div id="basket-content"></div>
-    <div id="basket-summary" style="display:none;"></div>
+    <div class="clear-row" id="clear-zone" style="display:none;">
+        <button class="clear-btn" onclick="clearWholeBasket()">🗑️ Clear Entire Basket</button>
+    </div>
+
+    <div id="basket-list"></div>
+    <div id="basket-totals" style="display:none;"></div>
 </div>
 
 <footer>
@@ -150,9 +116,9 @@
 <script>
 let basket = JSON.parse(localStorage.getItem('vapes4all_basket') || '[]');
 
-function saveBasket() {
+function saveAndRender() {
     localStorage.setItem('vapes4all_basket', JSON.stringify(basket));
-    renderBasket();
+    showBasket();
 }
 
 function changeQty(name, delta) {
@@ -160,73 +126,103 @@ function changeQty(name, delta) {
     if (!item) return;
     item.qty += delta;
     if (item.qty <= 0) basket = basket.filter(i => i.name !== name);
-    saveBasket();
+    saveAndRender();
 }
 
-function removeItem(name) {
+function removeOne(name) {
     basket = basket.filter(i => i.name !== name);
-    saveBasket();
+    saveAndRender();
 }
 
-function renderBasket() {
-    const content = document.getElementById('basket-content');
-    const summary = document.getElementById('basket-summary');
-    
+function clearWholeBasket() {
+    if (confirm('Remove EVERYTHING from your basket?')) {
+        basket = [];
+        saveAndRender();
+    }
+}
+
+function updateNavBadge() {
+    const total = basket.reduce((sum, i) => sum + i.qty, 0);
+    const badge = document.getElementById('nav-badge');
+    if (badge) {
+        badge.textContent = total;
+        badge.classList.toggle('hidden', total === 0);
+    }
+}
+
+function showBasket() {
+    const list = document.getElementById('basket-list');
+    const totals = document.getElementById('basket-totals');
+    const countText = document.getElementById('item-count');
+    const clearZone = document.getElementById('clear-zone');
+
+    const totalItems = basket.reduce((sum, i) => sum + i.qty, 0);
+    updateNavBadge();
+
     if (basket.length === 0) {
-        content.innerHTML = `
-            <div class="basket-empty">
+        countText.textContent = '';
+        clearZone.style.display = 'none';
+        list.innerHTML = `
+            <div class="empty-state">
                 <h2>Your basket is empty</h2>
                 <p>Add some products to get started</p>
-                <a href="index.html" class="btn-home">Start Shopping →</a>
+                <a href="index.html" class="shop-btn">Start Shopping →</a>
             </div>
         `;
-        summary.style.display = 'none';
+        totals.style.display = 'none';
         return;
     }
 
-    summary.style.display = 'block';
-    content.innerHTML = basket.map(item => `
+    countText.textContent = totalItems === 1 ? '1 item in your basket' : `${totalItems} items in your basket`;
+    clearZone.style.display = 'block';
+    totals.style.display = 'block';
+
+    list.innerHTML = basket.map(item => `
         <div class="basket-item">
             <div class="item-name">
                 <h3>${item.name}</h3>
                 <p>£${item.price.toFixed(2)} each</p>
             </div>
-            <div class="item-qty">
+            <div class="qty-box">
                 <button class="qty-btn" onclick="changeQty('${item.name.replace(/'/g, "\\'")}', -1)">−</button>
                 <span class="qty-val">${item.qty}</span>
                 <button class="qty-btn" onclick="changeQty('${item.name.replace(/'/g, "\\'")}', 1)">+</button>
             </div>
             <div class="item-total">£${(item.price * item.qty).toFixed(2)}</div>
-            <button class="remove-btn" onclick="removeItem('${item.name.replace(/'/g, "\\'")}')">Remove</button>
+            <button class="remove-btn" onclick="removeOne('${item.name.replace(/'/g, "\\'")}')">Remove</button>
         </div>
     `).join('');
 
     const subtotal = basket.reduce((sum, i) => sum + (i.price * i.qty), 0);
     const freeDelivery = subtotal >= 23;
     const deliveryCost = freeDelivery ? 0 : 2.99;
-    const total = subtotal + deliveryCost;
+    const grandTotal = subtotal + deliveryCost;
 
-    summary.innerHTML = `
+    totals.innerHTML = `
         <div class="summary">
-            <div class="summary-row">
-                <span>Subtotal</span>
-                <span>£${subtotal.toFixed(2)}</span>
-            </div>
-            <div class="summary-row">
+            <div class="sum-row"><span>Subtotal</span><span>£${subtotal.toFixed(2)}</span></div>
+            <div class="sum-row">
                 <span>Delivery</span>
-                <span>${freeDelivery ? '<strong style="color:var(--success)">FREE</strong>' : '£' + deliveryCost.toFixed(2)}</span>
+                <span>${freeDelivery ? '<strong style="color:var(--green)">FREE</strong>' : '£' + deliveryCost.toFixed(2)}</span>
             </div>
-            ${!freeDelivery ? `<div class="delivery-note">Add £${(23 - subtotal).toFixed(2)} more for FREE Delivery!</div>` : `<div class="delivery-note">🎉 You qualify for FREE Delivery!</div>`}
-            <div class="summary-row total">
-                <span>Total</span>
-                <span>£${total.toFixed(2)}</span>
-            </div>
-            <button class="checkout-btn">Proceed to Checkout</button>
+            ${!freeDelivery ? `<div class="free-del">Add £${(23 - subtotal).toFixed(2)} more for FREE Delivery!</div>` : `<div class="free-del">🎉 You qualify for FREE Delivery!</div>`}
+            <div class="sum-row total"><span>Total</span><span>£${grandTotal.toFixed(2)}</span></div>
+            <button class="checkout-btn" onclick="doCheckout()">Proceed to Checkout</button>
         </div>
     `;
 }
 
-renderBasket();
+function doCheckout() {
+    const subtotal = basket.reduce((sum, i) => sum + (i.price * i.qty), 0);
+    const freeDelivery = subtotal >= 23;
+    const deliveryCost = freeDelivery ? 0 : 2.99;
+    const grandTotal = subtotal + deliveryCost;
+    alert('Order confirmed!\n\nTotal: £' + grandTotal.toFixed(2) + '\n\nWe will contact you to arrange payment & delivery.\nThank you!');
+    basket = [];
+    saveAndRender();
+}
+
+showBasket();
 </script>
 
 </body>
