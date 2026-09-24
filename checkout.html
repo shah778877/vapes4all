@@ -92,9 +92,7 @@
         }
         .form-row input:focus, .form-row textarea:focus { outline: 2px solid var(--accent); }
         .form-row.half { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-        #card-element {
-            background: rgba(255,255,255,0.08); padding: 1rem; border-radius: 8px; margin: 1rem 0;
-        }
+
         .checkout-btn {
             width: 100%; background: var(--accent); color: #000; border: none;
             padding: 1rem; border-radius: 8px; font-size: 1.05rem; font-weight: 900;
@@ -102,7 +100,6 @@
         }
         .checkout-btn:disabled { opacity: 0.6; cursor: not-allowed; }
         .checkout-btn:hover:not(:disabled) { transform: scale(1.01); }
-        .error-msg { color: var(--red); margin-top: 1rem; display: none; }
 
         .back-btn {
             background: transparent; color: var(--muted); border: none;
@@ -159,25 +156,25 @@
             <span class="card-badge maestro">Maestro</span>
             <span class="card-badge amex">Amex</span>
         </div>
-        <p class="stripe-note">Secure payments powered by Stripe</p>
+        <p class="stripe-note">Secure instant payments powered by Stripe</p>
     </div>
 
     <div class="checkout-form" id="checkoutForm">
         <button class="back-btn" onclick="hideForm()">← Back to Basket</button>
-        <h2>Complete Your Order</h2>
-        <form id="paymentForm">
+        <h2>Your Details</h2>
+        <form id="infoForm">
             <div class="form-row half">
                 <div>
                     <label for="fullName">Full Name *</label>
                     <input type="text" id="fullName" required>
                 </div>
                 <div>
-                    <label for="email">Email *</label>
+                    <label for="email">Email * — receipt sent instantly</label>
                     <input type="email" id="email" required>
                 </div>
             </div>
             <div class="form-row">
-                <label for="phone">Phone *</label>
+                <label for="phone">Phone * — DPD tracking sent here</label>
                 <input type="tel" id="phone" required>
             </div>
             <div class="form-row">
@@ -188,18 +185,14 @@
                 <label for="notes">Delivery Notes (Optional)</label>
                 <textarea id="notes" rows="2"></textarea>
             </div>
-            <div class="form-row">
-                <label>Card Details *</label>
-                <div id="card-element"></div>
-                <div id="card-errors" class="error-msg"></div>
-            </div>
-            <button type="submit" class="checkout-btn" id="submitBtn">Pay Now</button>
+            <button type="submit" class="checkout-btn" id="payBtn">Proceed to Instant Payment</button>
         </form>
     </div>
 
     <div class="success-box" id="successBox">
-        <h2>✅ Order Confirmed!</h2>
-        <p>Thank you — we'll email your DPD tracking details as soon as your order is dispatched.</p>
+        <h2>✅ Payment Successful — Order Confirmed!</h2>
+        <p>📧 Receipt sent to your email instantly</p>
+        <p>📦 DPD tracking details will be sent as soon as dispatched</p>
         <br>
         <a href="index.html" class="shop-btn">Continue Shopping</a>
     </div>
@@ -211,7 +204,6 @@
 
 <script>
 const stripe = Stripe('pk_live_51UItZoFJdqaVBhtaeXjI9HTTkFIStttRqqoJqmnzD4ZVixfspc7EdlR3Q3vTCdgVCyORwfSyKfgro9sp9PfUHZRk00WOBKSQOG');
-let elements, card;
 
 // PRICES & DEALS — MIX & MATCH ✅
 const UNIT_PRICE = 4.99;
@@ -223,6 +215,9 @@ const POD_DEAL_QTY = 7;
 const POD_DEAL_PRICE = 20.00;
 const FREE_DELIVERY_THRESHOLD = 23;
 const DELIVERY_FEE = 2.99;
+
+// YOUR NEW PRICE ID ✅
+const STRIPE_PRICE_ID = 'price_1UJ9jPFJdqavBHtaykit2SKQ';
 
 let basket = [];
 
@@ -320,14 +315,14 @@ function showBasket() {
     }
 
     const totalItems = basket.reduce((s, i) => s + i.qty, 0);
-    countText.textContent = totalItems + ' item' + (totalItems > 1 ? 's' : '') + ' in basket';
+    countText.textContent = `${totalItems} item${totalItems > 1 ? 's' : ''} in basket`;
     clearZone.style.display = 'block';
     totals.style.display = 'block';
 
     const { unitDealApplied, podDealApplied, unitTotal, podTotal, subtotal } = calculateTotals();
     dealBanners.innerHTML = '';
-    if (unitDealApplied) dealBanners.innerHTML += `<div class="deal-banner">🔥 <strong>${unitTotal} Dojo 10K Units — Mix & Match Deal Applied!</strong></div>`;
-    if (podDealApplied) dealBanners.innerHTML += `<div class="deal-banner">🔥 <strong>${podTotal} Dojo Pods — Mix & Match Deal Applied!</strong></div>`;
+    if (unitDealApplied) dealBanners.innerHTML += `<div class="deal-banner">🔥 <strong>${unitTotal} Dojo 10K Units — Deal Applied!</strong></div>`;
+    if (podDealApplied) dealBanners.innerHTML += `<div class="deal-banner">🔥 <strong>${podTotal} Dojo Pods — 7 for £20 Deal Applied!</strong></div>`;
 
     list.innerHTML = basket.map(item => {
         const lower = (item.name || '').toLowerCase();
@@ -358,7 +353,7 @@ function showBasket() {
                 <span>${freeDel ? '<strong style="color:var(--green)">FREE</strong>' : '£' + delCost.toFixed(2)}</span>
             </div>
             ${!freeDel ? `<div class="free-del">Add £${(FREE_DELIVERY_THRESHOLD - subtotal).toFixed(2)} more for FREE delivery!</div>` : `<div class="free-del">🎉 Free delivery unlocked!</div>`}
-            <div class="sum-row total"><span>Total</span><span>£${grandTotal.toFixed(2)}</span></div>
+            <div class="sum-row total"><span>Total to Pay</span><span>£${grandTotal.toFixed(2)}</span></div>
             <button class="checkout-btn" onclick="showForm()">Proceed to Checkout</button>
         </div>`;
 }
@@ -367,7 +362,6 @@ function showForm() {
     document.getElementById('checkoutForm').classList.add('active');
     document.getElementById('basket-totals').style.display = 'none';
     document.getElementById('deal-banners').style.display = 'none';
-    if (!elements) initStripe();
 }
 
 function hideForm() {
@@ -376,58 +370,58 @@ function hideForm() {
     document.getElementById('deal-banners').style.display = 'block';
 }
 
-function initStripe() {
-    elements = stripe.elements();
-    card = elements.create('card', { style: { base: { color: '#fff', fontSize: '16px' } } });
-    card.mount('#card-element');
-    card.addEventListener('change', e => {
-        const err = document.getElementById('card-errors');
-        err.textContent = e.error ? e.error.message : '';
-        err.style.display = e.error ? 'block' : 'none';
-    });
-}
-
-document.getElementById('paymentForm').addEventListener('submit', async e => {
+document.getElementById('infoForm').addEventListener('submit', async e => {
     e.preventDefault();
-    const btn = document.getElementById('submitBtn');
+    const btn = document.getElementById('payBtn');
     btn.disabled = true;
-    btn.textContent = 'Processing…';
+    btn.textContent = 'Connecting…';
 
     const { subtotal } = calculateTotals();
     const freeDel = subtotal >= FREE_DELIVERY_THRESHOLD;
     const grandTotal = Math.round((subtotal + (freeDel ? 0 : DELIVERY_FEE)) * 100);
 
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-        type: 'card',
-        card: card,
-        billing_details: {
-            name: document.getElementById('fullName').value,
-            email: document.getElementById('email').value,
-            phone: document.getElementById('phone').value
+    sessionStorage.setItem('v4a_order', JSON.stringify({
+        name: document.getElementById('fullName').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        address: document.getElementById('address').value,
+        notes: document.getElementById('notes').value,
+        total: grandTotal / 100
+    }));
+
+    try {
+        const { error } = await stripe.redirectToCheckout({
+            lineItems: [{ price: STRIPE_PRICE_ID, quantity: 1 }],
+            mode: 'payment',
+            customerEmail: document.getElementById('email').value,
+            successUrl: window.location.origin + window.location.pathname + '?success=1',
+            cancelUrl: window.location.href,
+            billingAddressCollection: 'required',
+            shippingAddressCollection: { allowedCountries: ['GB'] }
+        });
+
+        if (error) {
+            alert(error.message);
+            btn.disabled = false;
+            btn.textContent = 'Proceed to Instant Payment';
         }
-    });
-
-    if (error) {
-        document.getElementById('card-errors').textContent = error.message;
-        document.getElementById('card-errors').style.display = 'block';
+    } catch (err) {
+        alert('Something went wrong — please try again');
         btn.disabled = false;
-        btn.textContent = 'Pay Now';
-        return;
+        btn.textContent = 'Proceed to Instant Payment';
     }
-
-    // ⚠️ IMPORT — You need a backend/webhook to actually charge
-    // For live use: create PaymentMethod on frontend → charge on your server
-    console.log('Payment Method:', paymentMethod.id);
-    
-    // Success flow (replace with real confirmation from your server)
-    basket = [];
-    localStorage.setItem('vapes4all_basket', JSON.stringify(basket));
-    updateNavCount();
-    document.getElementById('checkoutForm').classList.remove('active');
-    document.getElementById('successBox').classList.add('show');
 });
 
-document.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('success') === '1') {
+        basket = [];
+        localStorage.setItem('vapes4all_basket', JSON.stringify(basket));
+        updateNavCount();
+        document.getElementById('checkoutForm').classList.remove('active');
+        document.getElementById('successBox').classList.add('show');
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
     loadBasket();
     updateNavCount();
     showBasket();
