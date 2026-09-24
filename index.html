@@ -3,406 +3,496 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vape Store | Premium Vapes & Pods</title>
 
-<title>Vapes4All | Premium Vapes UK</title>
+https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap
 
 <style>
-
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 body{
-background:#f8f9fb;
-color:#222;
+    background:#ffffff;
+    color:#111;
 }
 
-/* AGE GATE */
-
-.age-overlay{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(255,255,255,.98);
-display:flex;
-justify-content:center;
-align-items:center;
-z-index:9999;
+a{
+    text-decoration:none;
+    color:inherit;
 }
 
-.age-box{
-background:#fff;
-padding:40px;
-border-radius:20px;
-max-width:500px;
-width:90%;
-text-align:center;
-box-shadow:0 15px 40px rgba(0,0,0,.15);
+.container{
+    width:90%;
+    max-width:1400px;
+    margin:auto;
 }
 
-.age-box h2{
-font-size:32px;
-color:#ff9500;
-margin-bottom:15px;
+/* Top Banner */
+.top-banner{
+    background:#000;
+    color:#fff;
+    text-align:center;
+    padding:12px;
+    font-weight:700;
+    letter-spacing:.5px;
 }
 
-.age-box p{
-margin-bottom:25px;
-line-height:1.6;
-color:#666;
-}
-
-.age-btn{
-padding:14px 24px;
-border:none;
-cursor:pointer;
-border-radius:10px;
-font-weight:bold;
-margin:8px;
-}
-
-.enter-btn{
-background:#ff9500;
-color:white;
-}
-
-.exit-btn{
-background:#ddd;
-}
-
-/* SITE */
-
-#site{
-display:none;
-}
-
+/* Header */
 header{
-background:white;
-box-shadow:0 2px 10px rgba(0,0,0,.08);
-position:sticky;
-top:0;
-z-index:100;
+    background:#fff;
+    position:sticky;
+    top:0;
+    z-index:100;
+    box-shadow:0 2px 10px rgba(0,0,0,.05);
 }
 
-.nav{
-max-width:1200px;
-margin:auto;
-padding:20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-flex-wrap:wrap;
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 0;
 }
 
 .logo{
-font-size:34px;
-font-weight:bold;
-text-decoration:none;
-color:#ff9500;
+    font-size:28px;
+    font-weight:900;
 }
 
 .nav-links{
-display:flex;
-gap:20px;
-flex-wrap:wrap;
+    display:flex;
+    gap:35px;
 }
 
 .nav-links a{
-text-decoration:none;
-color:#333;
-font-weight:bold;
+    font-weight:600;
+    transition:.3s;
 }
 
 .nav-links a:hover{
-color:#ff9500;
+    color:#00b36b;
 }
 
-.banner{
-background:#ff9500;
-color:white;
-text-align:center;
-padding:15px;
-font-weight:bold;
-}
-
+/* Hero */
 .hero{
-text-align:center;
-padding:80px 20px;
+    background:linear-gradient(135deg,#f8f8f8,#ffffff);
+    padding:80px 0;
 }
 
-.hero h1{
-font-size:58px;
-margin-bottom:20px;
+.hero-content{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:50px;
+    align-items:center;
 }
 
-.hero p{
-font-size:20px;
-color:#666;
+.hero-text h1{
+    font-size:58px;
+    line-height:1.1;
+    margin-bottom:20px;
 }
 
-.products{
-max-width:1300px;
-margin:auto;
-padding:30px 20px 60px;
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-gap:30px;
+.hero-text p{
+    font-size:18px;
+    color:#666;
+    margin-bottom:30px;
 }
 
-.card{
-background:white;
-border-radius:20px;
-overflow:hidden;
-box-shadow:0 10px 25px rgba(0,0,0,.08);
-transition:.3s;
+.hero-btn{
+    display:inline-block;
+    background:#000;
+    color:#fff;
+    padding:15px 28px;
+    border-radius:12px;
+    font-weight:700;
 }
 
-.card:hover{
-transform:translateY(-5px);
+.hero-image img{
+    width:100%;
+    border-radius:24px;
+    box-shadow:0 20px 40px rgba(0,0,0,.08);
 }
 
-.card img{
-width:100%;
-height:320px;
-object-fit:contain;
-padding:20px;
-background:white;
+/* Section */
+section{
+    padding:80px 0;
 }
 
-.card-content{
-padding:25px;
-text-align:center;
+.section-title{
+    text-align:center;
+    font-size:42px;
+    margin-bottom:50px;
 }
 
-.card-content h3{
-font-size:26px;
-margin-bottom:10px;
+/* Flavours */
+.flavours{
+    background:#fafafa;
+}
+
+.flavour-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+}
+
+.flavour-card{
+    background:#fff;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 5px 20px rgba(0,0,0,.05);
+}
+
+.flavour-card h3{
+    font-size:24px;
+}
+
+/* Products */
+.products-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:30px;
+}
+
+.product-card{
+    background:#fff;
+    border-radius:24px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,.07);
+    transition:.3s;
+}
+
+.product-card:hover{
+    transform:translateY(-5px);
+}
+
+.product-card img{
+    width:100%;
+    height:280px;
+    object-fit:cover;
+}
+
+.product-info{
+    padding:25px;
+}
+
+.product-info h3{
+    font-size:26px;
+    margin-bottom:10px;
 }
 
 .price{
-font-size:34px;
-font-weight:bold;
-color:#ff9500;
-margin-bottom:10px;
+    font-size:24px;
+    font-weight:800;
+    margin-bottom:10px;
 }
 
-.deal{
-color:#22c55e;
-font-weight:bold;
-margin-bottom:20px;
+.offer{
+    color:#ff4d00;
+    font-size:18px;
+    font-weight:700;
+    margin-bottom:20px;
 }
 
-.shop-btn{
-display:inline-block;
-padding:14px 30px;
-background:#ff9500;
-color:white;
-font-weight:bold;
-text-decoration:none;
-border-radius:10px;
+.btn{
+    display:inline-block;
+    width:100%;
+    text-align:center;
+    background:#000;
+    color:#fff;
+    padding:14px;
+    border-radius:12px;
+    font-weight:700;
 }
 
+/* Contact */
+.contact{
+    background:#fafafa;
+    text-align:center;
+}
+
+.contact p{
+    color:#666;
+    margin-top:15px;
+    font-size:18px;
+}
+
+/* Footer */
 footer{
-background:white;
-margin-top:40px;
-padding:40px;
-text-align:center;
-color:#666;
+    background:#000;
+    color:#fff;
+    text-align:center;
+    padding:25px;
 }
 
-footer p{
-margin:5px 0;
+/* Age Verification */
+.age-popup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.9);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
 }
 
-@media(max-width:768px){
-
-.hero h1{
-font-size:38px;
+.age-box{
+    background:#fff;
+    max-width:500px;
+    width:90%;
+    padding:40px;
+    border-radius:24px;
+    text-align:center;
 }
 
-.logo{
-font-size:28px;
+.age-box h2{
+    font-size:34px;
+    margin-bottom:15px;
 }
 
-.nav{
-justify-content:center;
-gap:15px;
+.age-box p{
+    color:#666;
+    margin-bottom:25px;
+    line-height:1.5;
 }
 
+.age-buttons{
+    display:flex;
+    gap:15px;
 }
 
+.age-buttons button{
+    flex:1;
+    border:none;
+    cursor:pointer;
+    padding:14px;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:700;
+}
+
+.enter-btn{
+    background:#000;
+    color:#fff;
+}
+
+.exit-btn{
+    background:#eee;
+}
+
+/* Mobile */
+@media(max-width:900px){
+
+.hero-content{
+    grid-template-columns:1fr;
+}
+
+.hero-text h1{
+    font-size:40px;
+}
+
+.navbar{
+    flex-direction:column;
+    gap:20px;
+}
+
+.nav-links{
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:20px;
+}
+
+.flavour-grid{
+    grid-template-columns:1fr;
+}
+}
 </style>
-
 </head>
 <body>
 
-<!-- AGE VERIFICATION -->
+<!-- Age Verification -->
+<div class="age-popup" id="agePopup">
+    <div class="age-box">
+        <h2>🔞 Age Verification</h2>
+        <p>
+            You must be 18 years or older to enter this website and purchase vaping products.
+        </p>
 
-<div class="age-overlay" id="ageGate">
-
-<div class="age-box">
-
-<h2>🔞 Age Verification</h2>
-
-<p>
-You must be 18 years old or over to enter this website and purchase nicotine products.
-</p>
-
-<button class="age-btn enter-btn" onclick="allowEntry()">
-I AM 18+
-</button>
-
-<button class="age-btn exit-btn" onclick="window.location.href='https://www.google.com'">
-EXIT
-</button>
-
+        <div class="age-buttons">
+            <button class="enter-btn" onclick="enterSite()">I Am 18+</button>
+            <button class="exit-btn" onclick="leaveSite()">Exit</button>
+        </div>
+    </div>
 </div>
 
+<!-- Delivery Banner -->
+<div class="top-banner">
+    🚚 FREE DPD TRACKED DELIVERY ON ORDERS £23+
 </div>
-
-<!-- SITE -->
-
-<div id="site">
 
 <header>
+    <div class="container navbar">
+        <div class="logo">VAPE STORE</div>
 
-<div class="nav">
-
-<a href="index.html" class="logo">
-Vapes4All
-</a>
-
-<div class="nav-links">
-<a href="dojo-units.html">Units</a>
-<a href="dojo-pods.html">Pods</a>
-<a href="ivg.html">IVG</a>
-<a href="checkout.html">Basket</a>
-<a href="contact.html">Contact</a>
-</div>
-
-</div>
-
+        <nav class="nav-links">
+            #Home</a>
+            #unitsUnits</a>
+            #podsPods</a>
+            #ivgIVG</a>
+            #Basket</a>
+            #contactContact</a>
+        </nav>
+    </div>
 </header>
 
-<div class="banner">
-🚚 FREE DPD TRACKED DELIVERY ON ALL ORDERS £23+
-</div>
-
+<!-- Hero -->
 <section class="hero">
+    <div class="container hero-content">
 
-<h1>Premium Vapes Delivered UK Wide</h1>
+        <div class="hero-text">
+            <h1>Premium Disposable & Pod Vape Deals</h1>
 
-<p>
-Quality Products • DPD Tracked Delivery • 18+ Only
-</p>
+            <p>
+                Shop the latest Dojo Blast and IVG Smart Max devices with unbeatable multi-buy offers and fast UK delivery.
+            </p>
 
+            #products
+                Shop Now
+            </a>
+        </div>
+
+        <div class="hero-image">
+            <img src="dojo-units.jpg" alt="Dojo Blast Units">
+        </div>
+
+    </div>
 </section>
 
-<section class="products">
+<!-- Flavours -->
+<section class="flavours">
+    <div class="container">
 
-<div class="card">
+        <h2 class="section-title">Featured New Flavours</h2>
 
-<img src="dojo-units.jpg" alt="Dojo Blast 10K Units">
+        <div class="flavour-grid">
 
-<div class="card-content">
+            <div class="flavour-card">
+                <h3>🥤 Lemon Cola</h3>
+            </div>
 
-<h3>Dojo Blast 10K Units</h3>
+            <div class="flavour-card">
+                <h3>🍇 Vimberry</h3>
+            </div>
 
-<div class="price">£6.99</div>
+            <div class="flavour-card">
+                <h3>🥤 Cherry Cola</h3>
+            </div>
 
-<div class="deal">
-🔥 Any 3 For £12
-</div>
+        </div>
 
-<a href="dojo-units.html" class="shop-btn">
-Shop Now
-</a>
+    </div>
+</section>
 
-</div>
+<!-- Products -->
+<section id="products">
+    <div class="container">
 
-</div>
+        <h2 class="section-title">Popular Products</h2>
 
-<div class="card">
+        <div class="products-grid">
 
-<img src="dojo-pods.jpg" alt="Dojo Blast Pods">
+            <!-- Dojo Units -->
+            <div class="product-card" id="units">
+                <img src="dojo-units.jpg" alt="Dojo Blast 10K Units">
 
-<div class="card-content">
+                <div class="product-info">
+                    <h3>Dojo Blast 10K Units</h3>
 
-<h3>Dojo Blast Pods</h3>
+                    <div class="price">£6.99 each</div>
 
-<div class="price">£4.99</div>
+                    <div class="offer">
+                        🔥 Any 3 for £12.99
+                    </div>
 
-<div class="deal">
-🔥 Any 7 For £20
-</div>
+                    #
+                        Add To Basket
+                    </a>
+                </div>
+            </div>
 
-<a href="dojo-pods.html" class="shop-btn">
-Shop Now
-</a>
+            <!-- Dojo Pods -->
+            <div class="product-card" id="pods">
+                <img src="dojo-pods.jpg" alt="Dojo Blast Pods">
 
-</div>
+                <div class="product-info">
+                    <h3>Dojo Blast Pods</h3>
 
-</div>
+                    <div class="price">£4.99 each</div>
 
-<div class="card">
+                    <div class="offer">
+                        🔥 Any 6 for £20
+                    </div>
 
-<img src="ivg.jpg" alt="IVG Smart Max">
+                    #
+                        Add To Basket
+                    </a>
+                </div>
+            </div>
 
-<div class="card-content">
+            <!-- IVG -->
+            <div class="product-card" id="ivg">
+                <img src="ivg.jpg" alt="IVG Smart Max">
 
-<h3>IVG Smart Max</h3>
+                <div class="product-info">
+                    <h3>IVG Smart Max</h3>
 
-<div class="price">£4.99</div>
+                    <div class="price">£4.99</div>
 
-<div class="deal">
-⚡ Half Price Sale
-</div>
+                    <div class="offer">
+                        Premium Rechargeable Kit
+                    </div>
 
-<a href="ivg.html" class="shop-btn">
-Shop Now
-</a>
+                    #
+                        Add To Basket
+                    </a>
+                </div>
+            </div>
 
-</div>
+        </div>
 
-</div>
+    </div>
+</section>
 
+<!-- Contact -->
+<section class="contact" id="contact">
+    <div class="container">
+        <h2 class="section-title">Contact Us</h2>
+
+        <p>
+            Need help with your order? Get in touch with our customer support team.
+        </p>
+    </div>
 </section>
 
 <footer>
-
-<p><strong>Vapes4All</strong></p>
-
-<p>18+ Only • DPD Tracked Delivery</p>
-
-<p>Free Delivery On Orders £23+</p>
-
+    <p>© 2026 Vape Store. All Rights Reserved.</p>
 </footer>
 
-</div>
-
 <script>
-
-function allowEntry(){
-
-localStorage.setItem(
-'vapes4all_verified',
-'true'
-);
-
-document.getElementById('ageGate').style.display='none';
-document.getElementById('site').style.display='block';
-
+function enterSite() {
+    document.getElementById('agePopup').style.display = 'none';
 }
 
-if(localStorage.getItem('vapes4all_verified')==='true'){
-allowEntry();
+function leaveSite() {
+    window.location.href = 'https://www.google.com';
 }
-
 </script>
 
 </body>
