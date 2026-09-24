@@ -98,7 +98,6 @@
             cursor: pointer; margin-top: 1rem; transition: 0.2s;
         }
         .checkout-btn:hover { transform: scale(1.01); }
-        .checkout-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
         .back-btn {
             background: transparent; color: var(--muted); border: none;
@@ -183,7 +182,7 @@
                 <label for="notes">Delivery Notes (Optional)</label>
                 <textarea id="notes" rows="2"></textarea>
             </div>
-            <button type="submit" class="checkout-btn" id="payBtn">Proceed to Payment</button>
+            <button type="submit" class="checkout-btn">Proceed to Payment</button>
         </form>
     </div>
 
@@ -344,38 +343,13 @@ function hideForm() {
     document.getElementById('basket-totals').style.display = 'block';
 }
 
-document.getElementById('orderForm').addEventListener('submit', async e => {
+document.getElementById('orderForm').addEventListener('submit', e => {
     e.preventDefault();
-    const btn = document.getElementById('payBtn');
-    btn.disabled = true;
-    btn.textContent = 'Processing...';
-
-    const subtotal = basket.reduce((sum, item) => {
-        const qty = item.qty;
-        if (qty >= POD_SPECIAL_QTY) {
-            const setsOf7 = Math.floor(qty / POD_SPECIAL_QTY);
-            const rem = qty % POD_SPECIAL_QTY;
-            return sum + setsOf7 * POD_SPECIAL_PRICE + rem * POD_PRICE_EACH;
-        }
-        return sum + qty * POD_PRICE_EACH;
-    }, 0);
-    const freeDel = subtotal >= FREE_DELIVERY_THRESHOLD;
-    const delCost = freeDel ? 0 : DELIVERY_FEE;
-    const grandTotal = Math.round((subtotal + delCost) * 100);
-
-    try {
-        // For full Stripe checkout session you'd create a session on your server
-        // This is ready — when you have backend we connect it
-        basket = [];
-        localStorage.setItem('vapes4all_basket', JSON.stringify(basket));
-        updateNavCount();
-        document.getElementById('checkoutForm').classList.remove('active');
-        document.getElementById('successBox').classList.add('show');
-    } catch (err) {
-        alert('Something went wrong — please try again');
-        btn.disabled = false;
-        btn.textContent = 'Proceed to Payment';
-    }
+    basket = [];
+    localStorage.setItem('vapes4all_basket', JSON.stringify(basket));
+    updateNavCount();
+    document.getElementById('checkoutForm').classList.remove('active');
+    document.getElementById('successBox').classList.add('show');
 });
 
 document.addEventListener('DOMContentLoaded', function() {
