@@ -13,7 +13,7 @@
         .section { background: #1a1a2e; padding: 25px; border-radius: 12px; margin-bottom: 20px; }
         .item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #333; align-items: center; }
         .total { font-size: 1.3rem; font-weight: bold; color: #ff9500; padding-top: 15px; border: none; }
-        input { width: 100%; padding: 12px; margin: 8px 0; border: none; border-radius: 8px; background: #2a2a4e; color: #fff; font-size: 1rem; }
+        input, textarea { width: 100%; padding: 12px; margin: 8px 0; border: none; border-radius: 8px; background: #2a2a4e; color: #fff; font-size: 1rem; }
         button { width: 100%; padding: 15px; background: #ff9500; color: #000; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 10px; }
         button:disabled { opacity: 0.5; cursor: not-allowed; }
         .success { display: none; text-align: center; padding: 40px 20px; }
@@ -58,7 +58,7 @@
             <input type="text" id="name" placeholder="Full Name" required>
             <input type="email" id="email" placeholder="Email — receipt sent here" required>
             <input type="tel" id="phone" placeholder="Phone — DPD tracking sent here" required>
-            <input type="text" id="address" placeholder="Full Address & Postcode" required>
+            <textarea id="address" placeholder="Full Address — just type normally, exactly as you'd write it" rows="3" required></textarea>
             
             <button id="payBtn">Pay Now</button>
             <div class="cards">
@@ -167,7 +167,7 @@ document.getElementById('payBtn').addEventListener('click', async () => {
     const address = document.getElementById('address').value.trim();
 
     if (!name || !email || !phone || !address) {
-        alert('Please fill in ALL your details');
+        alert('Please fill in all your details');
         return;
     }
     if (basket.length === 0) {
@@ -180,35 +180,27 @@ document.getElementById('payBtn').addEventListener('click', async () => {
     document.getElementById('payBtn').textContent = 'Taking you to payment...';
 
     try {
-        const response = await fetch('https://api.stripe.com/v1/checkout/sessions', {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer pk_live_51UItZoFJdqaVBhtaeXjI9HTTkFIStttRqqoJqmnzD4ZVixfspc7EdlR3Q3vTCdgVCyORwfSyKfgro9sp9PfUHZRk00WOBKSQOG',
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: new URLSearchParams({
-                payment_method_types: ['card'],
-                mode: 'payment',
-                success_url: window.location.origin + window.location.pathname + '?success=1',
-                cancel_url: window.location.href,
-                customer_email: email,
-                'line_items[0][price_data][currency]': 'gbp',
-                'line_items[0][price_data][product_data][name]': 'Vapes4All Order',
-                'line_items[0][price_data][unit_amount]': Math.round(total * 100),
-                'line_items[0][quantity]': 1,
-                'metadata[customer_name]': name,
-                'metadata[customer_phone]': phone,
-                'metadata[customer_address]': address,
-                'metadata[order_items]': basket.map(i => `${i.name} × ${i.qty}`).join(' | ')
-            })
+        const session = await stripe.redirectToCheckout({
+            lineItems: [{
+                priceData: {
+                    currency: 'gbp',
+                    productData: {
+                        name: 'Vapes4All Order',
+                        description: basket.map(i => `${i.name} × ${i.qty}`).join(', ')
+                    },
+                    unitAmount: Math.round(total * 100)
+                },
+                quantity: 1
+            }],
+            mode: 'payment',
+            successUrl: window.location.origin + window.location.pathname + '?success=1',
+            cancelUrl: window.location.href,
+            customerEmail: email
         });
 
-        const result = await response.json();
-        if (result.error) throw new Error(result.error.message);
-        
-        window.location.href = result.url;
+        if (session.error) throw new Error(session.error.message);
     } catch (err) {
-        alert('Something went wrong: ' + err.message + '\n\nPlease try again or refresh the page.');
+        alert('Error: ' + err.message);
         document.getElementById('payBtn').disabled = false;
         document.getElementById('payBtn').textContent = 'Pay Now';
     }
