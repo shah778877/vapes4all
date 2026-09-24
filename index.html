@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Vapes4All | Premium Vapes UK</title>
 
 <style>
@@ -19,9 +20,14 @@ background:#f8f9fb;
 color:#222;
 }
 
+/* AGE GATE */
+
 .age-overlay{
 position:fixed;
-inset:0;
+top:0;
+left:0;
+width:100%;
+height:100%;
 background:rgba(255,255,255,.98);
 display:flex;
 justify-content:center;
@@ -30,42 +36,46 @@ z-index:9999;
 }
 
 .age-box{
-background:white;
+background:#fff;
 padding:40px;
 border-radius:20px;
 max-width:500px;
+width:90%;
 text-align:center;
-box-shadow:0 10px 30px rgba(0,0,0,.15);
+box-shadow:0 15px 40px rgba(0,0,0,.15);
 }
 
 .age-box h2{
+font-size:32px;
 color:#ff9500;
 margin-bottom:15px;
-font-size:32px;
 }
 
 .age-box p{
-margin-bottom:20px;
-color:#555;
+margin-bottom:25px;
+line-height:1.6;
+color:#666;
 }
 
 .age-btn{
-padding:14px 28px;
+padding:14px 24px;
 border:none;
-border-radius:10px;
 cursor:pointer;
+border-radius:10px;
 font-weight:bold;
 margin:8px;
 }
 
-.enter{
+.enter-btn{
 background:#ff9500;
 color:white;
 }
 
-.exit{
+.exit-btn{
 background:#ddd;
 }
+
+/* SITE */
 
 #site{
 display:none;
@@ -73,10 +83,10 @@ display:none;
 
 header{
 background:white;
+box-shadow:0 2px 10px rgba(0,0,0,.08);
 position:sticky;
 top:0;
 z-index:100;
-box-shadow:0 2px 10px rgba(0,0,0,.08);
 }
 
 .nav{
@@ -92,15 +102,24 @@ flex-wrap:wrap;
 .logo{
 font-size:34px;
 font-weight:bold;
-color:#ff9500;
 text-decoration:none;
+color:#ff9500;
+}
+
+.nav-links{
+display:flex;
+gap:20px;
+flex-wrap:wrap;
 }
 
 .nav-links a{
 text-decoration:none;
 color:#333;
 font-weight:bold;
-margin-left:20px;
+}
+
+.nav-links a:hover{
+color:#ff9500;
 }
 
 .banner{
@@ -112,13 +131,13 @@ font-weight:bold;
 }
 
 .hero{
-padding:70px 20px;
 text-align:center;
+padding:80px 20px;
 }
 
 .hero h1{
-font-size:60px;
-margin-bottom:15px;
+font-size:58px;
+margin-bottom:20px;
 }
 
 .hero p{
@@ -129,9 +148,9 @@ color:#666;
 .products{
 max-width:1300px;
 margin:auto;
-padding:40px 20px;
+padding:30px 20px 60px;
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
 gap:30px;
 }
 
@@ -140,11 +159,16 @@ background:white;
 border-radius:20px;
 overflow:hidden;
 box-shadow:0 10px 25px rgba(0,0,0,.08);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
 }
 
 .card img{
 width:100%;
-height:300px;
+height:320px;
 object-fit:contain;
 padding:20px;
 background:white;
@@ -155,7 +179,7 @@ padding:25px;
 text-align:center;
 }
 
-.card h3{
+.card-content h3{
 font-size:26px;
 margin-bottom:10px;
 }
@@ -175,49 +199,49 @@ margin-bottom:20px;
 
 .shop-btn{
 display:inline-block;
+padding:14px 30px;
 background:#ff9500;
 color:white;
-padding:14px 30px;
-border-radius:10px;
-text-decoration:none;
 font-weight:bold;
+text-decoration:none;
+border-radius:10px;
 }
 
 footer{
 background:white;
-margin-top:50px;
+margin-top:40px;
 padding:40px;
 text-align:center;
 color:#666;
 }
 
-.footer-links{
-margin-top:15px;
-}
-
-.footer-links a{
-text-decoration:none;
-margin:0 10px;
-color:#666;
+footer p{
+margin:5px 0;
 }
 
 @media(max-width:768px){
 
 .hero h1{
-font-size:40px;
+font-size:38px;
+}
+
+.logo{
+font-size:28px;
 }
 
 .nav{
 justify-content:center;
-gap:10px;
+gap:15px;
 }
 
 }
 
 </style>
-</head>
 
+</head>
 <body>
+
+<!-- AGE VERIFICATION -->
 
 <div class="age-overlay" id="ageGate">
 
@@ -226,20 +250,22 @@ gap:10px;
 <h2>🔞 Age Verification</h2>
 
 <p>
-You must be 18 years old or over to enter this website.
+You must be 18 years old or over to enter this website and purchase nicotine products.
 </p>
 
-<button class="age-btn enter" onclick="allowEntry()">
+<button class="age-btn enter-btn" onclick="allowEntry()">
 I AM 18+
 </button>
 
-<button class="age-btn exit" onclick="location.href='https://google.com'">
+<button class="age-btn exit-btn" onclick="window.location.href='https://www.google.com'">
 EXIT
 </button>
 
 </div>
 
 </div>
+
+<!-- SITE -->
 
 <div id="site">
 
@@ -281,7 +307,7 @@ Quality Products • DPD Tracked Delivery • 18+ Only
 
 <div class="card">
 
-dojo-units.jpg
+<img src="dojo-units.jpg" alt="Dojo Blast 10K Units">
 
 <div class="card-content">
 
@@ -293,7 +319,7 @@ dojo-units.jpg
 🔥 Any 3 For £12
 </div>
 
-<a class="shop-btn" href="dojo-units.html">
+<a href="dojo-units.html" class="shop-btn">
 Shop Now
 </a>
 
@@ -303,7 +329,7 @@ Shop Now
 
 <div class="card">
 
-dojo-pods.jpg
+<img src="dojo-pods.jpg" alt="Dojo Blast Pods">
 
 <div class="card-content">
 
@@ -315,7 +341,7 @@ dojo-pods.jpg
 🔥 Any 7 For £20
 </div>
 
-<a class="shop-btn" href="dojo-pods.html">
+<a href="dojo-pods.html" class="shop-btn">
 Shop Now
 </a>
 
@@ -325,7 +351,7 @@ Shop Now
 
 <div class="card">
 
-ivg.jpg
+<img src="ivg.jpg" alt="IVG Smart Max">
 
 <div class="card-content">
 
@@ -337,7 +363,7 @@ ivg.jpg
 ⚡ Half Price Sale
 </div>
 
-<a class="shop-btn" href="ivg.html">
+<a href="ivg.html" class="shop-btn">
 Shop Now
 </a>
 
@@ -349,16 +375,11 @@ Shop Now
 
 <footer>
 
-<h3>Vapes4All</h3>
+<p><strong>Vapes4All</strong></p>
 
 <p>18+ Only • DPD Tracked Delivery</p>
 
-<div class="footer-links">
-#Privacy</a>
-#Delivery</a>
-#Returns</a>
-#Terms</a>
-</div>
+<p>Free Delivery On Orders £23+</p>
 
 </footer>
 
@@ -369,16 +390,16 @@ Shop Now
 function allowEntry(){
 
 localStorage.setItem(
-"vapes4all_verified",
-"true"
+'vapes4all_verified',
+'true'
 );
 
-document.getElementById("ageGate").style.display="none";
-document.getElementById("site").style.display="block";
+document.getElementById('ageGate').style.display='none';
+document.getElementById('site').style.display='block';
 
 }
 
-if(localStorage.getItem("vapes4all_verified")==="true"){
+if(localStorage.getItem('vapes4all_verified')==='true'){
 allowEntry();
 }
 
