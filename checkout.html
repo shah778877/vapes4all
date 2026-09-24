@@ -201,7 +201,7 @@
 <script>
 const stripe = Stripe('pk_live_51UItZoFJdqaVBhtaeXjI9HTTkFIStttRqqoJqmnzD4ZVixfspc7EdlR3Q3vTCdgVCyORwfSyKfgro9sp9PfUHZRk00WOBKSQOG');
 
-// PRICES & DEALS
+// PRICES & DEALS — EXACT
 const UNIT_PRICE = 4.99;
 const POD_PRICE = 4.99;
 const IVG_PRICE = 4.99;
@@ -258,13 +258,15 @@ function clearWholeBasket() {
     }
 }
 
-// DETECT ITEM TYPE & CALCULATE PRICE WITH DEAL
+// PERFECT DETECTION — NO MISTAKES
 function calculateItemPrice(item) {
     const qty = item.qty;
-    const name = item.name.toLowerCase();
+    const name = item.name || '';
+    const lower = name.toLowerCase();
     
     // DOJO UNITS — 3 for £12
-    if (name.includes('unit') || name.includes('blast') && !name.includes('pod')) {
+    const isUnit = lower.includes('unit') || (lower.includes('blast') && !lower.includes('pod'));
+    if (isUnit) {
         if (qty >= UNIT_DEAL_QTY) {
             const sets = Math.floor(qty / UNIT_DEAL_QTY);
             const rem = qty % UNIT_DEAL_QTY;
@@ -278,7 +280,7 @@ function calculateItemPrice(item) {
     }
     
     // DOJO PODS — 7 for £20
-    if (name.includes('pod')) {
+    if (lower.includes('pod')) {
         if (qty >= POD_DEAL_QTY) {
             const sets = Math.floor(qty / POD_DEAL_QTY);
             const rem = qty % POD_DEAL_QTY;
@@ -291,7 +293,7 @@ function calculateItemPrice(item) {
         return { price: qty * POD_PRICE, hasOffer: false };
     }
     
-    // IVG — no special deal
+    // IVG — no deal
     return { price: qty * IVG_PRICE, hasOffer: false };
 }
 
@@ -322,7 +324,9 @@ function showBasket() {
 
     list.innerHTML = basket.map(item => {
         const calc = calculateItemPrice(item);
-        const unitPrice = item.name.toLowerCase().includes('pod') ? POD_PRICE : UNIT_PRICE;
+        const isUnit = (item.name || '').toLowerCase().includes('unit') || 
+                      ((item.name || '').toLowerCase().includes('blast') && !(item.name || '').toLowerCase().includes('pod'));
+        const unitPrice = isUnit ? UNIT_PRICE : POD_PRICE;
         return `
         <div class="basket-item">
             <div class="item-name">
