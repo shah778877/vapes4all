@@ -201,7 +201,7 @@
 <script>
 const stripe = Stripe('pk_live_51UItZoFJdqaVBhtaeXjI9HTTkFIStttRqqoJqmnzD4ZVixfspc7EdlR3Q3vTCdgVCyORwfSyKfgro9sp9PfUHZRk00WOBKSQOG');
 
-// PRICES & DEALS — EXACT
+// PRICES & DEALS — PERFECT MATCH
 const UNIT_PRICE = 4.99;
 const POD_PRICE = 4.99;
 const IVG_PRICE = 4.99;
@@ -258,14 +258,13 @@ function clearWholeBasket() {
     }
 }
 
-// PERFECT DETECTION — NO MISTAKES
+// ✅ DETECTION — MATCHES ACTUAL NAMES EXACTLY
 function calculateItemPrice(item) {
     const qty = item.qty;
-    const name = item.name || '';
-    const lower = name.toLowerCase();
+    const lower = (item.name || '').toLowerCase();
     
-    // DOJO UNITS — 3 for £12
-    const isUnit = lower.includes('unit') || (lower.includes('blast') && !lower.includes('pod'));
+    // DOJO 10K UNITS — matches "Dojo 10K" AND NOT "Pod"
+    const isUnit = lower.includes('dojo 10k') && !lower.includes('pod');
     if (isUnit) {
         if (qty >= UNIT_DEAL_QTY) {
             const sets = Math.floor(qty / UNIT_DEAL_QTY);
@@ -279,7 +278,7 @@ function calculateItemPrice(item) {
         return { price: qty * UNIT_PRICE, hasOffer: false };
     }
     
-    // DOJO PODS — 7 for £20
+    // DOJO PODS — matches "Pod"
     if (lower.includes('pod')) {
         if (qty >= POD_DEAL_QTY) {
             const sets = Math.floor(qty / POD_DEAL_QTY);
@@ -324,8 +323,8 @@ function showBasket() {
 
     list.innerHTML = basket.map(item => {
         const calc = calculateItemPrice(item);
-        const isUnit = (item.name || '').toLowerCase().includes('unit') || 
-                      ((item.name || '').toLowerCase().includes('blast') && !(item.name || '').toLowerCase().includes('pod'));
+        const lower = (item.name || '').toLowerCase();
+        const isUnit = lower.includes('dojo 10k') && !lower.includes('pod');
         const unitPrice = isUnit ? UNIT_PRICE : POD_PRICE;
         return `
         <div class="basket-item">
