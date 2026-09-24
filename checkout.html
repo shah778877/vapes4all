@@ -201,9 +201,17 @@
 <script>
 const stripe = Stripe('pk_live_51UItZoFJdqaVBhtaeXjI9HTTkFIStttRqqoJqmnzD4ZVixfspc7EdlR3Q3vTCdgVCyORwfSyKfgro9sp9PfUHZRk00WOBKSQOG');
 
-const POD_PRICE_EACH = 4.99;
-const POD_SPECIAL_QTY = 7;
-const POD_SPECIAL_PRICE = 20.00;
+// PRICES & DEALS
+const UNIT_PRICE = 4.99;
+const POD_PRICE = 4.99;
+const IVG_PRICE = 4.99;
+
+const UNIT_DEAL_QTY = 3;
+const UNIT_DEAL_PRICE = 12.00;
+
+const POD_DEAL_QTY = 7;
+const POD_DEAL_PRICE = 20.00;
+
 const FREE_DELIVERY_THRESHOLD = 23;
 const DELIVERY_FEE = 2.99;
 
@@ -250,17 +258,41 @@ function clearWholeBasket() {
     }
 }
 
+// DETECT ITEM TYPE & CALCULATE PRICE WITH DEAL
 function calculateItemPrice(item) {
     const qty = item.qty;
-    if (qty >= POD_SPECIAL_QTY) {
-        const setsOf7 = Math.floor(qty / POD_SPECIAL_QTY);
-        const remainder = qty % POD_SPECIAL_QTY;
-        return {
-            price: setsOf7 * POD_SPECIAL_PRICE + remainder * POD_PRICE_EACH,
-            hasOffer: true
-        };
+    const name = item.name.toLowerCase();
+    
+    // DOJO UNITS — 3 for £12
+    if (name.includes('unit') || name.includes('blast') && !name.includes('pod')) {
+        if (qty >= UNIT_DEAL_QTY) {
+            const sets = Math.floor(qty / UNIT_DEAL_QTY);
+            const rem = qty % UNIT_DEAL_QTY;
+            return {
+                price: sets * UNIT_DEAL_PRICE + rem * UNIT_PRICE,
+                hasOffer: true,
+                offerText: `🔥 ${UNIT_DEAL_QTY} for £${UNIT_DEAL_PRICE} DEAL APPLIED`
+            };
+        }
+        return { price: qty * UNIT_PRICE, hasOffer: false };
     }
-    return { price: qty * POD_PRICE_EACH, hasOffer: false };
+    
+    // DOJO PODS — 7 for £20
+    if (name.includes('pod')) {
+        if (qty >= POD_DEAL_QTY) {
+            const sets = Math.floor(qty / POD_DEAL_QTY);
+            const rem = qty % POD_DEAL_QTY;
+            return {
+                price: sets * POD_DEAL_PRICE + rem * POD_PRICE,
+                hasOffer: true,
+                offerText: `🔥 ${POD_DEAL_QTY} for £${POD_DEAL_PRICE} DEAL APPLIED`
+            };
+        }
+        return { price: qty * POD_PRICE, hasOffer: false };
+    }
+    
+    // IVG — no special deal
+    return { price: qty * IVG_PRICE, hasOffer: false };
 }
 
 function showBasket() {
@@ -290,12 +322,13 @@ function showBasket() {
 
     list.innerHTML = basket.map(item => {
         const calc = calculateItemPrice(item);
+        const unitPrice = item.name.toLowerCase().includes('pod') ? POD_PRICE : UNIT_PRICE;
         return `
         <div class="basket-item">
             <div class="item-name">
                 <h3>${item.name}</h3>
-                <p>£${POD_PRICE_EACH.toFixed(2)} each</p>
-                ${calc.hasOffer ? `<p class="offer-tag">🔥 7 for £20 DEAL APPLIED</p>` : ''}
+                <p>£${unitPrice.toFixed(2)} each</p>
+                ${calc.hasOffer ? `<p class="offer-tag">${calc.offerText}</p>` : ''}
             </div>
             <div class="qty-box">
                 <button class="qty-btn" onclick="changeQty('${item.name.replace(/'/g, "\\'")}', -1)">−</button>
