@@ -1,22 +1,245 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>IVG Test</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IVG 10K | Vapes4All</title>
+
 <style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI,sans-serif;
+}
+
 body{
-background:#111;
+background:#0a0a12;
 color:white;
-font-family:Arial;
-padding:50px;
+}
+
+header{
+background:#111;
+padding:20px;
+}
+
+.logo{
+color:#ff9500;
+font-size:28px;
+font-weight:bold;
+text-decoration:none;
+}
+
+nav{
+margin-top:10px;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin-right:15px;
+}
+
+.hero{
+text-align:center;
+padding:50px 20px;
+}
+
+.hero h1{
+color:#3b82f6;
+font-size:42px;
+margin-bottom:10px;
+}
+
+.hero p{
+color:#9ca3af;
+}
+
+.sale{
+margin-top:20px;
+display:inline-block;
+padding:10px 20px;
+background:#1a1a2e;
+border:1px solid #3b82f6;
+border-radius:30px;
+color:#3b82f6;
+font-weight:bold;
+}
+
+.products{
+max-width:1200px;
+margin:auto;
+padding:30px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.card{
+background:#161625;
+padding:25px;
+border-radius:15px;
+text-align:center;
+}
+
+.card h3{
+margin-bottom:15px;
+}
+
+.price{
+font-size:28px;
+font-weight:bold;
+color:#ff9500;
+margin-bottom:15px;
+}
+
+.old{
+text-decoration:line-through;
+color:#999;
+font-size:16px;
+}
+
+button{
+width:100%;
+padding:12px;
+background:#ff9500;
+border:none;
+border-radius:8px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.checkout{
+text-align:center;
+margin:30px;
+}
+
+.checkout a{
+display:inline-block;
+padding:15px 30px;
+background:#22c55e;
+color:white;
+text-decoration:none;
+border-radius:10px;
+font-weight:bold;
+}
+
+footer{
+text-align:center;
+padding:30px;
+color:#9ca3af;
 }
 </style>
+
 </head>
 
 <body>
 
-<h1>IVG PAGE WORKING ✅</h1>
+<header>
 
-<p>If you can see this text, the file is loading correctly.</p>
+<a href="index.html" class="logo">Vapes4All</a>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="dojo-units.html">10K Units</a>
+<a href="dojo-pods.html">10K Pods</a>
+<a href="ivg.html">IVG 10K</a>
+<a href="checkout.html">Basket</a>
+<a href="contact.html">Contact</a>
+</nav>
+
+</header>
+
+<section class="hero">
+
+<h1>IVG 10K Collection</h1>
+
+<p>Premium Disposables • Massive Flavours</p>
+
+<div class="sale">
+⚡ HALF PRICE SALE - £4.99
+</div>
+
+</section>
+
+<section class="products">
+
+<div class="card">
+<h3>Very Cherry</h3>
+<div class="price">£4.99 <span class="old">£9.99</span></div>
+<button onclick="addToBasket('IVG 10K - Very Cherry')">Add To Basket</button>
+</div>
+
+<div class="card">
+<h3>Pro Blue</h3>
+<div class="price">£4.99 <span class="old">£9.99</span></div>
+<button onclick="addToBasket('IVG 10K - Pro Blue')">Add To Basket</button>
+</div>
+
+<div class="card">
+<h3>Blue Razz Ice</h3>
+<div class="price">£4.99 <span class="old">£9.99</span></div>
+<button onclick="addToBasket('IVG 10K - Blue Razz Ice')">Add To Basket</button>
+</div>
+
+<div class="card">
+<h3>Pink Lemonade</h3>
+<div class="price">£4.99 <span class="old">£9.99</span></div>
+<button onclick="addToBasket('IVG 10K - Pink Lemonade')">Add To Basket</button>
+</div>
+
+<div class="card">
+<h3>Watermelon</h3>
+<div class="price">£4.99 <span class="old">£9.99</span></div>
+<button onclick="addToBasket('IVG 10K - Watermelon')">Add To Basket</button>
+</div>
+
+<div class="card">
+<h3>Strawberry Ice</h3>
+<div class="price">£4.99 <span class="old">£9.99</span></div>
+<button onclick="addToBasket('IVG 10K - Strawberry Ice')">Add To Basket</button>
+</div>
+
+</section>
+
+<div class="checkout">
+<a href="checkout.html">View Basket & Checkout</a>
+</div>
+
+<footer>
+Vapes4All © 2025-2026
+</footer>
+
+<script>
+
+function addToBasket(name){
+
+let basket =
+JSON.parse(localStorage.getItem('vapes4all_basket') || '[]');
+
+const existing =
+basket.find(item => item.name === name);
+
+if(existing){
+existing.qty++;
+}else{
+basket.push({
+name:name,
+price:4.99,
+qty:1
+});
+}
+
+localStorage.setItem(
+'vapes4all_basket',
+JSON.stringify(basket)
+);
+
+alert('Added to basket ✅');
+
+}
+
+</script>
 
 </body>
 </html>
