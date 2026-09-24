@@ -13,21 +13,417 @@
         }
         body { background: var(--bg); color: var(--text); line-height: 1.6; }
 
-        /* AGE GATE */
+        /* AGE GATE — LOADS FIRST, NO FLICKER */
         .age-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); display: flex; align-items: center; justify-content: center;
-            z-index: 9999;
+            background: rgba(0,0,0,0.98); display: flex; align-items: center; justify-content: center;
+            z-index: 99999;
         }
         .age-box {
             background: var(--card); padding: 3rem 2.5rem; border-radius: 16px; text-align: center;
             max-width: 420px; width: 90%; border-top: 4px solid var(--accent);
         }
         .age-box h2 { font-size: 1.8rem; color: var(--accent); margin-bottom: 1rem; }
-        .age-box p { color: var(--muted); margin-bottom: 2rem; font-size: 1.1rem; }
+        .age-box p { color: var(--muted); margin-bottom: 2rem; font-size: 1.1rem; line-height: 1.7; }
         .age-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
         .age-btn {
             padding: 0.9rem 2rem; border-radius: 8px; font-size: 1rem; font-weight: 700;
             border: none; cursor: pointer; transition: 0.2s; min-width: 140px;
         }
-        .age-btn.yes { background: var(--accent);
+        .age-btn.yes { background: var(--accent); color: #000; }
+        .age-btn.yes:hover { transform: scale(1.05); }
+        .age-btn.no { background: #333; color: #999; }
+
+        /* SITE HIDDEN UNTIL AGE CONFIRMED */
+        #siteContent { display: none; }
+        #siteContent.verified { display: block; }
+
+        header { background: rgba(0,0,0,0.4); padding: 1rem 5%; border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; z-index: 100; }
+        .nav-wrap { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .logo { font-size: 1.6rem; font-weight: 900; color: var(--accent); text-decoration: none; }
+        nav { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+        nav a { color: var(--text); text-decoration: none; padding: 0.5rem 0.8rem; font-weight: 500; }
+        nav a:hover, nav a.active { color: var(--accent); }
+        .basket-link { position: relative; }
+        .basket-count {
+            position: absolute; top: -8px; right: -8px;
+            background: var(--red); color: white; font-size: 11px; font-weight: bold;
+            min-width: 18px; height: 18px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .basket-count.hidden { display: none; }
+
+        .page-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 5%; }
+        h1 { font-size: 1.8rem; margin-bottom: 0.5rem; color: var(--accent); }
+        .dpd-note { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+        .dpd-note strong { color: var(--green); }
+        .item-count { color: var(--muted); margin-bottom: 1rem; }
+        .clear-row { text-align: right; margin-bottom: 1rem; }
+        .clear-btn { background: transparent; color: var(--red); border: none; cursor: pointer; font-weight: 600; font-size: 0.9rem; }
+
+        .empty-state { text-align: center; padding: 4rem 2rem; color: var(--muted); }
+        .shop-btn { display: inline-block; margin-top: 1.5rem; background: var(--accent); color: #000; padding: 0.8rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; border: none; cursor: pointer; }
+
+        .basket-item {
+            background: var(--card); border-radius: 12px; padding: 1.2rem 1.5rem; margin-bottom: 0.8rem;
+            display: grid; grid-template-columns: 2fr 130px 110px 90px; gap: 1rem; align-items: center;
+        }
+        .item-name h3 { font-size: 1rem; margin-bottom: 0.2rem; }
+        .item-name p { color: var(--muted); font-size: 0.85rem; }
+        .offer-tag { color: var(--green); font-weight: 700; font-size: 0.85rem; margin-top: 0.25rem; }
+
+        .qty-box { display: flex; align-items: center; gap: 0.5rem; }
+        .qty-btn {
+            background: rgba(255,255,255,0.1); border: none; color: white;
+            width: 28px; height: 28px; border-radius: 6px; font-size: 1rem; cursor: pointer;
+        }
+        .qty-val { font-weight: 700; min-width: 24px; text-align: center; }
+
+        .item-total { font-weight: 700; text-align: right; }
+        .remove-btn {
+            background: var(--red); color: white; border: none; padding: 0.5rem 0.6rem;
+            border-radius: 6px; cursor: pointer; font-weight: 600; width: 100%;
+        }
+
+        .summary { background: var(--card); border-radius: 12px; padding: 1.8rem; margin: 1.5rem 0; }
+        .sum-row {
+            display: flex; justify-content: space-between; padding: 0.7rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .sum-row.total { border-bottom: none; font-size: 1.3rem; font-weight: 900; color: var(--accent); padding-top: 0.8rem; }
+        .free-del { color: var(--green); margin: 0.8rem 0; font-weight: 600; }
+
+        .payment-methods {
+            background: var(--card); border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0; text-align: center;
+        }
+        .payment-methods h3 { font-size: 0.95rem; color: var(--muted); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px; }
+        .cards-row {
+            display: flex; flex-wrap: wrap; gap: 0.7rem; justify-content: center;
+        }
+        .card-badge {
+            padding: 0.6rem 1rem; border-radius: 8px; font-weight: 700; font-size: 0.85rem;
+        }
+        .visa { background: rgba(26,35,126,0.2); color: #aeb8ff; }
+        .mastercard { background: rgba(235,0,27,0.2); color: #ff9999; }
+        .maestro { background: rgba(0,153,57,0.2); color: #99ffb3; }
+        .amex { background: rgba(0,123,193,0.2); color: #99ddff; }
+        .stripe-note { margin-top: 1rem; font-size: 0.8rem; color: var(--muted); }
+
+        .checkout-form { background: var(--card); border-radius: 12px; padding: 2rem; margin-top: 2rem; display: none; }
+        .checkout-form.active { display: block; }
+        .checkout-form h2 { font-size: 1.4rem; margin-bottom: 1.5rem; color: var(--accent); }
+        .form-row { margin-bottom: 1.2rem; }
+        .form-row label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+        .form-row input, .form-row textarea {
+            width: 100%; padding: 0.9rem 1rem; border-radius: 8px; border: none;
+            background: rgba(255,255,255,0.08); color: white; font-size: 1rem;
+        }
+        .form-row input:focus, .form-row textarea:focus { outline: 2px solid var(--accent); }
+        .form-row.half { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+        .checkout-btn {
+            width: 100%; background: var(--accent); color: #000; border: none;
+            padding: 1rem; border-radius: 8px; font-size: 1.05rem; font-weight: 900;
+            cursor: pointer; margin-top: 1rem; transition: 0.2s;
+        }
+        .checkout-btn:hover { transform: scale(1.01); }
+
+        .back-btn {
+            background: transparent; color: var(--muted); border: none;
+            padding: 0.5rem 0; cursor: pointer; margin-bottom: 1rem; font-size: 0.95rem;
+        }
+        .back-btn:hover { color: var(--text); }
+
+        .success-box { text-align: center; padding: 2rem; display: none; }
+        .success-box.show { display: block; }
+        .success-box h2 { color: var(--green); margin-bottom: 1rem; }
+
+        footer { text-align: center; padding: 2rem; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.1); margin-top: 3rem; font-size: 0.9rem; }
+
+        @media (max-width: 700px) {
+            .basket-item { grid-template-columns: 1fr; gap: 0.8rem; }
+            .form-row.half { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- AGE GATE — FIRST, NO FLICKER -->
+<div class="age-overlay" id="ageGate">
+    <div class="age-box">
+        <h2>🔞 Age Verification</h2>
+        <p>By entering this website you confirm you are 18 years of age or older. This is a legal requirement in the United Kingdom.</p>
+        <div class="age-buttons">
+            <button class="age-btn yes" onclick="confirmAge()">I am 18 or Over</button>
+            <button class="age-btn no" onclick="denyAge()">Under 18</button>
+        </div>
+    </div>
+</div>
+
+<div id="siteContent">
+<header>
+    <div class="nav-wrap">
+        <a href="index.html" class="logo">Vapes4All</a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="dojo-units.html">10K Units</a>
+            <a href="dojo-pods.html">10K Pods</a>
+            <a href="ivg.html">IVG 10K</a>
+            <a href="checkout.html" class="active basket-link">Basket <span class="basket-count hidden" id="navCount">0</span></a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<div class="page-wrap">
+    <h1>Your Basket</h1>
+    <p class="dpd-note">📦 All orders delivered via <strong>DPD Tracked</strong> — fully tracked & signed for</p>
+    <p class="item-count" id="item-count"></p>
+
+    <div class="clear-row" id="clear-zone" style="display:none;">
+        <button class="clear-btn" onclick="clearWholeBasket()">🗑️ Clear Entire Basket</button>
+    </div>
+
+    <div id="basket-list"></div>
+    <div id="basket-totals" style="display:none;"></div>
+
+    <div class="payment-methods">
+        <h3>We Accept</h3>
+        <div class="cards-row">
+            <span class="card-badge visa">Visa</span>
+            <span class="card-badge mastercard">Mastercard</span>
+            <span class="card-badge maestro">Maestro</span>
+            <span class="card-badge amex">Amex</span>
+        </div>
+        <p class="stripe-note">Secure payments powered by Stripe</p>
+    </div>
+
+    <div class="checkout-form" id="checkoutForm">
+        <button class="back-btn" onclick="hideForm()">← Back to Basket</button>
+        <h2>Complete Your Order</h2>
+        <form id="orderForm">
+            <div class="form-row half">
+                <div>
+                    <label for="fullName">Full Name *</label>
+                    <input type="text" id="fullName" required>
+                </div>
+                <div>
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <label for="phone">Phone *</label>
+                <input type="tel" id="phone" required>
+            </div>
+            <div class="form-row">
+                <label for="address">Delivery Address *</label>
+                <textarea id="address" rows="4" required></textarea>
+            </div>
+            <div class="form-row">
+                <label for="notes">Delivery Notes (Optional)</label>
+                <textarea id="notes" rows="2"></textarea>
+            </div>
+            <button type="submit" class="checkout-btn">Pay Now</button>
+        </form>
+    </div>
+
+    <div class="success-box" id="successBox">
+        <h2>✅ Order Confirmed!</h2>
+        <p>Thank you — we'll email your DPD tracking details as soon as your order is dispatched.</p>
+        <br>
+        <a href="index.html" class="shop-btn">Continue Shopping</a>
+    </div>
+</div>
+
+<footer>
+    <p>Vapes4All © 2026 | info@vapes4all.co.uk | 18+ Only</p>
+</footer>
+</div>
+
+<script>
+const stripe = Stripe('pk_live_51UItZoFJdqaVBhtaeXjI9HTTkFIStttRqqoJqmnzD4ZVixfspc7EdlR3Q3vTCdgVCyORwfSyKfgro9sp9PfUHZRk00WOBKSQOG');
+
+// AGE GATE — NO FLICKER
+function confirmAge() {
+    localStorage.setItem('vapes4all_verified', 'true');
+    document.getElementById('ageGate').style.display = 'none';
+    document.getElementById('siteContent').classList.add('verified');
+    showBasket();
+}
+function denyAge() {
+    alert('Sorry, you must be 18 or over to enter this website');
+    window.location.href = 'https://google.com';
+}
+document.addEventListener('DOMContentLoaded', function() {
+    if (localStorage.getItem('vapes4all_verified') === 'true') {
+        confirmAge();
+    }
+});
+
+// PRICING RULES
+const POD_PRICE_EACH = 4.99;
+const POD_SPECIAL_QTY = 7;
+const POD_SPECIAL_PRICE = 20.00;
+const FREE_DELIVERY_THRESHOLD = 23;
+const DELIVERY_FEE = 2.99;
+
+let basket = [];
+
+function loadBasket() {
+    const saved = localStorage.getItem('vapes4all_basket');
+    if (saved) {
+        try { basket = JSON.parse(saved); } catch { basket = []; }
+    }
+}
+
+function saveAndRender() {
+    localStorage.setItem('vapes4all_basket', JSON.stringify(basket));
+    updateNavCount();
+    showBasket();
+}
+
+function updateNavCount() {
+    const total = basket.reduce((s, i) => s + i.qty, 0);
+    const badge = document.getElementById('navCount');
+    badge.textContent = total;
+    if (total > 0) badge.classList.remove('hidden');
+    else badge.classList.add('hidden');
+}
+
+function changeQty(name, delta) {
+    const item = basket.find(i => i.name === name);
+    if (!item) return;
+    item.qty += delta;
+    if (item.qty <= 0) basket = basket.filter(i => i.name !== name);
+    saveAndRender();
+}
+
+function removeOne(name) {
+    basket = basket.filter(i => i.name !== name);
+    saveAndRender();
+}
+
+function clearWholeBasket() {
+    if (confirm('Clear all items from your basket?')) {
+        basket = [];
+        saveAndRender();
+    }
+}
+
+// 7-FOR-£20 CALCULATION
+function calculateItemPrice(item) {
+    const qty = item.qty;
+    if (qty >= POD_SPECIAL_QTY) {
+        const setsOf7 = Math.floor(qty / POD_SPECIAL_QTY);
+        const remainder = qty % POD_SPECIAL_QTY;
+        return {
+            price: setsOf7 * POD_SPECIAL_PRICE + remainder * POD_PRICE_EACH,
+            hasOffer: true
+        };
+    }
+    return { price: qty * POD_PRICE_EACH, hasOffer: false };
+}
+
+function showBasket() {
+    loadBasket();
+    const list = document.getElementById('basket-list');
+    const totals = document.getElementById('basket-totals');
+    const countText = document.getElementById('item-count');
+    const clearZone = document.getElementById('clear-zone');
+    const checkoutForm = document.getElementById('checkoutForm');
+    const successBox = document.getElementById('successBox');
+
+    if (!document.getElementById('siteContent').classList.contains('verified')) return;
+
+    checkoutForm.classList.remove('active');
+    successBox.classList.remove('show');
+
+    if (basket.length === 0) {
+        countText.textContent = '';
+        clearZone.style.display = 'none';
+        list.innerHTML = `<div class="empty-state"><h2>Your basket is empty</h2><a href="index.html" class="shop-btn">Start Shopping</a></div>`;
+        totals.style.display = 'none';
+        return;
+    }
+
+    const totalItems = basket.reduce((s, i) => s + i.qty, 0);
+    countText.textContent = totalItems + ' item' + (totalItems > 1 ? 's' : '') + ' in basket';
+    clearZone.style.display = 'block';
+    totals.style.display = 'block';
+
+    list.innerHTML = basket.map(item => {
+        const calc = calculateItemPrice(item);
+        return `
+        <div class="basket-item">
+            <div class="item-name">
+                <h3>${item.name}</h3>
+                <p>£${POD_PRICE_EACH.toFixed(2)} each</p>
+                ${calc.hasOffer ? `<p class="offer-tag">🔥 7 for £20 DEAL APPLIED</p>` : ''}
+            </div>
+            <div class="qty-box">
+                <button class="qty-btn" onclick="changeQty('${item.name.replace(/'/g, "\\'")}', -1)">−</button>
+                <span class="qty-val">${item.qty}</span>
+                <button class="qty-btn" onclick="changeQty('${item.name.replace(/'/g, "\\'")}', 1)">+</button>
+            </div>
+            <div class="item-total">£${calc.price.toFixed(2)}</div>
+            <button class="remove-btn" onclick="removeOne('${item.name.replace(/'/g, "\\'")}')">Remove</button>
+        </div>
+        `;
+    }).join('');
+
+    const subtotal = basket.reduce((sum, item) => {
+        return sum + calculateItemPrice(item).price;
+    }, 0);
+    
+    const freeDel = subtotal >= FREE_DELIVERY_THRESHOLD;
+    const delCost = freeDel ? 0 : DELIVERY_FEE;
+    const grandTotal = subtotal + delCost;
+
+    totals.innerHTML = `
+        <div class="summary">
+            <div class="sum-row"><span>Subtotal</span><span>£${subtotal.toFixed(2)}</span></div>
+            <div class="sum-row">
+                <span>DPD Tracked Delivery</span>
+                <span>${freeDel ? '<strong style="color:var(--green)">FREE</strong>' : '£' + delCost.toFixed(2)}</span>
+            </div>
+            ${!freeDel 
+                ? `<div class="free-del">Add £${(FREE_DELIVERY_THRESHOLD - subtotal).toFixed(2)} more for FREE delivery!</div>` 
+                : `<div class="free-del">🎉 Free delivery unlocked!</div>`
+            }
+            <div class="sum-row total"><span>Total</span><span>£${grandTotal.toFixed(2)}</span></div>
+            <button class="checkout-btn" onclick="showForm()">Proceed to Checkout</button>
+        </div>
+    `;
+}
+
+function showForm() {
+    document.getElementById('checkoutForm').classList.add('active');
+    document.getElementById('basket-totals').style.display = 'none';
+}
+
+function hideForm() {
+    document.getElementById('checkoutForm').classList.remove('active');
+    document.getElementById('basket-totals').style.display = 'block';
+}
+
+document.getElementById('orderForm').addEventListener('submit', e => {
+    e.preventDefault();
+    basket = [];
+    localStorage.setItem('vapes4all_basket', JSON.stringify(basket));
+    updateNavCount();
+    document.getElementById('checkoutForm').classList.remove('active');
+    document.getElementById('successBox').classList.add('show');
+});
+
+// Load basket on page ready
+document.addEventListener('DOMContentLoaded', function() {
+    loadBasket();
+    updateNavCount();
+    if (localStorage.getItem('vapes4all_verified') === 'true') {
+        showBasket();
+    }
+});
+</script>
+</body>
+</html>
