@@ -67,6 +67,8 @@
         }
         .sum-row.total { border-bottom: none; font-size: 1.3rem; font-weight: 900; color: var(--accent); padding-top: 0.8rem; }
         .free-del { color: var(--green); margin: 0.8rem 0; font-weight: 600; }
+        .deal-banner { background: rgba(34,197,94,0.1); border: 1px solid var(--green); border-radius: 8px; padding: 0.8rem; margin: 1rem 0; text-align: center; }
+        .deal-banner strong { color: var(--green); }
 
         .payment-methods {
             background: var(--card); border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0; text-align: center;
@@ -143,6 +145,7 @@
     </div>
 
     <div id="basket-list"></div>
+    <div id="deal-banners"></div>
     <div id="basket-totals" style="display:none;"></div>
 
     <div class="payment-methods">
@@ -201,7 +204,7 @@
 <script>
 const stripe = Stripe('pk_live_51UItZoFJdqaVBhtaeXjI9HTTkFIStttRqqoJqmnzD4ZVixfspc7EdlR3Q3vTCdgVCyORwfSyKfgro9sp9PfUHZRk00WOBKSQOG');
 
-// PRICES & DEALS — PERFECT MATCH
+// PRICES & DEALS — MIX & MATCH ANY FLAVOURS ✅
 const UNIT_PRICE = 4.99;
 const POD_PRICE = 4.99;
 const IVG_PRICE = 4.99;
@@ -258,47 +261,64 @@ function clearWholeBasket() {
     }
 }
 
-// ✅ DETECTION — MATCHES ACTUAL NAMES EXACTLY
-function calculateItemPrice(item) {
-    const qty = item.qty;
-    const lower = (item.name || '').toLowerCase();
+// COUNT TOTALS BY CATEGORY — MIXED FLAVOURS COUNT TOGETHER ✅
+function getTotals() {
+    let unitTotal = 0, podTotal = 0, ivgTotal = 0;
     
-    // DOJO 10K UNITS — matches "Dojo 10K" AND NOT "Pod"
-    const isUnit = lower.includes('dojo 10k') && !lower.includes('pod');
-    if (isUnit) {
-        if (qty >= UNIT_DEAL_QTY) {
-            const sets = Math.floor(qty / UNIT_DEAL_QTY);
-            const rem = qty % UNIT_DEAL_QTY;
-            return {
-                price: sets * UNIT_DEAL_PRICE + rem * UNIT_PRICE,
-                hasOffer: true,
-                offerText: `🔥 ${UNIT_DEAL_QTY} for £${UNIT_DEAL_PRICE} DEAL APPLIED`
-            };
+    basket.forEach(item => {
+        const lower = (item.name || '').toLowerCase();
+        if (lower.includes('dojo 10k') && !lower.includes('pod')) {
+            unitTotal += item.qty;
+        } else if (lower.includes('pod')) {
+            podTotal += item.qty;
+        } else if (lower.includes('ivg')) {
+            ivgTotal += item.qty;
         }
-        return { price: qty * UNIT_PRICE, hasOffer: false };
+    });
+    
+    return { unitTotal, podTotal, ivgTotal };
+}
+
+// CALCULATE PRICE FOR EACH ITEM — APPLY DEALS ACROSS WHOLE CATEGORY ✅
+function calculateTotals() {
+    const { unitTotal, podTotal } = getTotals();
+    
+    let subtotal = 0;
+    let unitDealApplied = false, podDealApplied = false;
+    
+    // UNITS — ANY 3 = £12 (mix flavours)
+    if (unitTotal >= UNIT_DEAL_QTY) {
+        const sets = Math.floor(unitTotal / UNIT_DEAL_QTY);
+        const rem = unitTotal % UNIT_DEAL_QTY;
+        const unitPrice = sets * UNIT_DEAL_PRICE + rem * UNIT_PRICE;
+        unitDealApplied = true;
+        subtotal += unitPrice;
+    } else {
+        subtotal += unitTotal * UNIT_PRICE;
     }
     
-    // DOJO PODS — matches "Pod"
-    if (lower.includes('pod')) {
-        if (qty >= POD_DEAL_QTY) {
-            const sets = Math.floor(qty / POD_DEAL_QTY);
-            const rem = qty % POD_DEAL_QTY;
-            return {
-                price: sets * POD_DEAL_PRICE + rem * POD_PRICE,
-                hasOffer: true,
-                offerText: `🔥 ${POD_DEAL_QTY} for £${POD_DEAL_PRICE} DEAL APPLIED`
-            };
-        }
-        return { price: qty * POD_PRICE, hasOffer: false };
+    // PODS — ANY 7 = £20 (mix flavours)
+    if (podTotal >= POD_DEAL_QTY) {
+        const sets = Math.floor(podTotal / POD_DEAL_QTY);
+        const rem = podTotal % POD_DEAL_QTY;
+        const podPrice = sets * POD_DEAL_PRICE + rem * POD_PRICE;
+        podDealApplied = true;
+        subtotal += podPrice;
+    } else {
+        subtotal += podTotal * POD_PRICE;
     }
     
     // IVG — no deal
-    return { price: qty * IVG_PRICE, hasOffer: false };
+    const { ivgTotal } = getTotals();
+    subtotal += ivgTotal * IVG_PRICE;
+    
+    return { subtotal, unitDealApplied, podDealApplied, unitTotal, podTotal };
 }
 
 function showBasket() {
     loadBasket();
     const list = document.getElementById('basket-list');
+    const dealBanners = document.getElementById('deal-banners');
     const totals = document.getElementById('basket-totals');
     const countText = document.getElementById('item-count');
     const clearZone = document.getElementById('clear-zone');
@@ -311,6 +331,7 @@ function showBasket() {
     if (basket.length === 0) {
         countText.textContent = '';
         clearZone.style.display = 'none';
+        dealBanners.innerHTML = '';
         list.innerHTML = `<div class="empty-state"><h2>Your basket is empty</h2><a href="index.html" class="shop-btn">Start Shopping</a></div>`;
         totals.style.display = 'none';
         return;
@@ -321,8 +342,17 @@ function showBasket() {
     clearZone.style.display = 'block';
     totals.style.display = 'block';
 
+    // Show deal banners
+    const { unitDealApplied, podDealApplied, unitTotal, podTotal } = calculateTotals();
+    dealBanners.innerHTML = '';
+    if (unitDealApplied) {
+        dealBanners.innerHTML += `<div class="deal-banner">🔥 <strong>${unitTotal} Dojo 10K Units = £${Math.floor(unitTotal/UNIT_DEAL_QTY) * UNIT_DEAL_PRICE + (unitTotal%UNIT_DEAL_QTY) * UNIT_PRICE}</strong> — Mix & Match Deal Applied!</div>`;
+    }
+    if (podDealApplied) {
+        dealBanners.innerHTML += `<div class="deal-banner">🔥 <strong>${podTotal} Dojo Pods = £${Math.floor(podTotal/POD_DEAL_QTY) * POD_DEAL_PRICE + (podTotal%POD_DEAL_QTY) * POD_PRICE}</strong> — Mix & Match Deal Applied!</div>`;
+    }
+
     list.innerHTML = basket.map(item => {
-        const calc = calculateItemPrice(item);
         const lower = (item.name || '').toLowerCase();
         const isUnit = lower.includes('dojo 10k') && !lower.includes('pod');
         const unitPrice = isUnit ? UNIT_PRICE : POD_PRICE;
@@ -331,23 +361,19 @@ function showBasket() {
             <div class="item-name">
                 <h3>${item.name}</h3>
                 <p>£${unitPrice.toFixed(2)} each</p>
-                ${calc.hasOffer ? `<p class="offer-tag">${calc.offerText}</p>` : ''}
             </div>
             <div class="qty-box">
                 <button class="qty-btn" onclick="changeQty('${item.name.replace(/'/g, "\\'")}', -1)">−</button>
                 <span class="qty-val">${item.qty}</span>
                 <button class="qty-btn" onclick="changeQty('${item.name.replace(/'/g, "\\'")}', 1)">+</button>
             </div>
-            <div class="item-total">£${calc.price.toFixed(2)}</div>
+            <div class="item-total">£${(item.qty * unitPrice).toFixed(2)}</div>
             <button class="remove-btn" onclick="removeOne('${item.name.replace(/'/g, "\\'")}')">Remove</button>
         </div>
         `;
     }).join('');
 
-    const subtotal = basket.reduce((sum, item) => {
-        return sum + calculateItemPrice(item).price;
-    }, 0);
-    
+    const { subtotal } = calculateTotals();
     const freeDel = subtotal >= FREE_DELIVERY_THRESHOLD;
     const delCost = freeDel ? 0 : DELIVERY_FEE;
     const grandTotal = subtotal + delCost;
@@ -372,11 +398,13 @@ function showBasket() {
 function showForm() {
     document.getElementById('checkoutForm').classList.add('active');
     document.getElementById('basket-totals').style.display = 'none';
+    document.getElementById('deal-banners').style.display = 'none';
 }
 
 function hideForm() {
     document.getElementById('checkoutForm').classList.remove('active');
     document.getElementById('basket-totals').style.display = 'block';
+    document.getElementById('deal-banners').style.display = 'block';
 }
 
 document.getElementById('orderForm').addEventListener('submit', e => {
