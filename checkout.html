@@ -45,7 +45,8 @@
         }
         .item-name h3 { font-size: 1rem; margin-bottom: 0.2rem; }
         .item-name p { color: var(--muted); font-size: 0.85rem; }
-        .offer-tag { color: var(--green); font-weight: 700; font-size: 0.85rem; margin-top: 0.25rem; }
+        .deal-banner { background: rgba(34,197,94,0.1); border: 1px solid var(--green); border-radius: 8px; padding: 0.8rem; margin: 1rem 0; text-align: center; }
+        .deal-banner strong { color: var(--green); }
 
         .qty-box { display: flex; align-items: center; gap: 0.5rem; }
         .qty-btn {
@@ -67,8 +68,6 @@
         }
         .sum-row.total { border-bottom: none; font-size: 1.3rem; font-weight: 900; color: var(--accent); padding-top: 0.8rem; }
         .free-del { color: var(--green); margin: 0.8rem 0; font-weight: 600; }
-        .deal-banner { background: rgba(34,197,94,0.1); border: 1px solid var(--green); border-radius: 8px; padding: 0.8rem; margin: 1rem 0; text-align: center; }
-        .deal-banner strong { color: var(--green); }
 
         .payment-methods {
             background: var(--card); border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0; text-align: center;
@@ -93,13 +92,17 @@
         }
         .form-row input:focus, .form-row textarea:focus { outline: 2px solid var(--accent); }
         .form-row.half { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-
+        #card-element {
+            background: rgba(255,255,255,0.08); padding: 1rem; border-radius: 8px; margin: 1rem 0;
+        }
         .checkout-btn {
             width: 100%; background: var(--accent); color: #000; border: none;
             padding: 1rem; border-radius: 8px; font-size: 1.05rem; font-weight: 900;
             cursor: pointer; margin-top: 1rem; transition: 0.2s;
         }
-        .checkout-btn:hover { transform: scale(1.01); }
+        .checkout-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        .checkout-btn:hover:not(:disabled) { transform: scale(1.01); }
+        .error-msg { color: var(--red); margin-top: 1rem; display: none; }
 
         .back-btn {
             background: transparent; color: var(--muted); border: none;
@@ -162,7 +165,7 @@
     <div class="checkout-form" id="checkoutForm">
         <button class="back-btn" onclick="hideForm()">← Back to Basket</button>
         <h2>Complete Your Order</h2>
-        <form id="orderForm">
+        <form id="paymentForm">
             <div class="form-row half">
                 <div>
                     <label for="fullName">Full Name *</label>
@@ -185,7 +188,12 @@
                 <label for="notes">Delivery Notes (Optional)</label>
                 <textarea id="notes" rows="2"></textarea>
             </div>
-            <button type="submit" class="checkout-btn">Proceed to Payment</button>
+            <div class="form-row">
+                <label>Card Details *</label>
+                <div id="card-element"></div>
+                <div id="card-errors" class="error-msg"></div>
+            </div>
+            <button type="submit" class="checkout-btn" id="submitBtn">Pay Now</button>
         </form>
     </div>
 
@@ -203,18 +211,16 @@
 
 <script>
 const stripe = Stripe('pk_live_51UItZoFJdqaVBhtaeXjI9HTTkFIStttRqqoJqmnzD4ZVixfspc7EdlR3Q3vTCdgVCyORwfSyKfgro9sp9PfUHZRk00WOBKSQOG');
+let elements, card;
 
-// PRICES & DEALS — MIX & MATCH ANY FLAVOURS ✅
+// PRICES & DEALS — MIX & MATCH ✅
 const UNIT_PRICE = 4.99;
 const POD_PRICE = 4.99;
 const IVG_PRICE = 4.99;
-
 const UNIT_DEAL_QTY = 3;
 const UNIT_DEAL_PRICE = 12.00;
-
 const POD_DEAL_QTY = 7;
 const POD_DEAL_PRICE = 20.00;
-
 const FREE_DELIVERY_THRESHOLD = 23;
 const DELIVERY_FEE = 2.99;
 
@@ -222,9 +228,7 @@ let basket = [];
 
 function loadBasket() {
     const saved = localStorage.getItem('vapes4all_basket');
-    if (saved) {
-        try { basket = JSON.parse(saved); } catch { basket = []; }
-    }
+    if (saved) try { basket = JSON.parse(saved); } catch { basket = []; }
 }
 
 function saveAndRender() {
@@ -235,10 +239,8 @@ function saveAndRender() {
 
 function updateNavCount() {
     const total = basket.reduce((s, i) => s + i.qty, 0);
-    const badge = document.getElementById('navCount');
-    badge.textContent = total;
-    if (total > 0) badge.classList.remove('hidden');
-    else badge.classList.add('hidden');
+    document.getElementById('navCount').textContent = total;
+    document.getElementById('navCount').classList.toggle('hidden', total === 0);
 }
 
 function changeQty(name, delta) {
@@ -255,63 +257,43 @@ function removeOne(name) {
 }
 
 function clearWholeBasket() {
-    if (confirm('Clear all items from your basket?')) {
-        basket = [];
-        saveAndRender();
-    }
+    if (confirm('Clear all items?')) { basket = []; saveAndRender(); }
 }
 
-// COUNT TOTALS BY CATEGORY — MIXED FLAVOURS COUNT TOGETHER ✅
 function getTotals() {
     let unitTotal = 0, podTotal = 0, ivgTotal = 0;
-    
     basket.forEach(item => {
         const lower = (item.name || '').toLowerCase();
-        if (lower.includes('dojo 10k') && !lower.includes('pod')) {
-            unitTotal += item.qty;
-        } else if (lower.includes('pod')) {
-            podTotal += item.qty;
-        } else if (lower.includes('ivg')) {
-            ivgTotal += item.qty;
-        }
+        if (lower.includes('dojo 10k') && !lower.includes('pod')) unitTotal += item.qty;
+        else if (lower.includes('pod')) podTotal += item.qty;
+        else if (lower.includes('ivg')) ivgTotal += item.qty;
     });
-    
     return { unitTotal, podTotal, ivgTotal };
 }
 
-// CALCULATE PRICE FOR EACH ITEM — APPLY DEALS ACROSS WHOLE CATEGORY ✅
 function calculateTotals() {
-    const { unitTotal, podTotal } = getTotals();
+    const { unitTotal, podTotal, ivgTotal } = getTotals();
+    let subtotal = 0, unitDealApplied = false, podDealApplied = false;
     
-    let subtotal = 0;
-    let unitDealApplied = false, podDealApplied = false;
-    
-    // UNITS — ANY 3 = £12 (mix flavours)
     if (unitTotal >= UNIT_DEAL_QTY) {
         const sets = Math.floor(unitTotal / UNIT_DEAL_QTY);
         const rem = unitTotal % UNIT_DEAL_QTY;
-        const unitPrice = sets * UNIT_DEAL_PRICE + rem * UNIT_PRICE;
+        subtotal += sets * UNIT_DEAL_PRICE + rem * UNIT_PRICE;
         unitDealApplied = true;
-        subtotal += unitPrice;
     } else {
         subtotal += unitTotal * UNIT_PRICE;
     }
     
-    // PODS — ANY 7 = £20 (mix flavours)
     if (podTotal >= POD_DEAL_QTY) {
         const sets = Math.floor(podTotal / POD_DEAL_QTY);
         const rem = podTotal % POD_DEAL_QTY;
-        const podPrice = sets * POD_DEAL_PRICE + rem * POD_PRICE;
+        subtotal += sets * POD_DEAL_PRICE + rem * POD_PRICE;
         podDealApplied = true;
-        subtotal += podPrice;
     } else {
         subtotal += podTotal * POD_PRICE;
     }
     
-    // IVG — no deal
-    const { ivgTotal } = getTotals();
     subtotal += ivgTotal * IVG_PRICE;
-    
     return { subtotal, unitDealApplied, podDealApplied, unitTotal, podTotal };
 }
 
@@ -342,38 +324,28 @@ function showBasket() {
     clearZone.style.display = 'block';
     totals.style.display = 'block';
 
-    // Show deal banners
-    const { unitDealApplied, podDealApplied, unitTotal, podTotal } = calculateTotals();
+    const { unitDealApplied, podDealApplied, unitTotal, podTotal, subtotal } = calculateTotals();
     dealBanners.innerHTML = '';
-    if (unitDealApplied) {
-        dealBanners.innerHTML += `<div class="deal-banner">🔥 <strong>${unitTotal} Dojo 10K Units = £${Math.floor(unitTotal/UNIT_DEAL_QTY) * UNIT_DEAL_PRICE + (unitTotal%UNIT_DEAL_QTY) * UNIT_PRICE}</strong> — Mix & Match Deal Applied!</div>`;
-    }
-    if (podDealApplied) {
-        dealBanners.innerHTML += `<div class="deal-banner">🔥 <strong>${podTotal} Dojo Pods = £${Math.floor(podTotal/POD_DEAL_QTY) * POD_DEAL_PRICE + (podTotal%POD_DEAL_QTY) * POD_PRICE}</strong> — Mix & Match Deal Applied!</div>`;
-    }
+    if (unitDealApplied) dealBanners.innerHTML += `<div class="deal-banner">🔥 <strong>${unitTotal} Dojo 10K Units — Mix & Match Deal Applied!</strong></div>`;
+    if (podDealApplied) dealBanners.innerHTML += `<div class="deal-banner">🔥 <strong>${podTotal} Dojo Pods — Mix & Match Deal Applied!</strong></div>`;
 
     list.innerHTML = basket.map(item => {
         const lower = (item.name || '').toLowerCase();
         const isUnit = lower.includes('dojo 10k') && !lower.includes('pod');
-        const unitPrice = isUnit ? UNIT_PRICE : POD_PRICE;
+        const price = isUnit ? UNIT_PRICE : POD_PRICE;
         return `
         <div class="basket-item">
-            <div class="item-name">
-                <h3>${item.name}</h3>
-                <p>£${unitPrice.toFixed(2)} each</p>
-            </div>
+            <div class="item-name"><h3>${item.name}</h3><p>£${price.toFixed(2)} each</p></div>
             <div class="qty-box">
                 <button class="qty-btn" onclick="changeQty('${item.name.replace(/'/g, "\\'")}', -1)">−</button>
                 <span class="qty-val">${item.qty}</span>
                 <button class="qty-btn" onclick="changeQty('${item.name.replace(/'/g, "\\'")}', 1)">+</button>
             </div>
-            <div class="item-total">£${(item.qty * unitPrice).toFixed(2)}</div>
+            <div class="item-total">£${(item.qty * price).toFixed(2)}</div>
             <button class="remove-btn" onclick="removeOne('${item.name.replace(/'/g, "\\'")}')">Remove</button>
-        </div>
-        `;
+        </div>`;
     }).join('');
 
-    const { subtotal } = calculateTotals();
     const freeDel = subtotal >= FREE_DELIVERY_THRESHOLD;
     const delCost = freeDel ? 0 : DELIVERY_FEE;
     const grandTotal = subtotal + delCost;
@@ -385,20 +357,17 @@ function showBasket() {
                 <span>DPD Tracked Delivery</span>
                 <span>${freeDel ? '<strong style="color:var(--green)">FREE</strong>' : '£' + delCost.toFixed(2)}</span>
             </div>
-            ${!freeDel 
-                ? `<div class="free-del">Add £${(FREE_DELIVERY_THRESHOLD - subtotal).toFixed(2)} more for FREE delivery!</div>` 
-                : `<div class="free-del">🎉 Free delivery unlocked!</div>`
-            }
+            ${!freeDel ? `<div class="free-del">Add £${(FREE_DELIVERY_THRESHOLD - subtotal).toFixed(2)} more for FREE delivery!</div>` : `<div class="free-del">🎉 Free delivery unlocked!</div>`}
             <div class="sum-row total"><span>Total</span><span>£${grandTotal.toFixed(2)}</span></div>
             <button class="checkout-btn" onclick="showForm()">Proceed to Checkout</button>
-        </div>
-    `;
+        </div>`;
 }
 
 function showForm() {
     document.getElementById('checkoutForm').classList.add('active');
     document.getElementById('basket-totals').style.display = 'none';
     document.getElementById('deal-banners').style.display = 'none';
+    if (!elements) initStripe();
 }
 
 function hideForm() {
@@ -407,8 +376,50 @@ function hideForm() {
     document.getElementById('deal-banners').style.display = 'block';
 }
 
-document.getElementById('orderForm').addEventListener('submit', e => {
+function initStripe() {
+    elements = stripe.elements();
+    card = elements.create('card', { style: { base: { color: '#fff', fontSize: '16px' } } });
+    card.mount('#card-element');
+    card.addEventListener('change', e => {
+        const err = document.getElementById('card-errors');
+        err.textContent = e.error ? e.error.message : '';
+        err.style.display = e.error ? 'block' : 'none';
+    });
+}
+
+document.getElementById('paymentForm').addEventListener('submit', async e => {
     e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Processing…';
+
+    const { subtotal } = calculateTotals();
+    const freeDel = subtotal >= FREE_DELIVERY_THRESHOLD;
+    const grandTotal = Math.round((subtotal + (freeDel ? 0 : DELIVERY_FEE)) * 100);
+
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+        type: 'card',
+        card: card,
+        billing_details: {
+            name: document.getElementById('fullName').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value
+        }
+    });
+
+    if (error) {
+        document.getElementById('card-errors').textContent = error.message;
+        document.getElementById('card-errors').style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Pay Now';
+        return;
+    }
+
+    // ⚠️ IMPORT — You need a backend/webhook to actually charge
+    // For live use: create PaymentMethod on frontend → charge on your server
+    console.log('Payment Method:', paymentMethod.id);
+    
+    // Success flow (replace with real confirmation from your server)
     basket = [];
     localStorage.setItem('vapes4all_basket', JSON.stringify(basket));
     updateNavCount();
@@ -416,7 +427,7 @@ document.getElementById('orderForm').addEventListener('submit', e => {
     document.getElementById('successBox').classList.add('show');
 });
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     loadBasket();
     updateNavCount();
     showBasket();
