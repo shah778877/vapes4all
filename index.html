@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout — Vapes4All</title>
-    <script src="https://js.stripe.com/v3/"></script>
+    <title>Vapes4All — Premium Vapes & Pods</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, sans-serif; }
         :root {
@@ -13,9 +12,9 @@
         }
         body { background: var(--bg); color: var(--text); line-height: 1.6; }
 
-        /* AGE GATE — FIRST, NO FLICKER */
+        /* AGE GATE — FIRST THING, NOTHING SHOWS BEFORE IT */
         .age-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            position: fixed; inset: 0;
             background: rgba(0,0,0,0.98); display: flex; align-items: center; justify-content: center;
             z-index: 99999;
         }
@@ -43,4 +42,145 @@
         nav { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
         nav a { color: var(--text); text-decoration: none; padding: 0.5rem 0.8rem; font-weight: 500; }
         nav a:hover, nav a.active { color: var(--accent); }
-        .
+        .basket-link { position: relative; }
+        .basket-count {
+            position: absolute; top: -8px; right: -8px;
+            background: var(--red); color: white; font-size: 11px; font-weight: bold;
+            min-width: 18px; height: 18px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .basket-count.hidden { display: none; }
+
+        .hero { text-align: center; padding: 3rem 5%; max-width: 900px; margin: 0 auto; }
+        .hero h1 { font-size: 2.2rem; color: var(--accent); margin-bottom: 1rem; }
+        .hero p { font-size: 1.1rem; color: var(--muted); margin-bottom: 0.5rem; }
+        .dpd-banner { background: rgba(34,197,94,0.1); border: 1px solid var(--green); border-radius: 8px; padding: 0.8rem; margin: 1rem 0; display: inline-block; }
+        .dpd-banner strong { color: var(--green); }
+        .free-del-banner { background: rgba(255,149,0,0.1); border: 1px solid var(--accent); border-radius: 8px; padding: 0.8rem 1.2rem; margin: 1.5rem 0; }
+        .free-del-banner strong { color: var(--accent); }
+
+        .products-section { max-width: 1100px; margin: 3rem auto; padding: 0 5%; }
+        .products-section h2 { text-align: center; font-size: 1.6rem; margin-bottom: 2rem; color: var(--accent); }
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .product-card {
+            background: var(--card); border-radius: 16px; padding: 2rem; text-align: center;
+            transition: 0.3s; border: 1px solid transparent;
+        }
+        .product-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .product-card h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .product-card .desc { color: var(--muted); margin-bottom: 1rem; font-size: 0.9rem; }
+        .price { font-size: 1.5rem; font-weight: 900; color: var(--accent); margin-bottom: 0.3rem; }
+        .price small { font-size: 0.8rem; color: var(--muted); text-decoration: line-through; margin-left: 0.5rem; }
+        .offer { color: var(--green); font-weight: 700; font-size: 0.9rem; margin-bottom: 1.2rem; }
+        .view-btn {
+            display: inline-block; background: var(--accent); color: #000; padding: 0.8rem 2rem;
+            border-radius: 8px; font-weight: 700; text-decoration: none; border: none; cursor: pointer;
+            font-size: 1rem; transition: 0.2s;
+        }
+        .view-btn:hover { transform: scale(1.05); }
+
+        footer { text-align: center; padding: 2rem; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.1); margin-top: 3rem; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+<!-- AGE GATE — HITS FIRST THING ON HOMEPAGE -->
+<div class="age-overlay" id="ageGate">
+    <div class="age-box">
+        <h2>🔞 Age Verification</h2>
+        <p>By entering this website you confirm you are 18 years of age or older. This is a legal requirement in the United Kingdom.</p>
+        <div class="age-buttons">
+            <button class="age-btn yes" onclick="confirmAge()">I am 18 or Over</button>
+            <button class="age-btn no" onclick="denyAge()">Under 18</button>
+        </div>
+    </div>
+</div>
+
+<div id="siteContent">
+<header>
+    <div class="nav-wrap">
+        <a href="index.html" class="logo">Vapes4All</a>
+        <nav>
+            <a href="index.html" class="active">Home</a>
+            <a href="dojo-units.html">10K Units</a>
+            <a href="dojo-pods.html">10K Pods</a>
+            <a href="ivg.html">IVG 10K</a>
+            <a href="checkout.html" class="basket-link">Basket <span class="basket-count hidden" id="navCount">0</span></a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<section class="hero">
+    <h1>Welcome to Vapes4All</h1>
+    <p>Premium Vapes, Pods & Flavours — DPD Tracked Delivery</p>
+    <div class="dpd-banner">📦 <strong>All orders delivered via DPD Tracked</strong> — fully tracked & signed for</div>
+    <div class="free-del-banner">🚚 <strong>FREE Delivery</strong> on orders £23 and over | 7 Pods = £20 Deal</div>
+</section>
+
+<section class="products-section">
+    <h2>Shop Our Range</h2>
+    <div class="cards-grid">
+        <div class="product-card">
+            <h3>Dojo Blast 10K Units</h3>
+            <p class="desc">Premium pre-filled units — 10,000 puffs each</p>
+            <p class="price">£4.99 <small>£9.99</small></p>
+            <p class="offer">50% OFF — Limited Time</p>
+            <a href="dojo-units.html" class="view-btn">View Flavours →</a>
+        </div>
+
+        <div class="product-card">
+            <h3>Dojo Blast 10K Pods</h3>
+            <p class="desc">Replacement pods — 7 for just £20</p>
+            <p class="price">£4.99 each</p>
+            <p class="offer">🔥 7 for £20 DEAL</p>
+            <a href="dojo-pods.html" class="view-btn">View Flavours →</a>
+        </div>
+
+        <div class="product-card">
+            <h3>IVG 10K Max</h3>
+            <p class="desc">Top brand — massive flavours</p>
+            <p class="price">£4.99 <small>£9.99</small></p>
+            <p class="offer">50% OFF — Was £9.99</p>
+            <a href="ivg.html" class="view-btn">View Flavours →</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>Vapes4All © 2026 | info@vapes4all.co.uk | 18+ Only</p>
+</footer>
+</div>
+
+<script>
+function confirmAge() {
+    localStorage.setItem('vapes4all_verified', 'true');
+    document.getElementById('ageGate').style.display = 'none';
+    document.getElementById('siteContent').classList.add('verified');
+}
+function denyAge() {
+    window.location.href = 'https://www.google.com';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    if (localStorage.getItem('vapes4all_verified') === 'true') {
+        confirmAge();
+    }
+    updateNavCount();
+});
+
+function updateNavCount() {
+    const saved = localStorage.getItem('vapes4all_basket');
+    if (!saved) return;
+    try {
+        const basket = JSON.parse(saved);
+        const total = basket.reduce((s, i) => s + i.qty, 0);
+        const badge = document.getElementById('navCount');
+        badge.textContent = total;
+        if (total > 0) badge.classList.remove('hidden');
+        else badge.classList.add('hidden');
+    } catch {}
+}
+</script>
+</body>
+</html>
