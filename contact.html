@@ -5,282 +5,162 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact Us — Vapes4All</title>
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
-body{
-background:#f8f9fb;
-color:#222;
-line-height:1.6;
-}
-/* Basket Icon — same as ALL pages */
-.basket-icon{
-position:fixed;
-top:20px;
-right:25px;
-background:#000;
-color:#fff;
-width:60px;
-height:60px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:24px;
-cursor:pointer;
-z-index:999;
-}
-.basket-count{
-position:absolute;
-top:-5px;
-right:-5px;
-background:#ff4d00;
-color:#fff;
-font-size:12px;
-font-weight:bold;
-width:24px;
-height:24px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-}
-header{
-background:white;
-box-shadow:0 2px 10px rgba(0,0,0,.08);
-position:sticky;
-top:0;
-z-index:100;
-padding-top:10px;
-}
-.nav{
-max-width:1200px;
-margin:auto;
-padding:20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-flex-wrap:wrap;
-gap:15px;
-}
-.logo{
-font-size:34px;
-font-weight:bold;
-color:#ff9500;
-text-decoration:none;
-}
-.nav-links{
-display:flex;
-gap:20px;
-flex-wrap:wrap;
-}
-.nav-links a{
-text-decoration:none;
-color:#333;
-font-weight:bold;
-transition:.2s;
-}
-.nav-links a:hover, .nav-links a.active{
-color:#ff9500;
-}
-.back-btn{
-display:inline-block;
-margin:20px;
-padding:10px 20px;
-background:#ff9500;
-color:white;
-text-decoration:none;
-border-radius:10px;
-font-weight:bold;
-border:none;
-cursor:pointer;
-transition:.2s;
-}
-.back-btn:hover{
-background:#e68600;
-}
-.container{
-max-width:800px;
-margin:0 auto;
-padding:30px 20px;
-}
-h1{
-font-size:42px;
-color:#ff9500;
-margin-bottom:30px;
-text-align:center;
-}
-.contact-grid{
-display:grid;
-gap:25px;
-margin-bottom:40px;
-}
-.card{
-background:white;
-padding:25px;
-border-radius:18px;
-box-shadow:0 8px 20px rgba(0,0,0,.08);
-border-left:4px solid #ff9500;
-}
-.card h2{
-font-size:22px;
-margin-bottom:15px;
-}
-.card p{
-margin-bottom:10px;
-color:#666;
-}
-.card a{
-color:#ff9500;
-text-decoration:none;
-font-weight:bold;
-}
-.card a:hover{
-text-decoration:underline;
-}
-form{
-background:white;
-padding:30px;
-border-radius:18px;
-box-shadow:0 8px 20px rgba(0,0,0,.08);
-}
-form h2{
-font-size:22px;
-margin-bottom:20px;
-color:#ff9500;
-}
-.form-group{
-margin-bottom:20px;
-}
-label{
-display:block;
-margin-bottom:8px;
-font-weight:bold;
-color:#333;
-}
-input, textarea{
-width:100%;
-padding:14px;
-border:1px solid #ddd;
-border-radius:10px;
-font-size:16px;
-background:#f8f9fb;
-}
-input:focus, textarea:focus{
-outline:none;
-border-color:#ff9500;
-}
-button[type="submit"]{
-width:100%;
-padding:16px;
-background:#ff9500;
-color:white;
-border:none;
-border-radius:10px;
-font-size:18px;
-font-weight:bold;
-cursor:pointer;
-transition:.2s;
-}
-button[type="submit"]:hover{
-background:#e68600;
-}
-footer{
-text-align:center;
-padding:30px;
-color:#666;
-border-top:1px solid #eee;
-margin-top:20px;
-}
-/* Mobile */
-@media(max-width:768px){
-h1{font-size:32px;}
-.basket-icon{
-top:auto;
-bottom:25px;
-right:25px;
-}
-}
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    :root {
+        --bg: #0f0f23;
+        --card: #1a1a35;
+        --accent: #ff9500;
+        --text: #fff;
+        --muted: #b0b0d0;
+        --border: rgba(255,255,255,0.1);
+    }
+    body { background: var(--bg); color: var(--text); line-height: 1.6; }
+    /* Basket Icon — added to match all pages */
+    .basket-icon{
+        position:fixed;
+        top:20px;
+        right:25px;
+        background:#000;
+        color:#fff;
+        width:60px;
+        height:60px;
+        border-radius:50%;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:24px;
+        cursor:pointer;
+        z-index:999;
+    }
+    .basket-count{
+        position:absolute;
+        top:-5px;
+        right:-5px;
+        background:#ff4d00;
+        color:#fff;
+        font-size:12px;
+        font-weight:bold;
+        width:24px;
+        height:24px;
+        border-radius:50%;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+    header { background: rgba(0,0,0,0.4); padding: 1rem 5%; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+    .nav-wrap { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .logo { font-size: 1.8rem; font-weight: 900; color: var(--accent); text-decoration: none; }
+    nav a { color: var(--text); text-decoration: none; margin-left: 1.2rem; font-weight: 600; transition: 0.2s; }
+    nav a:hover, nav a.active { color: var(--accent); }
+    .page-wrap { max-width: 800px; margin: 0 auto; padding: 3rem 5%; }
+    h1 { font-size: 2rem; color: var(--accent); margin-bottom: 2rem; text-align: center; }
+    .contact-grid { display: grid; gap: 2rem; }
+    .contact-card {
+        background: var(--card);
+        border-radius: 16px;
+        padding: 2rem;
+        border-left: 4px solid var(--accent);
+    }
+    .contact-card h2 { font-size: 1.3rem; margin-bottom: 1rem; }
+    .contact-card p { margin-bottom: 0.8rem; color: var(--muted); }
+    .contact-card a { color: var(--accent); text-decoration: none; font-weight: 600; }
+    .contact-card a:hover { text-decoration: underline; }
+    form { background: var(--card); border-radius: 16px; padding: 2rem; margin-top: 2rem; }
+    .form-group { margin-bottom: 1.5rem; }
+    label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+    input, textarea {
+        width: 100%;
+        padding: 0.9rem;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        background: rgba(255,255,255,0.05);
+        color: white;
+        font-size: 1rem;
+    }
+    button[type="submit"] {
+        background: var(--accent);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        font-weight: 900;
+        cursor: pointer;
+        width: 100%;
+        transition: 0.2s;
+    }
+    button[type="submit"]:hover { transform: scale(1.02); }
+    footer { text-align: center; padding: 2rem; color: var(--muted); border-top: 1px solid var(--border); margin-top: 3rem; }
+    @media(max-width:768px){
+        .basket-icon{top:auto; bottom:25px; right:25px;}
+    }
 </style>
 </head>
 <body>
 
-<!-- Basket Icon — SAME across ALL pages -->
+<!-- Basket Icon added — same as all your other pages -->
 <div class="basket-icon" id="basketIcon" onclick="window.location.href='checkout.html'">
 🛒
 <span class="basket-count" id="basketCount">0</span>
 </div>
 
-<a class="back-btn" href="index.html">
-← Back To Home
-</a>
-
 <header>
-<div class="nav">
-<a href="index.html" class="logo">Vapes4All</a>
-<div class="nav-links">
-<a href="index.html">Home</a>
-<a href="dojo-units.html">10K Units</a>
-<a href="dojo-pods.html">10K Pods</a>
-<a href="ivg.html">IVG 10K</a>
-<a href="checkout.html">Basket</a>
-<a href="contact.html" class="active" style="color:#ff9500">Contact</a>
-</div>
-</div>
+    <div class="nav-wrap">
+        <a href="index.html" class="logo">Vapes4All</a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="dojo-units.html">10K Units</a>
+            <a href="dojo-pods.html">10K Pods</a>
+            <a href="ivg.html">IVG 10K</a>
+            <a href="checkout.html">Basket</a>
+            <a href="contact.html" class="active">Contact</a>
+        </nav>
+    </div>
 </header>
-
-<div class="container">
-<h1>Get In Touch</h1>
-
-<div class="contact-grid">
-<div class="card">
-<h2>📧 Email Us</h2>
-<p>Any enquiries, orders or questions — drop us a message anytime:</p>
-<p><a href="mailto:info@vapes4all.co.uk">info@vapes4all.co.uk</a></p>
-<p style="margin-top:15px;">We aim to reply within 24 hours.</p>
+<div class="page-wrap">
+    <h1>Get In Touch</h1>
+    <div class="contact-grid">
+        <div class="contact-card">
+            <h2>📧 Email Us</h2>
+            <p>Any enquiries, orders or questions — drop us a message anytime:</p>
+            <p><a href="mailto:info@vapes4all.co.uk">info@vapes4all.co.uk</a></p>
+            <p style="margin-top:1rem;">We aim to reply within 24 hours.</p>
+        </div>
+        <div class="contact-card">
+            <h2>🕒 Opening Hours</h2>
+            <p><strong>Monday — Friday:</strong> 9:00am — 9:00pm</p>
+            <p><strong>Saturday:</strong> 10:00am — 8:00pm</p>
+            <p><strong>Sunday:</strong> 11:00am — 5:00pm</p>
+            <p style="margin-top:1rem; color:var(--accent);"><strong>Free DPD Delivery on all orders £23+</strong></p>
+        </div>
+    </div>
+    <form onsubmit="alert('Message sent! We\'ll get back to you within 24 hours ✅'); this.reset(); return false;">
+        <h2 style="margin-bottom:1.5rem; color:var(--accent);">Send a Message</h2>
+        <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" required placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" required placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+            <label>Your Message</label>
+            <textarea rows="5" required placeholder="How can we help?"></textarea>
+        </div>
+        <button type="submit">Send Message →</button>
+    </form>
 </div>
-
-<div class="card">
-<h2>🕒 Opening Hours</h2>
-<p><strong>Monday — Friday:</strong> 9:00am — 9:00pm</p>
-<p><strong>Saturday:</strong> 10:00am — 8:00pm</p>
-<p><strong>Sunday:</strong> 11:00am — 5:00pm</p>
-<p style="margin-top:15px; color:#ff9500; font-weight:bold;">🚚 Free DPD Delivery on all orders £23+</p>
-</div>
-</div>
-
-<form onsubmit="alert('✅ Message sent! We\'ll get back to you within 24 hours.'); this.reset(); return false;">
-<h2>Send Us A Message</h2>
-<div class="form-group">
-<label>Your Name</label>
-<input type="text" required placeholder="Enter your name">
-</div>
-<div class="form-group">
-<label>Email Address</label>
-<input type="email" required placeholder="your@email.com">
-</div>
-<div class="form-group">
-<label>Your Message</label>
-<textarea rows="5" required placeholder="How can we help?"></textarea>
-</div>
-<button type="submit">Send Message →</button>
-</form>
-</div>
-
 <footer>
-<p>Vapes4All © 2026 | info@vapes4all.co.uk | 18+ Only</p>
-<p>All orders shipped via DPD Tracked</p>
+    <p>Vapes4All © 2026 | info@vapes4all.co.uk | 18+ Only</p>
 </footer>
 
 <script>
-// Update basket count — SAME across ALL pages
+// Basket count synced with all pages
 let basket = JSON.parse(localStorage.getItem('vapes4all_basket') || '[]');
-function updateBasketCount() {
-const total = basket.reduce((sum, item) => sum + item.qty, 0);
-document.getElementById('basketCount').textContent = total;
+function updateBasketCount(){
+    const total = basket.reduce((sum,item) => sum + item.qty, 0);
+    document.getElementById('basketCount').textContent = total;
 }
 updateBasketCount();
 </script>
