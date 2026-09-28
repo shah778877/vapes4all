@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VAPE STORE</title>
+<title>Vapes4All</title>
+
 <style>
 *{
 margin:0;
@@ -11,86 +12,162 @@ padding:0;
 box-sizing:border-box;
 font-family:Arial,sans-serif;
 }
+
 body{
-background:#f8f9fb;
+background:linear-gradient(180deg,#f7f8fb 0%,#ffffff 100%);
 color:#222;
-padding:20px;
+min-height:100vh;
 }
 
-/* === AGE VERIFICATION — SHOWS FIRST === */
+/* AGE VERIFICATION */
 .age-gate{
 position:fixed;
 inset:0;
-background:rgba(0,0,0,.92);
+background:rgba(0,0,0,.94);
 display:flex;
 align-items:center;
 justify-content:center;
 z-index:9999;
+padding:20px;
 }
+
 .age-box{
-background:white;
-padding:40px 30px;
-border-radius:16px;
+background:#fff;
+padding:42px 32px;
+border-radius:20px;
 text-align:center;
-max-width:420px;
-width:90%;
+max-width:440px;
+width:100%;
+box-shadow:0 20px 60px rgba(0,0,0,.35);
+border-top:5px solid #ff4d00;
 }
+
 .age-box h2{
-font-size:28px;
+font-size:30px;
 color:#ff4d00;
 margin-bottom:15px;
 }
+
 .age-box p{
 margin-bottom:25px;
 color:#555;
 font-size:16px;
+line-height:1.6;
 }
+
 .age-buttons{
 display:flex;
 gap:12px;
 flex-wrap:wrap;
 justify-content:center;
 }
+
+.age-yes,
+.age-no{
+border:none;
+padding:14px 28px;
+border-radius:9px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+transition:.2s;
+}
+
 .age-yes{
 background:#ff4d00;
-color:white;
-border:none;
-padding:14px 35px;
-border-radius:8px;
-font-size:16px;
-font-weight:bold;
-cursor:pointer;
+color:#fff;
 }
-.age-no{
-background:#ddd;
-color:#333;
-border:none;
-padding:14px 25px;
-border-radius:8px;
-font-size:16px;
-font-weight:bold;
-cursor:pointer;
-}
-.age-yes:hover{background:#e63900;}
-.age-no:hover{background:#ccc;}
 
-/* Basket Icon — spaced so NOTHING overlaps */
+.age-yes:hover{
+background:#df4300;
+transform:translateY(-2px);
+}
+
+.age-no{
+background:#e5e5e5;
+color:#333;
+}
+
+.age-no:hover{
+background:#d4d4d4;
+}
+
+/* HEADER */
+header{
+background:#fff;
+box-shadow:0 3px 15px rgba(0,0,0,.05);
+position:sticky;
+top:0;
+z-index:100;
+}
+
+.top-nav{
+max-width:1280px;
+margin:0 auto;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 90px 20px 25px;
+}
+
+.site-title{
+font-size:28px;
+font-weight:900;
+letter-spacing:-1px;
+color:#111;
+}
+
+.site-title span{
+color:#ff4d00;
+}
+
+.nav-links{
+display:flex;
+align-items:center;
+gap:8px;
+}
+
+.nav-links a{
+color:#333;
+text-decoration:none;
+padding:10px 12px;
+font-weight:bold;
+font-size:15px;
+border-radius:7px;
+transition:.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active{
+color:#ff4d00;
+background:#fff4ef;
+}
+
+/* BASKET */
 .basket-icon{
 position:fixed;
-top:20px;
-right:25px;
-background:#000;
+top:16px;
+right:22px;
+background:#111;
 color:#fff;
-width:50px;
-height:50px;
+width:54px;
+height:54px;
 border-radius:50%;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:20px;
+font-size:22px;
 cursor:pointer;
-z-index:998;
+z-index:999;
+box-shadow:0 6px 16px rgba(0,0,0,.18);
+transition:.2s;
 }
+
+.basket-icon:hover{
+background:#ff4d00;
+transform:scale(1.05);
+}
+
 .basket-count{
 position:absolute;
 top:-5px;
@@ -99,141 +176,323 @@ background:#ff4d00;
 color:#fff;
 font-size:11px;
 font-weight:bold;
-width:20px;
-height:20px;
+width:21px;
+height:21px;
 border-radius:50%;
 display:flex;
 align-items:center;
 justify-content:center;
+border:2px solid #fff;
 }
 
-/* Top Nav — spaced properly */
-.top-nav{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:30px;
-padding-bottom:15px;
-border-bottom:1px solid #eee;
-padding-right:80px; /* keeps clear of basket */
+/* MAIN */
+main{
+max-width:1280px;
+margin:0 auto;
+padding:55px 25px 30px;
 }
-.site-title{
-font-size:22px;
+
+.hero{
+text-align:center;
+margin-bottom:45px;
+}
+
+.hero-badge{
+display:inline-block;
+background:#fff1eb;
+color:#ff4d00;
 font-weight:bold;
-color:#222;
+font-size:13px;
+padding:8px 14px;
+border-radius:20px;
+margin-bottom:14px;
 }
-.nav-links a{
-color:#333;
-text-decoration:none;
-margin-left:15px;
-font-weight:bold;
-font-size:15px;
+
+.hero h1{
+font-size:46px;
+line-height:1.1;
+margin-bottom:15px;
+letter-spacing:-1.5px;
 }
-.nav-links a:hover, .nav-links a.active{
+
+.hero h1 span{
 color:#ff4d00;
 }
 
-/* Main Heading */
-h1{
-font-size:28px;
-margin-bottom:35px;
-}
 .sub-heading{
 color:#666;
-margin-bottom:30px;
-font-size:16px;
+font-size:17px;
+line-height:1.6;
+max-width:780px;
+margin:0 auto;
 }
 
-/* Three Cards — FULLY RESTORED with all your text */
+/* THREE LARGE PRODUCT BOXES */
 .product-grid{
 display:grid;
-grid-template-columns:repeat(3, 1fr);
-gap:25px;
-max-width:1000px;
+grid-template-columns:repeat(3,1fr);
+gap:28px;
+max-width:1200px;
+margin:0 auto;
 }
+
 .product-card{
-background:white;
-border-radius:12px;
-padding:25px 20px;
+background:#fff;
+border-radius:20px;
+padding:28px 24px 24px;
 text-align:center;
-box-shadow:0 2px 8px rgba(0,0,0,.05);
+box-shadow:0 8px 28px rgba(0,0,0,.08);
 text-decoration:none;
 color:inherit;
-display:block;
-transition:.2s;
+display:flex;
+flex-direction:column;
+min-height:520px;
+border:1px solid #eee;
+transition:.25s ease;
+position:relative;
+overflow:hidden;
 }
-.product-card:hover{
-transform:translateY(-3px);
-}
-.product-img{
+
+.product-card::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
 width:100%;
-height:160px;
-object-fit:contain;
-margin-bottom:15px;
-}
-.product-name{
-font-size:16px;
-font-weight:bold;
-margin-bottom:6px;
-color:#222;
-}
-.product-desc{
-font-size:13px;
-color:#777;
-margin-bottom:10px;
-}
-.product-price{
-font-size:15px;
-color:#ff4d00;
-font-weight:bold;
-margin-bottom:5px;
-}
-.product-deal{
-font-size:13px;
-color:#22c55e;
-margin-bottom:15px;
-}
-.view-btn{
-width:100%;
-padding:10px;
-background:#222;
-color:white;
-border:none;
-border-radius:6px;
-font-weight:bold;
-cursor:pointer;
-font-size:14px;
-transition:.2s;
-}
-.view-btn:hover{
+height:5px;
 background:#ff4d00;
 }
 
-/* Footer */
+.product-card:hover{
+transform:translateY(-8px);
+box-shadow:0 18px 38px rgba(0,0,0,.14);
+border-color:#ffd4c2;
+}
+
+.product-image-wrap{
+background:#fafafa;
+border-radius:16px;
+height:285px;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:15px;
+margin-bottom:22px;
+overflow:hidden;
+}
+
+.product-img{
+width:100%;
+height:100%;
+object-fit:contain;
+transition:.3s ease;
+}
+
+.product-card:hover .product-img{
+transform:scale(1.05);
+}
+
+.product-name{
+font-size:22px;
+font-weight:800;
+margin-bottom:9px;
+color:#222;
+}
+
+.product-desc{
+font-size:14px;
+color:#777;
+margin-bottom:13px;
+line-height:1.5;
+}
+
+.product-price{
+font-size:22px;
+color:#ff4d00;
+font-weight:900;
+margin-bottom:6px;
+}
+
+.product-deal{
+font-size:15px;
+color:#16a34a;
+font-weight:bold;
+margin-bottom:20px;
+}
+
+.view-btn{
+width:100%;
+padding:14px;
+background:#222;
+color:#fff;
+border:none;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+font-size:15px;
+transition:.2s;
+margin-top:auto;
+}
+
+.product-card:hover .view-btn{
+background:#ff4d00;
+}
+
+/* FEATURE STRIP */
+.features{
+margin:50px auto 0;
+max-width:1200px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:16px;
+}
+
+.feature{
+background:#111;
+color:#fff;
+padding:22px;
+border-radius:14px;
+text-align:center;
+}
+
+.feature strong{
+display:block;
+font-size:17px;
+margin-bottom:5px;
+}
+
+.feature span{
+color:#ccc;
+font-size:13px;
+}
+
+/* FOOTER */
 footer{
 text-align:center;
 margin-top:50px;
 color:#888;
 font-size:13px;
-padding-top:20px;
+padding:28px 20px 35px;
 border-top:1px solid #eee;
 }
 
-/* Mobile */
+/* TABLET */
+@media(max-width:1000px){
+
+.product-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.product-card:last-child{
+grid-column:1 / -1;
+max-width:570px;
+width:100%;
+justify-self:center;
+}
+
+.hero h1{
+font-size:38px;
+}
+
+}
+
+/* MOBILE */
 @media(max-width:768px){
-.product-grid{grid-template-columns:1fr;}
-.basket-icon{top:auto; bottom:25px; right:25px;}
-.top-nav{padding-right:0; flex-wrap:wrap; gap:10px;}
+
+.top-nav{
+padding:18px 18px;
+padding-right:18px;
+flex-direction:column;
+align-items:flex-start;
+gap:12px;
+}
+
+.site-title{
+font-size:24px;
+}
+
+.nav-links{
+width:100%;
+overflow-x:auto;
+padding-bottom:4px;
+}
+
+.nav-links a{
+white-space:nowrap;
+font-size:14px;
+padding:8px 10px;
+}
+
+.basket-icon{
+top:auto;
+bottom:22px;
+right:22px;
+}
+
+main{
+padding:38px 16px 25px;
+}
+
+.hero h1{
+font-size:34px;
+}
+
+.sub-heading{
+font-size:15px;
+}
+
+.product-grid{
+grid-template-columns:1fr;
+gap:22px;
+}
+
+.product-card,
+.product-card:last-child{
+grid-column:auto;
+max-width:none;
+min-height:500px;
+}
+
+.product-image-wrap{
+height:275px;
+}
+
+.features{
+grid-template-columns:1fr;
+}
+
+}
+
+/* SMALL MOBILE */
+@media(max-width:420px){
+
+.hero h1{
+font-size:30px;
+}
+
+.product-card{
+padding:22px 18px;
+}
+
+.product-image-wrap{
+height:240px;
+}
+
 }
 </style>
 </head>
+
 <body>
 
-<!-- === AGE VERIFICATION — FIRST THING YOU SEE === -->
+<!-- AGE VERIFICATION -->
 <div class="age-gate" id="ageGate">
 <div class="age-box">
 <h2>⚠️ 18+ ONLY</h2>
-<p>This website contains nicotine products.<br>You must be aged 18 or over to enter.</p>
+<p>
+This website contains nicotine products.<br>
+You must be aged 18 or over to enter.
+</p>
+
 <div class="age-buttons">
 <button class="age-yes" onclick="confirmAge()">I Am 18+ ✅</button>
 <button class="age-no" onclick="leaveSite()">Under 18 — Leave</button>
@@ -241,92 +500,230 @@ border-top:1px solid #eee;
 </div>
 </div>
 
-<!-- Basket Icon -->
-<div class="basket-icon" id="basketIcon" onclick="window.location.href='checkout.html'" style="display:none;">
+<!-- BASKET -->
+<div
+class="basket-icon"
+id="basketIcon"
+onclick="window.location.href='checkout.html'"
+style="display:none;"
+>
 🛒
 <span class="basket-count" id="basketCount">0</span>
 </div>
 
-<!-- Top Navigation -->
-<div class="top-nav" id="mainNav" style="display:none;">
-<div class="site-title">VAPE STORE</div>
+<!-- HEADER -->
+<header id="mainNav" style="display:none;">
+<div class="top-nav">
+
+<div class="site-title">
+VAPES<span>4ALL</span>
+</div>
+
 <div class="nav-links">
-<a href="index.html" class="active" style="color:#ff4d00">Home</a>
+<a href="index.html" class="active">Home</a>
 <a href="dojo-units.html">Units</a>
 <a href="dojo-pods.html">Pods</a>
 <a href="ivg.html">IVG</a>
 <a href="contact.html">Contact</a>
 </div>
+
+</div>
+</header>
+
+<!-- MAIN CONTENT -->
+<main id="mainContent" style="display:none;">
+
+<section class="hero">
+
+<div class="hero-badge">
+18+ VAPE STORE
 </div>
 
-<!-- Main Content -->
-<div id="mainContent" style="display:none;">
-<h1>VAPE STORE</h1>
-<p class="sub-heading">Premium vapes & Disposables — Top brands: Dojo, IVG & more • Fast Tracked Delivery • 18+ Only</p>
+<h1>
+Premium Vapes.<br>
+<span>Great Prices.</span>
+</h1>
 
-<div class="product-grid">
+<p class="sub-heading">
+Shop Dojo, IVG and more with fast tracked delivery,
+great multi-buy deals and a growing range of flavours.
+</p>
+
+</section>
+
+<!-- PRODUCT BOXES -->
+<section class="product-grid">
 
 <!-- DOJO BLAST 10K UNITS -->
 <a href="dojo-units.html" class="product-card">
-<img src="dojo-units.jpg" alt="Dojo Blast 10K Units" class="product-img">
-<h3 class="product-name">Dojo Blast 10K Units</h3>
-<p class="product-desc">Rechargeable disposables • 10,000 puffs</p>
-<p class="product-price">£6.99 each</p>
-<p class="product-deal">Any 3 for £12.99</p>
-<button class="view-btn">View All Flavours →</button>
+
+<div class="product-image-wrap">
+<img
+src="dojo-units.jpg"
+alt="Dojo Blast 10K Units"
+class="product-img"
+>
+</div>
+
+<h3 class="product-name">
+Dojo Blast 10K Units
+</h3>
+
+<p class="product-desc">
+Rechargeable disposables • 10,000 puffs
+</p>
+
+<p class="product-price">
+£6.99 each
+</p>
+
+<p class="product-deal">
+Any 3 for £12.99
+</p>
+
+<button class="view-btn">
+View All Flavours →
+</button>
+
 </a>
 
 <!-- DOJO BLAST PODS -->
 <a href="dojo-pods.html" class="product-card">
-<img src="dojo-pods.jpg" alt="Dojo Blast Pods" class="product-img">
-<h3 class="product-name">Dojo Blast 10K Pods</h3>
-<p class="product-desc">20mg Nic Salt • Fully compatible</p>
-<p class="product-price">£4.99 each</p>
-<p class="product-deal">Any 6 for £20</p>
-<button class="view-btn">View All Flavours →</button>
+
+<div class="product-image-wrap">
+<img
+src="dojo-pods.jpg"
+alt="Dojo Blast 10K Pods"
+class="product-img"
+>
+</div>
+
+<h3 class="product-name">
+Dojo Blast 10K Pods
+</h3>
+
+<p class="product-desc">
+20mg Nic Salt • Fully compatible
+</p>
+
+<p class="product-price">
+£4.99 each
+</p>
+
+<p class="product-deal">
+Any 6 for £20
+</p>
+
+<button class="view-btn">
+View All Flavours →
+</button>
+
 </a>
 
 <!-- IVG SMART MAX -->
 <a href="ivg.html" class="product-card">
-<img src="ivg.jpg" alt="IVG Smart Max" class="product-img">
-<h3 class="product-name">IVG Smart Max</h3>
-<p class="product-desc">Premium Rechargeable Kit • Half Price</p>
-<p class="product-price">£4.99 each</p>
-<p class="product-deal">Massive flavours range</p>
-<button class="view-btn">View All Flavours →</button>
+
+<div class="product-image-wrap">
+<img
+src="ivg.jpg"
+alt="IVG Smart Max"
+class="product-img"
+>
+</div>
+
+<h3 class="product-name">
+IVG Smart Max
+</h3>
+
+<p class="product-desc">
+Premium Rechargeable Kit • Half Price
+</p>
+
+<p class="product-price">
+£4.99 each
+</p>
+
+<p class="product-deal">
+Massive flavours range
+</p>
+
+<button class="view-btn">
+View All Flavours →
+</button>
+
 </a>
 
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+
+<div class="feature">
+<strong>🚚 Fast Delivery</strong>
+<span>Tracked delivery on your order</span>
 </div>
+
+<div class="feature">
+<strong>💷 Great Deals</strong>
+<span>Multi-buy offers across selected products</span>
+</div>
+
+<div class="feature">
+<strong>🔞 18+ Only</strong>
+<span>Age restricted products for adults only</span>
+</div>
+
+</section>
 
 <footer>
 Vapes4All © 2026 | 18+ Only | All Rights Reserved
 </footer>
-</div>
+
+</main>
 
 <script>
-// Age Gate
+
+/* AGE GATE */
 function confirmAge(){
-document.getElementById('ageGate').style.display = 'none';
-document.getElementById('basketIcon').style.display = 'flex';
-document.getElementById('mainNav').style.display = 'flex';
-document.getElementById('mainContent').style.display = 'block';
-localStorage.setItem('ageVerified', 'true');
+
+document.getElementById('ageGate').style.display='none';
+
+document.getElementById('basketIcon').style.display='flex';
+
+document.getElementById('mainNav').style.display='block';
+
+document.getElementById('mainContent').style.display='block';
+
+localStorage.setItem('ageVerified','true');
+
 }
+
 function leaveSite(){
-window.location.href = 'https://www.google.com';
+window.location.href='https://www.google.com';
 }
-// Keep verified
-if(localStorage.getItem('ageVerified') === 'true'){
+
+if(localStorage.getItem('ageVerified')==='true'){
 confirmAge();
 }
 
-// Basket count
-let basket = JSON.parse(localStorage.getItem('vapes4all_basket') || '[]');
+/* BASKET COUNT */
+let basket=JSON.parse(
+localStorage.getItem('vapes4all_basket') || '[]'
+);
+
 function updateBasketCount(){
-const total = basket.reduce((sum,item) => sum + item.qty, 0);
-document.getElementById('basketCount').textContent = total;
+
+const total=basket.reduce(
+(sum,item)=>sum+(Number(item.qty)||0),
+0
+);
+
+document.getElementById('basketCount').textContent=total;
+
 }
+
 updateBasketCount();
+
 </script>
 
 </body>
