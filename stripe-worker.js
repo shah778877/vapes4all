@@ -69,8 +69,71 @@ function json(data, status = 200, origin = '') {
   return new Response(JSON.stringify(data), { status, headers: {
     'content-type': 'application/json; charset=utf-8',
     'cache-control': 'no-store',
-    ...(ALLOWED_ORIGINS.has(origin) ? { 'access-control-allow-origin': origin, 'vary': 'Origin' } : {})
+    ...(ALLOWED_ORIGINS.has(origin) ? { 'access-control-allow-origin': origin, 'access-control-allow-credentials': 'true', 'vary': 'Origin' } : {})
   }});
+}
+
+function base64url(bytes) {
+  let binary = '';
+  for (const byte of bytes) binary += String.fromCharCode(byte);
+  return btoa(binary).replaceAll('+', '-').replaceAll('/', '_').replace(/=+$/, '');
+}
+
+async function signature(value, secret) {
+  const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  return base64url(new Uint8Array(await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(value))));
+}
+
+async function ageCookie(sessionId, env) {
+  const value = sessionId + '.' + Math.floor(Date.now() / 1000);
+  return value + '.' + await signature(value, env.AGE_COOKIE_SECRET);
+}
+
+async function checkAge(request, env) {
+  const cookie = request.headers.get('Cookie')?.match(/(?:^|;\s*)v4a_age_session=([^;]+)/)?.[1];
+  if (!cookie || !env.AGE_COOKIE_SECRET || !env.YOTI_API_KEY || !env.YOTI_SDK_ID) return false;
+  const [id, created, mac, extra] = cookie.split('.');
+  const age = Math.floor(Date.now() / 1000) - Number(created);
+  if (extra || !/^[0-9a-f-]{36}$/i.test(id || '') || !Number.isInteger(Number(created)) || age < 0 || age > 1800 || !mac) return false;
+  const correct = await signature(id + '.' + created, env.AGE_COOKIE_SECRET);
+  // Compare all bytes so cookie signatures do not leak a matching prefix.
+  if (mac.length !== correct.length) return false;
+  let mismatch = 0;
+  for (let i = 0; i < mac.length; i++) mismatch |= mac.charCodeAt(i) ^ correct.charCodeAt(i);
+  if (mismatch) return false;
+  const response = await fetch('https://age.yoti.com/api/v1/sessions/' + id + '/result', {
+    headers: { Authorization: 'Bearer ' + env.YOTI_API_KEY, 'Yoti-SDK-Id': env.YOTI_SDK_ID }
+  });
+  if (!response.ok) return false;
+  const result = await response.json();
+  return result.id === id && result.sdk_id === env.YOTI_SDK_ID && result.type === 'OVER' &&
+    result.status === 'COMPLETE' && Number(result.age) >= 18 &&
+    ['DOC_SCAN', 'DIGITAL_ID'].includes(result.method);
+}
+
+async function beginAgeCheck(request, env, origin) {
+  if (!env.YOTI_API_KEY || !env.YOTI_SDK_ID || !env.AGE_COOKIE_SECRET) return json({ error: 'Age verification is not configured.' }, 503, origin);
+  try {
+    const response = await fetch('https://age.yoti.com/api/v1/sessions', {
+      method: 'POST',
+      headers: { Authorization: 'Bearer ' + env.YOTI_API_KEY, 'Yoti-SDK-Id': env.YOTI_SDK_ID, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: 'OVER', ttl: 900,
+        doc_scan: { allowed: true, threshold: 18, authenticity: 'AUTO', level: 'PASSIVE', preset_issuing_country: 'GBR' },
+        digital_id: { allowed: true, threshold: 18 },
+        callback: { auto: true, url: SHOP + '/checkout.html?age=returned' },
+        cancel_url: SHOP + '/checkout.html?age=cancelled',
+        synchronous_checks: true
+      })
+    });
+    if (!response.ok) return json({ error: 'Age verification could not start.' }, 502, origin);
+    const session = await response.json();
+    if (!/^[0-9a-f-]{36}$/i.test(session.id || '')) throw new Error('Invalid Yoti session');
+    const url = 'https://age.yoti.com?sessionId=' + encodeURIComponent(session.id) + '&sdkId=' + encodeURIComponent(env.YOTI_SDK_ID);
+    const result = json({ url }, 200, origin);
+    result.headers.set('set-cookie', 'v4a_age_session=' + await ageCookie(session.id, env) + '; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=1800');
+    return result;
+  } catch { return json({ error: 'Age verification could not start.' }, 502, origin); }
 }
 
 async function stripe(path, key, options = {}) {
@@ -86,12 +149,21 @@ export default {
   async fetch(request, env) {
     const origin = request.headers.get('Origin') || '';
     const pathname = new URL(request.url).pathname;
-    if (request.method === 'OPTIONS' && pathname === '/create-checkout-session') {
+    if (request.method === 'OPTIONS' && ['/create-checkout-session', '/begin-age-check'].includes(pathname)) {
       if (!ALLOWED_ORIGINS.has(origin)) return new Response(null, { status: 403 });
       return new Response(null, { status: 204, headers: {
         'access-control-allow-origin': origin, 'access-control-allow-methods': 'POST, OPTIONS',
-        'access-control-allow-headers': 'content-type', 'vary': 'Origin'
+        'access-control-allow-headers': 'content-type', 'access-control-allow-credentials': 'true', 'vary': 'Origin'
       }});
+    }
+    if (pathname === '/begin-age-check' && request.method === 'POST') {
+      if (!ALLOWED_ORIGINS.has(origin)) return json({ error: 'Origin not allowed.' }, 403);
+      return beginAgeCheck(request, env, origin);
+    }
+    if (pathname === '/age-status' && request.method === 'GET') {
+      if (!ALLOWED_ORIGINS.has(origin)) return json({ error: 'Origin not allowed.' }, 403);
+      try { return json({ verified: await checkAge(request, env) }, 200, origin); }
+      catch { return json({ verified: false }, 200, origin); }
     }
     if (pathname === '/session-status' && request.method === 'GET') {
       if (!ALLOWED_ORIGINS.has(origin)) return json({ error: 'Origin not allowed.' }, 403);
@@ -104,6 +176,9 @@ export default {
     }
     if (pathname !== '/create-checkout-session' || request.method !== 'POST') return json({ error: 'Not found.' }, 404, origin);
     if (!ALLOWED_ORIGINS.has(origin)) return json({ error: 'Origin not allowed.' }, 403);
+    try {
+      if (!await checkAge(request, env)) return json({ error: 'Please complete the 18+ age check before payment.' }, 403, origin);
+    } catch { return json({ error: 'Could not confirm age. Please try the age check again.' }, 503, origin); }
     if (!env.STRIPE_SECRET_KEY || !/^(sk_test_|sk_live_)/.test(env.STRIPE_SECRET_KEY)) {
       return json({ error: 'Payment service has not been configured.' }, 503, origin);
     }
