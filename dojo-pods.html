@@ -3,371 +3,279 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dojo Blast 10K Pods | Vapes4All</title>
+<title>Dojo Blast 10K Pods — VAPE STORE</title>
 <style>
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Inter',sans-serif;
-}
-html{
-    scroll-behavior:smooth;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
 }
 body{
-    background:#ffffff;
-    color:#111;
+background:#f8f9fb;
+color:#222;
 }
-a{
-    text-decoration:none;
-    color:inherit;
-}
-.container{
-    width:90%;
-    max-width:1400px;
-    margin:auto;
-}
-/* Top Banner — matches homepage */
+/* Top Banner */
 .top-banner{
-    background:#000;
-    color:#fff;
-    text-align:center;
-    padding:12px;
-    font-weight:700;
-    letter-spacing:.5px;
+background:linear-gradient(90deg, #ff9500, #ffb347);
+color:white;
+text-align:center;
+padding:10px 20px;
+font-weight:bold;
+font-size:15px;
 }
-/* Header — matches homepage */
+/* Header & Nav */
 header{
-    background:#fff;
-    position:sticky;
-    top:0;
-    z-index:100;
-    box-shadow:0 2px 10px rgba(0,0,0,.05);
+background:white;
+box-shadow:0 2px 8px rgba(0,0,0,.06);
+padding:15px 25px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
 }
-.navbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:20px 0;
-}
-.logo{
-    font-size:28px;
-    font-weight:900;
-}
-.nav-links{
-    display:flex;
-    gap:35px;
-    list-style:none;
+.site-title{
+font-size:22px;
+font-weight:bold;
+color:#ff9500;
 }
 .nav-links a{
-    font-weight:600;
-    transition:.3s;
+color:#333;
+text-decoration:none;
+margin-left:18px;
+font-weight:bold;
+font-size:15px;
 }
-.nav-links a:hover{
-    color:#00b36b;
+.nav-links a:hover, .nav-links a.active{
+color:#ff9500;
 }
-/* Basket Icon — matches homepage */
+/* Basket Icon */
 .basket-icon{
-    position:fixed;
-    top:90px;
-    right:25px;
-    background:#000;
-    color:#fff;
-    width:60px;
-    height:60px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:24px;
-    cursor:pointer;
-    z-index:99;
+position:fixed;
+top:70px;
+right:25px;
+background:#000;
+color:#fff;
+width:50px;
+height:50px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
+cursor:pointer;
+z-index:999;
 }
 .basket-count{
-    position:absolute;
-    top:-5px;
-    right:-5px;
-    background:#ff4d00;
-    color:#fff;
-    font-size:12px;
-    font-weight:bold;
-    width:24px;
-    height:24px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+position:absolute;
+top:-5px;
+right:-5px;
+background:#ff4d00;
+color:#fff;
+font-size:11px;
+font-weight:bold;
+width:20px;
+height:20px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
 }
-/* Section */
-section{
-    padding:60px 0;
+/* Main Content */
+.container{
+max-width:1100px;
+margin:40px auto;
+padding:0 25px;
+text-align:center;
 }
-.section-title{
-    text-align:center;
-    font-size:42px;
-    margin-bottom:20px;
+.page-title{
+font-size:32px;
+margin-bottom:10px;
+color:#222;
 }
-.deal-banner{
-    text-align:center;
-    margin-bottom:50px;
+.page-subtitle{
+font-size:16px;
+color:#666;
+margin-bottom:20px;
 }
-.deal-box{
-    display:inline-block;
-    background:#22c55e;
-    color:#fff;
-    padding:15px 35px;
-    border-radius:50px;
-    font-weight:700;
-    font-size:20px;
+.deal-badge{
+display:inline-block;
+background:#22c55e;
+color:white;
+padding:10px 25px;
+border-radius:50px;
+font-weight:bold;
+margin-bottom:40px;
+font-size:15px;
 }
-/* Products Grid — matches homepage style */
-.products-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:30px;
+/* Flavours Grid */
+.flavours-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
 }
-.product-card{
-    background:#fff;
-    border-radius:24px;
-    overflow:hidden;
-    box-shadow:0 10px 30px rgba(0,0,0,.07);
-    transition:.3s;
-    border:1px solid #f5f5f5;
+.flavour-card{
+background:white;
+border-radius:12px;
+padding:25px 20px;
+box-shadow:0 3px 10px rgba(0,0,0,.06);
+transition:.2s;
 }
-.product-card:hover{
-    transform:translateY(-5px);
+.flavour-card:hover{
+transform:translateY(-3px);
+box-shadow:0 5px 15px rgba(255,149,0,.15);
 }
-.product-info{
-    padding:25px;
-    text-align:center;
+.flavour-name{
+font-size:16px;
+font-weight:bold;
+margin-bottom:10px;
+color:#222;
 }
-.product-info h3{
-    font-size:18px;
-    margin-bottom:12px;
+.flavour-price{
+font-size:18px;
+color:#ff9500;
+font-weight:bold;
+margin-bottom:15px;
 }
-.price{
-    font-size:24px;
-    font-weight:800;
-    margin-bottom:15px;
+.add-btn{
+width:100%;
+padding:11px;
+background:#222;
+color:white;
+border:none;
+border-radius:8px;
+font-weight:bold;
+cursor:pointer;
+font-size:14px;
+transition:.2s;
 }
-.btn{
-    display:inline-block;
-    width:100%;
-    text-align:center;
-    background:#000;
-    color:#fff;
-    padding:14px;
-    border-radius:12px;
-    font-weight:700;
-    border:none;
-    cursor:pointer;
-    font-size:16px;
-    transition:.3s;
+.add-btn:hover{
+background:#ff9500;
 }
-.btn:hover{
-    background:#222;
-}
-/* Footer — matches homepage */
+/* Footer */
 footer{
-    background:#000;
-    color:#fff;
-    text-align:center;
-    padding:25px;
-    margin-top:40px;
+text-align:center;
+padding:30px;
+color:#888;
+font-size:13px;
+margin-top:50px;
 }
 /* Mobile */
-@media(max-width:900px){
-    .navbar{
-        flex-direction:column;
-        gap:20px;
-    }
-    .nav-links{
-        flex-wrap:wrap;
-        justify-content:center;
-        gap:15px;
-        padding:0;
-    }
-    .basket-icon{
-        top:auto;
-        bottom:25px;
-        right:25px;
-    }
-    .section-title{
-        font-size:32px;
-    }
-}
-</style>
-<!-- Font fallback -->
-<style>
-@font-face {
-    font-family:'Inter';
-    font-style:normal;
-    font-weight:300 900;
-    font-display:swap;
-    src:local('Arial'), local('Segoe UI'), sans-serif;
+@media(max-width:768px){
+.basket-icon{top:auto; bottom:25px; right:25px;}
+.flavours-grid{grid-template-columns:repeat(2,1fr); gap:15px;}
 }
 </style>
 </head>
 <body>
 
-<!-- Delivery Banner — SAME as homepage -->
+<!-- Top Orange Banner -->
 <div class="top-banner">
-    🚚 FREE DPD TRACKED DELIVERY ON ORDERS £23+
+🚚 FREE DPD TRACKED DELIVERY ON ORDERS £23+
 </div>
 
+<!-- Basket Icon -->
+<div class="basket-icon" id="basketIcon" onclick="window.location.href='checkout.html'">
+🛒
+<span class="basket-count" id="basketCount">0</span>
+</div>
+
+<!-- Header -->
 <header>
-    <div class="container navbar">
-        <div class="logo">VAPE STORE</div>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="dojo-units.html">Units</a></li>
-                <li><a href="dojo-pods.html">Pods</a></li>
-                <li><a href="ivg.html">IVG</a></li>
-                <li><a href="checkout.html">Basket</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </div>
+<div class="site-title">VAPE STORE</div>
+<div class="nav-links">
+<a href="index.html">Home</a>
+<a href="dojo-units.html">Units</a>
+<a href="dojo-pods.html" class="active" style="color:#ff9500">Pods</a>
+<a href="ivg.html">IVG</a>
+<a href="checkout.html">Basket</a>
+<a href="contact.html">Contact</a>
+</div>
 </header>
 
-<!-- Basket Icon — SAME as homepage -->
-<div class="basket-icon" id="basketIcon" onclick="window.location.href='checkout.html'">
-    🛒
-    <span class="basket-count" id="basketCount">0</span>
+<!-- Main -->
+<div class="container">
+<h1 class="page-title">Dojo Blast 10K Pods</h1>
+<p class="page-subtitle">£4.99 Each • Any 6 For £20 • 20mg Nic Salt</p>
+<div class="deal-badge">✅ Any 6 Pods For £20</div>
+
+<div class="flavours-grid">
+
+<div class="flavour-card">
+<h3 class="flavour-name">Lemon Cola</h3>
+<p class="flavour-price">£4.99</p>
+<button class="add-btn" onclick="addToBasket('Dojo Pods — Lemon Cola', 4.99)">Add To Basket</button>
 </div>
 
-<!-- Hero -->
-<section>
-    <div class="container">
-        <h1 class="section-title">Dojo Blast 10K Pods</h1>
-        <p style="text-align:center; color:#666; font-size:18px; margin-bottom:20px;">
-            £4.99 Each • Any 6 For £20 • 20mg Nic Salt
-        </p>
-        <div class="deal-banner">
-            <div class="deal-box">🔥 Any 6 Pods For £20</div>
-        </div>
+<div class="flavour-card">
+<h3 class="flavour-name">Vimberry</h3>
+<p class="flavour-price">£4.99</p>
+<button class="add-btn" onclick="addToBasket('Dojo Pods — Vimberry', 4.99)">Add To Basket</button>
+</div>
 
-        <!-- Pod Flavours -->
-        <div class="products-grid">
-            <div class="product-card">
-                <div class="product-info">
-                    <h3>Lemon Cola 🆕</h3>
-                    <div class="price">£4.99</div>
-                    <button class="btn" onclick="addToBasket('Dojo Pod - Lemon Cola', 4.99)">Add To Basket</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-info">
-                    <h3>Vimberry 🆕</h3>
-                    <div class="price">£4.99</div>
-                    <button class="btn" onclick="addToBasket('Dojo Pod - Vimberry', 4.99)">Add To Basket</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-info">
-                    <h3>Cherry Cola 🆕</h3>
-                    <div class="price">£4.99</div>
-                    <button class="btn" onclick="addToBasket('Dojo Pod - Cherry Cola', 4.99)">Add To Basket</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-info">
-                    <h3>Ten Tangerines</h3>
-                    <div class="price">£4.99</div>
-                    <button class="btn" onclick="addToBasket('Dojo Pod - Ten Tangerines', 4.99)">Add To Basket</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-info">
-                    <h3>Pineapple Ice</h3>
-                    <div class="price">£4.99</div>
-                    <button class="btn" onclick="addToBasket('Dojo Pod - Pineapple Ice', 4.99)">Add To Basket</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-info">
-                    <h3>Blue Razz Lemonade</h3>
-                    <div class="price">£4.99</div>
-                    <button class="btn" onclick="addToBasket('Dojo Pod - Blue Razz Lemonade', 4.99)">Add To Basket</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-info">
-                    <h3>Banana Ice</h3>
-                    <div class="price">£4.99</div>
-                    <button class="btn" onclick="addToBasket('Dojo Pod - Banana Ice', 4.99)">Add To Basket</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-info">
-                    <h3>Lemon Lime</h3>
-                    <div class="price">£4.99</div>
-                    <button class="btn" onclick="addToBasket('Dojo Pod - Lemon Lime', 4.99)">Add To Basket</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-info">
-                    <h3>Cool Menthol</h3>
-                    <div class="price">£4.99</div>
-                    <button class="btn" onclick="addToBasket('Dojo Pod - Cool Menthol', 4.99)">Add To Basket</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-info">
-                    <h3>Triple Mango</h3>
-                    <div class="price">£4.99</div>
-                    <button class="btn" onclick="addToBasket('Dojo Pod - Triple Mango', 4.99)">Add To Basket</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-info">
-                    <h3>Pink Lemonade</h3>
-                    <div class="price">£4.99</div>
-                    <button class="btn" onclick="addToBasket('Dojo Pod - Pink Lemonade', 4.99)">Add To Basket</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-info">
-                    <h3>Fizzy Cherry</h3>
-                    <div class="price">£4.99</div>
-                    <button class="btn" onclick="addToBasket('Dojo Pod - Fizzy Cherry', 4.99)">Add To Basket</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<div class="flavour-card">
+<h3 class="flavour-name">Cherry Cola</h3>
+<p class="flavour-price">£4.99</p>
+<button class="add-btn" onclick="addToBasket('Dojo Pods — Cherry Cola', 4.99)">Add To Basket</button>
+</div>
+
+<div class="flavour-card">
+<h3 class="flavour-name">Ten Tangerines</h3>
+<p class="flavour-price">£4.99</p>
+<button class="add-btn" onclick="addToBasket('Dojo Pods — Ten Tangerines', 4.99)">Add To Basket</button>
+</div>
+
+<div class="flavour-card">
+<h3 class="flavour-name">Pineapple Ice</h3>
+<p class="flavour-price">£4.99</p>
+<button class="add-btn" onclick="addToBasket('Dojo Pods — Pineapple Ice', 4.99)">Add To Basket</button>
+</div>
+
+<div class="flavour-card">
+<h3 class="flavour-name">Blue Razz Lemonade</h3>
+<p class="flavour-price">£4.99</p>
+<button class="add-btn" onclick="addToBasket('Dojo Pods — Blue Razz Lemonade', 4.99)">Add To Basket</button>
+</div>
+
+<div class="flavour-card">
+<h3 class="flavour-name">Banana Ice</h3>
+<p class="flavour-price">£4.99</p>
+<button class="add-btn" onclick="addToBasket('Dojo Pods — Banana Ice', 4.99)">Add To Basket</button>
+</div>
+
+<div class="flavour-card">
+<h3 class="flavour-name">Lemon Lime</h3>
+<p class="flavour-price">£4.99</p>
+<button class="add-btn" onclick="addToBasket('Dojo Pods — Lemon Lime', 4.99)">Add To Basket</button>
+</div>
+
+</div>
+</div>
 
 <footer>
-    <p>© 2026 VAPE STORE. All Rights Reserved. 🔞 18+ Only</p>
+Vapes4All © 2026 | 18+ Only
 </footer>
 
 <script>
-// SAME basket system — works across ALL pages
-let basket = JSON.parse(localStorage.getItem('basket') || '[]');
+// Basket system — same as Units & IVG pages
+let basket = JSON.parse(localStorage.getItem('vapes4all_basket') || '[]');
 
-function updateBasketCount() {
-    const total = basket.reduce((sum, item) => sum + item.qty, 0);
-    document.getElementById('basketCount').textContent = total;
+function updateBasketCount(){
+const total = basket.reduce((sum,item) => sum + item.qty, 0);
+document.getElementById('basketCount').textContent = total;
 }
 
-function addToBasket(name, price) {
-    const existing = basket.find(i => i.name === name);
-    if (existing) {
-        existing.qty++;
-    } else {
-        basket.push({ name, price, qty: 1 });
-    }
-    localStorage.setItem('basket', JSON.stringify(basket));
-    updateBasketCount();
-    
-    // Quick flash — NO pop-ups
-    const icon = document.getElementById('basketIcon');
-    icon.style.transform = 'scale(1.2)';
-    setTimeout(() => icon.style.transform = 'scale(1)', 200);
+function addToBasket(name, price){
+const existing = basket.find(i => i.name === name);
+if(existing){
+existing.qty += 1;
+}else{
+basket.push({ name, price, qty: 1 });
+}
+localStorage.setItem('vapes4all_basket', JSON.stringify(basket));
+updateBasketCount();
 }
 
-// Load correct count on page open
 updateBasketCount();
 </script>
 
