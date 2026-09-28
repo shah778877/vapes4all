@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vape Store | Premium Vapes & Pods</title>
-
-https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{
     margin:0;
@@ -14,27 +14,22 @@ https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&
     box-sizing:border-box;
     font-family:'Inter',sans-serif;
 }
-
 html{
     scroll-behavior:smooth;
 }
-
 body{
     background:#ffffff;
     color:#111;
 }
-
 a{
     text-decoration:none;
     color:inherit;
 }
-
 .container{
     width:90%;
     max-width:1400px;
     margin:auto;
 }
-
 /* Top Banner */
 .top-banner{
     background:#000;
@@ -44,7 +39,6 @@ a{
     font-weight:700;
     letter-spacing:.5px;
 }
-
 /* Header */
 header{
     background:#fff;
@@ -53,58 +47,49 @@ header{
     z-index:100;
     box-shadow:0 2px 10px rgba(0,0,0,.05);
 }
-
 .navbar{
     display:flex;
     justify-content:space-between;
     align-items:center;
     padding:20px 0;
 }
-
 .logo{
     font-size:28px;
     font-weight:900;
 }
-
 .nav-links{
     display:flex;
     gap:35px;
+    list-style:none;
 }
-
 .nav-links a{
     font-weight:600;
     transition:.3s;
 }
-
 .nav-links a:hover{
     color:#00b36b;
 }
-
 /* Hero */
 .hero{
     background:linear-gradient(135deg,#f8f8f8,#ffffff);
     padding:80px 0;
 }
-
 .hero-content{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:50px;
     align-items:center;
 }
-
 .hero-text h1{
     font-size:58px;
     line-height:1.1;
     margin-bottom:20px;
 }
-
 .hero-text p{
     font-size:18px;
     color:#666;
     margin-bottom:30px;
 }
-
 .hero-btn{
     display:inline-block;
     background:#000;
@@ -112,55 +97,54 @@ header{
     padding:15px 28px;
     border-radius:12px;
     font-weight:700;
+    transition:.3s;
 }
-
+.hero-btn:hover{
+    background:#222;
+}
 .hero-image img{
     width:100%;
     border-radius:24px;
     box-shadow:0 20px 40px rgba(0,0,0,.08);
 }
-
 /* Section */
 section{
     padding:80px 0;
 }
-
 .section-title{
     text-align:center;
     font-size:42px;
     margin-bottom:50px;
 }
-
 /* Flavours */
 .flavours{
     background:#fafafa;
 }
-
 .flavour-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:25px;
 }
-
 .flavour-card{
     background:#fff;
     padding:30px;
     border-radius:20px;
     text-align:center;
     box-shadow:0 5px 20px rgba(0,0,0,.05);
+    transition:.3s;
 }
-
+.flavour-card:hover{
+    transform:translateY(-3px);
+}
 .flavour-card h3{
     font-size:24px;
 }
-
 /* Products */
 .products-grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
     gap:30px;
 }
-
 .product-card{
     background:#fff;
     border-radius:24px;
@@ -168,39 +152,32 @@ section{
     box-shadow:0 10px 30px rgba(0,0,0,.07);
     transition:.3s;
 }
-
 .product-card:hover{
     transform:translateY(-5px);
 }
-
 .product-card img{
     width:100%;
     height:280px;
     object-fit:cover;
 }
-
 .product-info{
     padding:25px;
 }
-
 .product-info h3{
     font-size:26px;
     margin-bottom:10px;
 }
-
 .price{
     font-size:24px;
     font-weight:800;
     margin-bottom:10px;
 }
-
 .offer{
     color:#ff4d00;
     font-size:18px;
     font-weight:700;
     margin-bottom:20px;
 }
-
 .btn{
     display:inline-block;
     width:100%;
@@ -210,20 +187,56 @@ section{
     padding:14px;
     border-radius:12px;
     font-weight:700;
+    border:none;
+    cursor:pointer;
+    font-size:16px;
+    transition:.3s;
 }
-
+.btn:hover{
+    background:#222;
+}
+/* Basket Icon */
+.basket-icon{
+    position:fixed;
+    top:90px;
+    right:25px;
+    background:#000;
+    color:#fff;
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    cursor:pointer;
+    z-index:99;
+}
+.basket-count{
+    position:absolute;
+    top:-5px;
+    right:-5px;
+    background:#ff4d00;
+    color:#fff;
+    font-size:12px;
+    font-weight:bold;
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
 /* Contact */
 .contact{
     background:#fafafa;
     text-align:center;
 }
-
 .contact p{
     color:#666;
     margin-top:15px;
     font-size:18px;
 }
-
 /* Footer */
 footer{
     background:#000;
@@ -231,7 +244,6 @@ footer{
     text-align:center;
     padding:25px;
 }
-
 /* Age Verification */
 .age-popup{
     position:fixed;
@@ -242,7 +254,6 @@ footer{
     align-items:center;
     z-index:9999;
 }
-
 .age-box{
     background:#fff;
     max-width:500px;
@@ -251,23 +262,19 @@ footer{
     border-radius:24px;
     text-align:center;
 }
-
 .age-box h2{
     font-size:34px;
     margin-bottom:15px;
 }
-
 .age-box p{
     color:#666;
     margin-bottom:25px;
     line-height:1.5;
 }
-
 .age-buttons{
     display:flex;
     gap:15px;
 }
-
 .age-buttons button{
     flex:1;
     border:none;
@@ -276,55 +283,58 @@ footer{
     border-radius:12px;
     font-size:16px;
     font-weight:700;
+    transition:.3s;
 }
-
 .enter-btn{
     background:#000;
     color:#fff;
 }
-
+.enter-btn:hover{
+    background:#222;
+}
 .exit-btn{
     background:#eee;
 }
-
+.exit-btn:hover{
+    background:#ddd;
+}
 /* Mobile */
 @media(max-width:900px){
-
 .hero-content{
     grid-template-columns:1fr;
 }
-
 .hero-text h1{
     font-size:40px;
 }
-
 .navbar{
     flex-direction:column;
     gap:20px;
 }
-
 .nav-links{
     flex-wrap:wrap;
     justify-content:center;
-    gap:20px;
+    gap:15px;
+    padding:0;
 }
-
 .flavour-grid{
     grid-template-columns:1fr;
+}
+.basket-icon{
+    top:auto;
+    bottom:25px;
+    right:25px;
 }
 }
 </style>
 </head>
 <body>
-
-<!-- Age Verification -->
+<!-- Age Verification - FIRST THING THAT LOADS -->
 <div class="age-popup" id="agePopup">
     <div class="age-box">
         <h2>🔞 Age Verification</h2>
         <p>
             You must be 18 years or older to enter this website and purchase vaping products.
         </p>
-
         <div class="age-buttons">
             <button class="enter-btn" onclick="enterSite()">I Am 18+</button>
             <button class="exit-btn" onclick="leaveSite()">Exit</button>
@@ -340,142 +350,96 @@ footer{
 <header>
     <div class="container navbar">
         <div class="logo">VAPE STORE</div>
-
-        <nav class="nav-links">
-    #Home</a>
-    <anitsUnits</a>
-    #podsPods</a>
-    #ivgIVG</a>
-    #basketBasket</a>
-    <aontactContact</a>
-</nav>
-            #Home</a>
-            #unitsUnits</a>
-            #podsPods</a>
-            #ivgIVG</a>
-            #Basket</a>
-            #contactContact</a>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#units">Units</a></li>
+                <li><a href="#pods">Pods</a></li>
+                <li><a href="#ivg">IVG</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </nav>
     </div>
 </header>
 
-<!-- Hero -->
-<section class="hero">
-    <div class="container hero-content">
+<!-- Basket Icon -->
+<div class="basket-icon" id="basketIcon" onclick="window.location.href='basket.html'">
+    🛒
+    <span class="basket-count" id="basketCount">0</span>
+</div>
 
+<!-- Hero -->
+<section class="hero" id="home">
+    <div class="container hero-content">
         <div class="hero-text">
             <h1>Premium Disposable & Pod Vape Deals</h1>
-
             <p>
                 Shop the latest Dojo Blast and IVG Smart Max devices with unbeatable multi-buy offers and fast UK delivery.
             </p>
-
-            #products
-                
-        <a href="#products"Now
-</a>
-            </a>
+            <a href="#products" class="hero-btn">Shop Now</a>
         </div>
-
         <div class="hero-image">
-            <img src="dojo-units.jpg" alt="Dojo Blast Units">
+            <img src="dojo-units.jpg" alt="Dojo Blast Units" onerror="this.src='https://via.placeholder.com/500x350?text=Dojo+Blast+Units'">
         </div>
-
     </div>
 </section>
 
 <!-- Flavours -->
 <section class="flavours">
     <div class="container">
-
         <h2 class="section-title">Featured New Flavours</h2>
-
         <div class="flavour-grid">
-
             <div class="flavour-card">
                 <h3>🥤 Lemon Cola</h3>
             </div>
-
             <div class="flavour-card">
                 <h3>🍇 Vimberry</h3>
             </div>
-
             <div class="flavour-card">
                 <h3>🥤 Cherry Cola</h3>
             </div>
-
         </div>
-
     </div>
 </section>
 
 <!-- Products -->
 <section id="products">
     <div class="container">
-
         <h2 class="section-title">Popular Products</h2>
-
         <div class="products-grid">
-
             <!-- Dojo Units -->
             <div class="product-card" id="units">
-                <img src="dojo-units.jpg" alt="Dojo Blast 10K Units">
-
+                <img src="dojo-units.jpg" alt="Dojo Blast 10K Units" onerror="this.src='https://via.placeholder.com/400x280?text=Dojo+Units'">
                 <div class="product-info">
                     <h3>Dojo Blast 10K Units</h3>
-
                     <div class="price">£6.99 each</div>
-
-                    <div class="offer">
-                        🔥 Any 3 for £12.99
-                    </div>
-
-                    #
-                        Add To Basket
-                    </a>
+                    <div class="offer">🔥 Any 3 for £12.99</div>
+                    <button class="btn" onclick="addToBasket('units', 6.99)">Add To Basket</button>
                 </div>
             </div>
 
             <!-- Dojo Pods -->
             <div class="product-card" id="pods">
-                <img src="dojo-pods.jpg" alt="Dojo Blast Pods">
-
+                <img src="dojo-pods.jpg" alt="Dojo Blast Pods" onerror="this.src='https://via.placeholder.com/400x280?text=Dojo+Pods'">
                 <div class="product-info">
                     <h3>Dojo Blast Pods</h3>
-
                     <div class="price">£4.99 each</div>
-
-                    <div class="offer">
-                        🔥 Any 6 for £20
-                    </div>
-
-                    #
-                        Add To Basket
-                    </a>
+                    <div class="offer">🔥 Any 6 for £20</div>
+                    <button class="btn" onclick="addToBasket('pods', 4.99)">Add To Basket</button>
                 </div>
             </div>
 
             <!-- IVG -->
             <div class="product-card" id="ivg">
-                <img src="ivg.jpg" alt="IVG Smart Max">
-
+                <img src="ivg.jpg" alt="IVG Smart Max" onerror="this.src='https://via.placeholder.com/400x280?text=IVG+Smart+Max'">
                 <div class="product-info">
                     <h3>IVG Smart Max</h3>
-
                     <div class="price">£4.99</div>
-
-                    <div class="offer">
-                        Premium Rechargeable Kit
-                    </div>
-
-                    #
-                        Add To Basket
-                    </a>
+                    <div class="offer">Premium Rechargeable Kit</div>
+                    <button class="btn" onclick="addToBasket('ivg', 4.99)">Add To Basket</button>
                 </div>
             </div>
-
         </div>
-
     </div>
 </section>
 
@@ -483,26 +447,50 @@ footer{
 <section class="contact" id="contact">
     <div class="container">
         <h2 class="section-title">Contact Us</h2>
-
-        <p>
-            Need help with your order? Get in touch with our customer support team.
-        </p>
+        <p>Need help with your order? Email us at info@vapes4all.co.uk</p>
+        <p style="margin-top:10px;">🚚 All deliveries via DPD — Tracked & Signed</p>
     </div>
 </section>
 
 <footer>
-    <p>© 2026 Vape Store. All Rights Reserved.</p>
+    <p>© 2026 Vapes4All. All Rights Reserved. 🔞 18+ Only</p>
 </footer>
 
 <script>
+// Age Check
 function enterSite() {
     document.getElementById('agePopup').style.display = 'none';
 }
-
 function leaveSite() {
     window.location.href = 'https://www.google.com';
 }
-</script>
 
+// Basket Functions
+let basket = JSON.parse(localStorage.getItem('basket')) || [];
+
+function updateBasketCount() {
+    const total = basket.reduce((sum, item) => sum + item.qty, 0);
+    document.getElementById('basketCount').textContent = total;
+}
+
+function addToBasket(name, price) {
+    const existing = basket.find(i => i.name === name);
+    if (existing) {
+        existing.qty++;
+    } else {
+        basket.push({ name, price, qty: 1 });
+    }
+    localStorage.setItem('basket', JSON.stringify(basket));
+    updateBasketCount();
+    
+    // Flash effect on basket icon
+    const icon = document.getElementById('basketIcon');
+    icon.style.transform = 'scale(1.2)';
+    setTimeout(() => icon.style.transform = 'scale(1)', 200);
+}
+
+// Run on load
+updateBasketCount();
+</script>
 </body>
 </html>
