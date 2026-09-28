@@ -93,6 +93,15 @@ export default {
         'access-control-allow-headers': 'content-type', 'vary': 'Origin'
       }});
     }
+    if (pathname === '/session-status' && request.method === 'GET') {
+      if (!ALLOWED_ORIGINS.has(origin)) return json({ error: 'Origin not allowed.' }, 403);
+      const id = new URL(request.url).searchParams.get('id') || '';
+      if (!/^cs_(test_|live_)[A-Za-z0-9]+$/.test(id)) return json({ error: 'Invalid session.' }, 400, origin);
+      try {
+        const session = await stripe('checkout/sessions/' + id, env.STRIPE_SECRET_KEY);
+        return json({ paid: session.payment_status === 'paid', pending: session.status === 'complete' && session.payment_status !== 'paid' }, 200, origin);
+      } catch { return json({ error: 'Could not check payment.' }, 502, origin); }
+    }
     if (pathname !== '/create-checkout-session' || request.method !== 'POST') return json({ error: 'Not found.' }, 404, origin);
     if (!ALLOWED_ORIGINS.has(origin)) return json({ error: 'Origin not allowed.' }, 403);
     if (!env.STRIPE_SECRET_KEY || !/^(sk_test_|sk_live_)/.test(env.STRIPE_SECRET_KEY)) {
@@ -110,7 +119,7 @@ export default {
       const delivery = subtotal >= 2300 ? 0 : paidShipping;
       const params = new URLSearchParams({
         mode: 'payment',
-        success_url: SHOP + '/checkout.html?payment=success',
+        success_url: SHOP + '/checkout.html?payment=success&session_id={CHECKOUT_SESSION_ID}',
         cancel_url: SHOP + '/checkout.html?payment=cancelled',
         'shipping_address_collection[allowed_countries][0]': 'GB',
         'phone_number_collection[enabled]': 'true',
@@ -130,7 +139,7 @@ export default {
       }
       const session = await stripe('checkout/sessions', env.STRIPE_SECRET_KEY, { method: 'POST', body: params });
       if (!session.url?.startsWith('https://checkout.stripe.com/')) throw new Error('Stripe did not return a checkout page.');
-      return json({ url: session.url }, 200, origin);
+      return json({ url: session.url, id: session.id }, 200, origin);
     } catch (error) {
       const message = error instanceof SyntaxError ? 'Invalid basket.' : error.message;
       const status = /basket|item|quantity|Too many/.test(message) ? 400 : 502;
