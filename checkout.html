@@ -660,12 +660,12 @@ footer {
         <div class="divider"></div>
 
         <div class="summary-row total-row">
-          <span>Products total</span>
+          <span>Total to pay</span>
           <strong id="productsTotal">£0.00</strong>
         </div>
 
         <p class="delivery-note" id="totalNote">
-          Delivery will be calculated at checkout.
+          Delivery is £2.99 below £23, or free from £23.
         </p>
 
         <div class="delivery-progress" id="deliveryProgress">
@@ -677,7 +677,7 @@ footer {
         </button>
 
         <p class="payment-note">
-          Secure payment through Stripe will be connected here.
+          Your age is checked securely by Yoti before Stripe shows eligible payment options.
         </p>
       </div>
     </aside>
@@ -688,6 +688,56 @@ footer {
 
 <script>
 const basketKey = "vapes4all_basket";
+// Set this to the deployed Worker URL only after Stripe approves vape sales.
+const paymentsApi = "";
+const paymentButton = document.getElementById("paymentButton");
+let ageVerifiedForPayment = false;
+
+async function checkCheckoutAge() {
+  if (!paymentsApi) return false;
+  const response = await fetch(paymentsApi + "/age-status", { credentials: "include" });
+  if (!response.ok) throw new Error("Could not check age verification.");
+  const result = await response.json();
+  ageVerifiedForPayment = result.verified === true;
+  paymentButton.textContent = ageVerifiedForPayment ? "Continue to secure payment →" : "Verify age to continue →";
+  return ageVerifiedForPayment;
+}
+let startingPayment = false;
+
+paymentButton.addEventListener("click", async () => {
+  if (startingPayment || !paymentsApi) return;
+  startingPayment = true;
+  paymentButton.disabled = true;
+  paymentButton.textContent = "Checking age verification…";
+  try {
+    if (!await checkCheckoutAge()) {
+      paymentButton.textContent = "Starting secure age check…";
+      const ageResponse = await fetch(paymentsApi + "/begin-age-check", { method: "POST", credentials: "include" });
+      const ageResult = await ageResponse.json();
+      if (!ageResponse.ok || !ageResult.url?.startsWith("https://age.yoti.com?")) throw new Error(ageResult.error || "Age check could not start.");
+      window.location.assign(ageResult.url);
+      return;
+    }
+    paymentButton.textContent = "Connecting to secure checkout…";
+    const response = await fetch(paymentsApi + "/create-checkout-session", {
+      method: "POST",
+      credentials: "include",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ basket: getBasket() })
+    });
+    const result = await response.json();
+    if (!response.ok || !result.url || !result.url.startsWith("https://checkout.stripe.com/")) {
+      throw new Error(result.error || "Payment could not be started.");
+    }
+    sessionStorage.setItem("checkoutBasketSnapshot", JSON.stringify(getBasket()));
+    sessionStorage.setItem("checkoutSessionId", result.id);
+    window.location.assign(result.url);
+  } catch (error) {
+    window.alert(error.message || "Payment could not be started. Please try again.");
+    startingPayment = false;
+    renderBasket();
+  }
+});
 
 const prices = {
   unit: 699,
@@ -698,6 +748,7 @@ const prices = {
 const unitDealPrice = 1299;
 const podDealPrice = 2000;
 const freeDeliveryThreshold = 2300;
+const paidDeliveryPrice = 299;
 
 function money(pence) {
   return "£" + (pence / 100).toFixed(2);
@@ -889,6 +940,8 @@ function renderBasket() {
   );
 
   document.getElementById("basketCount").textContent = count;
+  paymentButton.disabled = !paymentsApi || count === 0 || startingPayment;
+  if (!startingPayment) paymentButton.textContent = ageVerifiedForPayment ? "Continue to secure payment →" : "Verify age to continue →";
   document.getElementById("clearBasket").hidden = count === 0;
   document.getElementById("itemCount").textContent =
     count + (count === 1 ? " item" : " items");
@@ -930,7 +983,7 @@ function renderBasket() {
     "−" + money(totals.savings);
 
   document.getElementById("productsTotal").textContent =
-    money(totals.productsTotal);
+    money(totals.productsTotal + (count > 0 && totals.productsTotal < freeDeliveryThreshold ? paidDeliveryPrice : 0));
 
   const details = document.getElementById("dealDetails");
   details.replaceChildren();
@@ -971,12 +1024,12 @@ function renderBasket() {
     note.textContent =
       "Your products total includes all mix and match discounts.";
   } else {
-    delivery.textContent = "Calculated at checkout";
+    delivery.textContent = money(paidDeliveryPrice);
     progress.textContent =
       "Add " + money(freeDeliveryThreshold - totals.productsTotal) +
       " more in products for free DPD tracked delivery.";
     note.textContent =
-      "Delivery for orders below £23 will be shown at checkout.";
+      "£2.99 DPD tracked delivery is included in the total above.";
   }
 }
 
@@ -992,6 +1045,39 @@ document.getElementById("confirmAge").addEventListener("click", () => {
 });
 
 renderBasket();
+const paymentParams = new URLSearchParams(location.search);
+if (paymentParams.get("payment") === "success" && paymentsApi) {
+  const id = paymentParams.get("session_id");
+  const snapshot = sessionStorage.getItem("checkoutBasketSnapshot");
+  if (id && id === sessionStorage.getItem("checkoutSessionId")) {
+    fetch(paymentsApi + "/session-status?id=" + encodeURIComponent(id))
+      .then(response => response.json())
+      .then(result => {
+        if (result.paid) {
+          if (snapshot === JSON.stringify(getBasket())) saveBasket([]);
+          window.alert("Payment received. Thank you! Your order details are in Stripe.");
+          sessionStorage.removeItem("checkoutBasketSnapshot");
+          sessionStorage.removeItem("checkoutSessionId");
+          window.history.replaceState({}, "", "checkout.html");
+        } else if (result.pending) {
+          window.alert("Your payment is processing. Please check your email before trying again.");
+        } else {
+          window.alert("Payment could not be confirmed yet. Please check your email or contact us.");
+        }
+      })
+      .catch(() => window.alert("Could not confirm payment yet. Please check your email or contact us."));
+  }
+}
+if (paymentParams.get("age") === "returned" && paymentsApi) {
+  checkCheckoutAge().then(verified => {
+    if (verified) window.alert("Age confirmed. You can now continue to secure payment.");
+    else window.alert("Age verification has not finished. Please try again.");
+  }).catch(() => window.alert("Could not confirm age. Please try again."));
+  window.history.replaceState({}, "", "checkout.html");
+}
+if (paymentParams.get("payment") === "cancelled") {
+  window.history.replaceState({}, "", "checkout.html");
+}
 window.addEventListener("storage", renderBasket);
 </script>
 
