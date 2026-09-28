@@ -50,24 +50,24 @@ font-size:15px;
 .nav-links a:hover, .nav-links a.active{
 color:#ff9500;
 }
-/* Main Container */
+/* Main */
 .container{
-max-width:900px;
+max-width:600px;
 margin:40px auto;
 padding:0 25px;
 }
 h1{
-font-size:30px;
+font-size:26px;
 margin-bottom:30px;
-color:#222;
+display:flex;
+align-items:center;
+gap:10px;
 }
-/* Basket Items */
-.basket-section{
+.basket-card{
 background:white;
 border-radius:12px;
 padding:30px;
-box-shadow:0 3px 10px rgba(0,0,0,.06);
-margin-bottom:25px;
+box-shadow:0 2px 10px rgba(0,0,0,.06);
 }
 .basket-empty{
 text-align:center;
@@ -79,29 +79,31 @@ font-size:17px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:15px 0;
+padding:12px 0;
 border-bottom:1px solid #eee;
 }
-.basket-item:last-child{
-border-bottom:none;
+.item-left{
+text-align:left;
 }
 .item-name{
 font-weight:bold;
 font-size:15px;
 }
-.item-details{
-display:flex;
-gap:20px;
-align-items:center;
-}
 .item-qty{
-font-size:14px;
-color:#666;
+font-size:13px;
+color:#888;
+margin-top:3px;
+}
+.item-right{
+display:flex;
+align-items:center;
+gap:15px;
 }
 .item-price{
 font-weight:bold;
 color:#ff9500;
 font-size:16px;
+text-align:right;
 }
 .remove-btn{
 background:#ff4d4d;
@@ -112,17 +114,18 @@ border-radius:6px;
 cursor:pointer;
 font-size:13px;
 font-weight:bold;
+white-space:nowrap;
 }
 .remove-btn:hover{
 background:#e63939;
 }
-/* Deal Notice */
-.deal-notice{
+/* Deal Banner */
+.deal-applied{
 background:#f0fff4;
-border:1px solid:#22c55e;
+border:1px solid #22c55e;
 border-radius:8px;
-padding:15px;
-margin:20px 0;
+padding:12px 15px;
+margin:15px 0;
 color:#166534;
 font-weight:bold;
 display:none;
@@ -131,33 +134,36 @@ display:none;
 .totals-row{
 display:flex;
 justify-content:space-between;
-padding:12px 0;
-font-size:16px;
+padding:8px 0;
+font-size:15px;
 }
 .totals-row.total{
-font-size:20px;
+font-size:18px;
 font-weight:bold;
 border-top:2px solid #eee;
-padding-top:20px;
+padding-top:15px;
 margin-top:10px;
 }
 .free-dpd-note{
 color:#22c55e;
 font-size:14px;
-margin-top:10px;
+margin:8px 0 20px;
+display:flex;
+align-items:center;
+gap:6px;
 }
 /* Buttons */
-.btn-group{
+.btn-row{
 display:flex;
-gap:15px;
-margin-top:30px;
+gap:12px;
+margin-top:25px;
 flex-wrap:wrap;
 }
 .clear-btn{
 background:#eee;
 color:#333;
 border:none;
-padding:14px 25px;
+padding:13px 25px;
 border-radius:8px;
 font-weight:bold;
 cursor:pointer;
@@ -170,7 +176,7 @@ background:#ddd;
 background:#ff9500;
 color:white;
 border:none;
-padding:14px 35px;
+padding:13px 30px;
 border-radius:8px;
 font-weight:bold;
 cursor:pointer;
@@ -180,27 +186,25 @@ flex:1;
 .checkout-btn:hover{
 background:#e68600;
 }
-/* Form Section */
-.form-section{
-background:white;
-border-radius:12px;
-padding:30px;
-box-shadow:0 3px 10px rgba(0,0,0,.06);
+/* Checkout Form */
+.checkout-form{
+margin-top:30px;
+padding-top:25px;
+border-top:1px solid #eee;
 display:none;
 }
-.form-section h2{
-font-size:22px;
+.checkout-form h2{
+font-size:20px;
 margin-bottom:20px;
 color:#ff9500;
 }
 .form-group{
-margin-bottom:18px;
+margin-bottom:15px;
 }
 .form-group label{
 display:block;
 margin-bottom:6px;
 font-weight:bold;
-color:#333;
 font-size:14px;
 }
 .form-group input, .form-group textarea{
@@ -209,17 +213,12 @@ padding:12px;
 border:1px solid #ddd;
 border-radius:8px;
 font-size:15px;
-background:#fafafa;
 }
-.form-group input:focus, .form-group textarea:focus{
-outline:none;
-border-color:#ff9500;
-}
-.submit-payment-btn{
+.pay-btn{
 background:#22c55e;
 color:white;
 border:none;
-padding:14px 35px;
+padding:14px 30px;
 border-radius:8px;
 font-weight:bold;
 cursor:pointer;
@@ -227,25 +226,23 @@ font-size:16px;
 width:100%;
 margin-top:10px;
 }
-.submit-payment-btn:hover{
+.pay-btn:hover{
 background:#16a34a;
 }
 /* Mobile */
-@media(max-width:768px){
-.basket-item{flex-direction:column; align-items:flex-start; gap:10px;}
-.item-details{width:100%; justify-content:space-between;}
-.btn-group{flex-direction:column;}
+@media(max-width:600px){
+.basket-item{flex-direction:column; align-items:flex-start; gap:8px;}
+.item-right{width:100%; justify-content:space-between;}
+.btn-row{flex-direction:column;}
 }
 </style>
 </head>
 <body>
 
-<!-- Top Banner -->
 <div class="top-banner">
 🚚 FREE DPD TRACKED DELIVERY ON ORDERS £23+
 </div>
 
-<!-- Header -->
 <header>
 <a href="index.html" class="site-title">Vapes4All</a>
 <div class="nav-links">
@@ -258,17 +255,14 @@ background:#16a34a;
 </div>
 </header>
 
-<!-- Main Basket -->
 <div class="container">
 <h1>Your Basket 🛒</h1>
 
-<div class="basket-section" id="basketContainer">
-<div class="basket-empty" id="emptyMsg">Your basket is empty — go add some items!</div>
+<div class="basket-card">
+<div class="basket-empty" id="emptyMsg">Your basket is empty</div>
 <div id="itemsList"></div>
 
-<div class="deal-notice" id="dealNotice">
-✅ Deal Applied!
-</div>
+<div class="deal-applied" id="dealBanner"></div>
 
 <div id="totalsArea" style="display:none;">
 <div class="totals-row">
@@ -279,152 +273,162 @@ background:#16a34a;
 <span>DPD Tracked Delivery</span>
 <span id="delivery">£2.99</span>
 </div>
-<div class="free-dpd-note" id="freeNote" style="display:none;">✅ Delivery FREE — order £23+!</div>
+<div class="free-dpd-note" id="freeNote" style="display:none;">
+✅ Delivery FREE — order £23+!
+</div>
 <div class="totals-row total">
 <span>Total</span>
 <span id="total">£0.00</span>
 </div>
 </div>
 
-<div class="btn-group" id="btnGroup" style="display:none;">
+<div class="btn-row" id="btnRow" style="display:none;">
 <button class="clear-btn" onclick="clearBasket()">Clear Basket</button>
-<button class="checkout-btn" onclick="showCheckout()">Proceed To Checkout →</button>
-</div>
+<button class="checkout-btn" onclick="showForm()">Proceed To Checkout →</button>
 </div>
 
-<!-- Checkout Form -->
-<div class="form-section" id="checkoutForm">
+<div class="checkout-form" id="formArea">
 <h2>Delivery & Payment Details</h2>
-<form onsubmit="submitOrder(event)">
+<form onsubmit="placeOrder(event)">
 <div class="form-group">
 <label>Full Name</label>
-<input type="text" id="fullName" required placeholder="Your full name">
+<input type="text" required placeholder="Your full name">
 </div>
 <div class="form-group">
 <label>Email Address</label>
-<input type="email" id="emailAddr" required placeholder="your@email.com">
+<input type="email" required placeholder="your@email.com">
 </div>
 <div class="form-group">
 <label>Phone Number</label>
-<input type="tel" id="phoneNum" required placeholder="Your mobile number">
+<input type="tel" required placeholder="Your mobile">
 </div>
 <div class="form-group">
-<label>Full Delivery Address</label>
-<textarea id="address" rows="3" required placeholder="House number, street, town, postcode"></textarea>
+<label>Full Address</label>
+<textarea rows="3" required placeholder="House, street, town, postcode"></textarea>
 </div>
-<button type="submit" class="submit-payment-btn">Pay Now →</button>
+<button type="submit" class="pay-btn">Pay Now →</button>
 </form>
 </div>
-
+</div>
 </div>
 
 <script>
 let basket = JSON.parse(localStorage.getItem('vapes4all_basket') || '[]');
-const dojoUnitsDeal = { min:3, dealPrice:12.99, normalPrice:6.99, nameMatch:'Dojo Blast 10K Unit' };
-const dojoPodsDeal = { min:6, dealPrice:20.00, normalPrice:4.99, nameMatch:'Dojo Pods' };
 
-function renderBasket(){
-const itemsList = document.getElementById('itemsList');
-const emptyMsg = document.getElementById('emptyMsg');
-const totalsArea = document.getElementById('totalsArea');
-const btnGroup = document.getElementById('btnGroup');
-const dealNotice = document.getElementById('dealNotice');
+// RULES — EXACT DEALS
+const rules = {
+  units: { name: 'Dojo Blast 10K Unit', min: 3, dealPrice: 12.99, eachPrice: 6.99 },
+  pods: { name: 'Dojo Pods', min: 6, dealPrice: 20.00, eachPrice: 4.99 }
+};
+
+function render(){
+const empty = document.getElementById('emptyMsg');
+const list = document.getElementById('itemsList');
+const totals = document.getElementById('totalsArea');
+const btns = document.getElementById('btnRow');
+const dealBanner = document.getElementById('dealBanner');
+const formArea = document.getElementById('formArea');
 
 if(basket.length === 0){
-emptyMsg.style.display = 'block';
-itemsList.innerHTML = '';
-totalsArea.style.display = 'none';
-btnGroup.style.display = 'none';
-dealNotice.style.display = 'none';
-document.getElementById('checkoutForm').style.display = 'none';
+empty.style.display = 'block';
+list.innerHTML = '';
+totals.style.display = 'none';
+btns.style.display = 'none';
+dealBanner.style.display = 'none';
+formArea.style.display = 'none';
 return;
 }
 
-emptyMsg.style.display = 'none';
-totalsArea.style.display = 'block';
-btnGroup.style.display = 'flex';
+empty.style.display = 'none';
+totals.style.display = 'block';
+btns.style.display = 'flex';
+formArea.style.display = 'none';
 
-itemsList.innerHTML = '';
+// Count items
+let unitsQty = 0, podsQty = 0;
+basket.forEach(item => {
+if(item.name.includes(rules.units.name)) unitsQty += item.qty;
+if(item.name.includes(rules.pods.name)) podsQty += item.qty;
+});
+
+// Calculate with deals
 let subtotal = 0;
-let unitsCount = 0;
-let podsCount = 0;
+let dealText = '';
 
-basket.forEach((item, idx) => {
-if(item.name.includes('Dojo Blast 10K Unit')) unitsCount += item.qty;
-if(item.name.includes('Dojo Pods')) podsCount += item.qty;
+// Units: 3 for £12.99
+if(unitsQty > 0){
+const sets = Math.floor(unitsQty / rules.units.min);
+const left = unitsQty % rules.units.min;
+subtotal += sets * rules.units.dealPrice + left * rules.units.eachPrice;
+if(sets > 0) dealText += `✅ ${unitsQty} Units → £${rules.units.dealPrice} per 3 applied! `;
+}
 
-subtotal += item.price * item.qty;
+// Pods: 6 for £20 — THIS IS WHAT WAS MISSING
+if(podsQty > 0){
+const sets = Math.floor(podsQty / rules.pods.min);
+const left = podsQty % rules.pods.min;
+subtotal += sets * rules.pods.dealPrice + left * rules.pods.eachPrice;
+if(sets > 0) dealText += `✅ ${podsQty} Pods → £${rules.pods.dealPrice} per 6 applied!`;
+}
 
-itemsList.innerHTML += `
+// Show deal
+dealBanner.style.display = dealText ? 'block' : 'none';
+dealBanner.textContent = dealText;
+
+// List items
+list.innerHTML = '';
+basket.forEach((item, i) => {
+list.innerHTML += `
 <div class="basket-item">
-<div>
+<div class="item-left">
 <div class="item-name">${item.name}</div>
 <div class="item-qty">Qty: ${item.qty}</div>
 </div>
-<div class="item-details">
+<div class="item-right">
 <div class="item-price">£${(item.price * item.qty).toFixed(2)}</div>
-<button class="remove-btn" onclick="removeItem(${idx})">Remove</button>
+<button class="remove-btn" onclick="remove(${i})">Remove</button>
 </div>
 </div>
 `;
 });
 
-// Apply deals
-let dealText = '';
-if(unitsCount >= dojoUnitsDeal.min){
-const covered = Math.floor(unitsCount / dojoUnitsDeal.min);
-const remainder = unitsCount % dojoUnitsDeal.min;
-subtotal = covered * dojoUnitsDeal.dealPrice + remainder * dojoUnitsDeal.normalPrice;
-dealText += `✅ ${unitsCount} Dojo Units → £${dojoUnitsDeal.dealPrice} per 3 applied! `;
-}
-if(podsCount >= dojoPodsDeal.min){
-const covered = Math.floor(podsCount / dojoPodsDeal.min);
-const remainder = podsCount % dojoPodsDeal.min;
-subtotal = covered * dojoPodsDeal.dealPrice + remainder * dojoPodsDeal.normalPrice;
-dealText += `✅ ${podsCount} Dojo Pods → £${dojoPodsDeal.dealPrice} per 6 applied!`;
-}
-
-dealNotice.style.display = dealText ? 'block' : 'none';
-dealNotice.textContent = dealText;
-
 // Delivery
 let delivery = subtotal >= 23 ? 0 : 2.99;
-document.getElementById('freeNote').style.display = subtotal >= 23 ? 'block' : 'none';
+document.getElementById('freeNote').style.display = subtotal >= 23 ? 'flex' : 'none';
 document.getElementById('delivery').textContent = delivery === 0 ? 'FREE' : '£2.99';
 
 document.getElementById('subtotal').textContent = `£${subtotal.toFixed(2)}`;
 document.getElementById('total').textContent = `£${(subtotal + delivery).toFixed(2)}`;
 }
 
-function removeItem(idx){
+function remove(idx){
 basket.splice(idx, 1);
 localStorage.setItem('vapes4all_basket', JSON.stringify(basket));
-renderBasket();
+render();
 }
 
 function clearBasket(){
-if(confirm('Clear your entire basket?')){
+if(confirm('Clear your basket?')){
 basket = [];
 localStorage.setItem('vapes4all_basket', JSON.stringify(basket));
-renderBasket();
+render();
 }
 }
 
-function showCheckout(){
-document.getElementById('checkoutForm').style.display = 'block';
-document.getElementById('checkoutForm').scrollIntoView({behavior:'smooth'});
+function showForm(){
+document.getElementById('formArea').style.display = 'block';
+document.getElementById('formArea').scrollIntoView({behavior:'smooth'});
 }
 
-function submitOrder(e){
+function placeOrder(e){
 e.preventDefault();
-alert('✅ Order submitted! We will contact you to arrange payment & delivery. Thank you!');
+alert('✅ Order submitted! Thank you — we will contact you shortly.');
 basket = [];
 localStorage.setItem('vapes4all_basket', JSON.stringify(basket));
-renderBasket();
-document.getElementById('checkoutForm').style.display = 'none';
+render();
 }
 
-renderBasket();
+render();
 </script>
 
 </body>
