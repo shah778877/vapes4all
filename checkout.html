@@ -1,320 +1,361 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Checkout | Vapes4All</title>
-
 <style>
-
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Segoe UI,sans-serif;
+font-family:Arial,sans-serif;
 }
-
-:root{
---bg:#0a0a12;
---card:#161625;
---accent:#ff9500;
---green:#22c55e;
---red:#ef4444;
---text:#fff;
---muted:#9ca3af;
-}
-
 body{
-background:var(--bg);
-color:var(--text);
+background:#f8f9fb;
+color:#222;
 }
-
+/* Basket Icon — same as all product pages */
+.basket-icon{
+position:fixed;
+top:20px;
+right:25px;
+background:#000;
+color:#fff;
+width:60px;
+height:60px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+cursor:pointer;
+z-index:999;
+}
+.basket-count{
+position:absolute;
+top:-5px;
+right:-5px;
+background:#ff4d00;
+color:#fff;
+font-size:12px;
+font-weight:bold;
+width:24px;
+height:24px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+}
 header{
-background:rgba(0,0,0,.85);
-border-bottom:1px solid rgba(255,255,255,.08);
-padding:18px;
+background:white;
+box-shadow:0 2px 10px rgba(0,0,0,.08);
+position:sticky;
+top:0;
+z-index:100;
+padding-top:10px;
 }
-
+.nav{
+max-width:1200px;
+margin:auto;
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+}
 .logo{
-color:var(--accent);
-font-size:28px;
-font-weight:900;
+font-size:34px;
+font-weight:bold;
+color:#ff9500;
 text-decoration:none;
 }
-
+.nav-links{
+display:flex;
+gap:20px;
+flex-wrap:wrap;
+}
+.nav-links a{
+text-decoration:none;
+color:#333;
+font-weight:bold;
+transition:.2s;
+}
+.nav-links a:hover{
+color:#ff9500;
+}
+.back-btn{
+display:inline-block;
+margin:20px;
+padding:10px 20px;
+background:#ff9500;
+color:white;
+text-decoration:none;
+border-radius:10px;
+font-weight:bold;
+border:none;
+cursor:pointer;
+transition:.2s;
+}
+.back-btn:hover{
+background:#e68600;
+}
 .container{
 max-width:1000px;
 margin:auto;
 padding:30px 20px;
 }
-
 h1{
 margin-bottom:30px;
-color:var(--accent);
+color:#ff9500;
 }
-
 .card{
-background:var(--card);
+background:white;
 padding:25px;
 border-radius:18px;
 margin-bottom:25px;
+box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
-
+.notice{
+background:rgba(34,197,94,.08);
+border:1px solid #22c55e;
+padding:15px;
+border-radius:10px;
+margin-bottom:25px;
+color:#16a34a;
+font-weight:bold;
+text-align:center;
+}
 .item{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:12px 0;
-border-bottom:1px solid rgba(255,255,255,.08);
+padding:14px 0;
+border-bottom:1px solid #eee;
 }
-
+.item:last-child{
+border-bottom:none;
+}
 .remove{
-background:var(--red);
+background:#ef4444;
 border:none;
 color:white;
-padding:8px 12px;
+padding:8px 14px;
 border-radius:8px;
 cursor:pointer;
+font-weight:bold;
+transition:.2s;
 }
-
+.remove:hover{
+background:#dc2626;
+}
 .total-box{
 font-size:22px;
 font-weight:bold;
+padding:8px 0;
 }
-
+.total-box.delivery{
+color:#666;
+font-size:18px;
+}
+.total-box.final{
+font-size:26px;
+color:#ff9500;
+border-top:2px solid #eee;
+padding-top:15px;
+margin-top:10px;
+}
 input, textarea{
 width:100%;
 padding:14px;
 margin-top:12px;
-background:#222;
-border:none;
+background:#f8f9fb;
+border:1px solid #ddd;
 border-radius:10px;
-color:white;
+color:#222;
+font-size:16px;
 }
-
+input:focus, textarea:focus{
+outline:none;
+border-color:#ff9500;
+}
 .checkout-btn{
 width:100%;
 padding:16px;
 margin-top:20px;
-background:var(--green);
+background:#22c55e;
 border:none;
 border-radius:10px;
 color:white;
 font-size:18px;
 font-weight:bold;
 cursor:pointer;
+transition:.2s;
 }
-
+.checkout-btn:hover{
+background:#1db954;
+}
 .empty{
 text-align:center;
-color:var(--muted);
-padding:30px;
+color:#999;
+padding:40px 20px;
 }
-
-.notice{
-background:rgba(34,197,94,.1);
-border:1px solid var(--green);
-padding:15px;
-border-radius:10px;
-margin-bottom:20px;
-color:var(--green);
-}
-
 footer{
 text-align:center;
 padding:30px;
-color:var(--muted);
+color:#666;
+border-top:1px solid #eee;
+margin-top:20px;
 }
-
+/* Mobile */
+@media(max-width:768px){
+.nav{
+gap:15px;
+}
+.basket-icon{
+top:auto;
+bottom:25px;
+right:25px;
+}
+}
 </style>
-
 </head>
-
 <body>
 
+<!-- Basket Icon — SAME as all pages -->
+<div class="basket-icon" id="basketIcon">
+🛒
+<span class="basket-count" id="basketCount">0</span>
+</div>
+
+<a class="back-btn" href="index.html">
+← Back To Home
+</a>
+
 <header>
-<a href="index.html" class="logo">Vapes4All</a>
+<div class="nav">
+<a href="index.html" class="logo">
+Vapes4All
+</a>
+<div class="nav-links">
+<a href="dojo-units.html">10K Units</a>
+<a href="dojo-pods.html">10K Pods</a>
+<a href="ivg.html">IVG 10K</a>
+<a href="checkout.html" style="color:#ff9500">Basket</a>
+<a href="contact.html">Contact</a>
+</div>
+</div>
 </header>
 
 <div class="container">
-
 <h1>Your Basket</h1>
 
 <div class="notice">
-🚚 Free delivery on orders over £24
+🚚 Free DPD delivery on orders over £23 • Otherwise £2.99
 </div>
 
 <div class="card">
-
 <div id="basketItems"></div>
-
 </div>
 
 <div class="card">
-
 <div class="total-box">
 Subtotal: £<span id="subtotal">0.00</span>
 </div>
-
-<br>
-
-<div class="total-box">
+<div class="total-box delivery">
 Delivery: £<span id="delivery">0.00</span>
 </div>
-
-<br>
-
-<div class="total-box">
+<div class="total-box final">
 Total: £<span id="total">0.00</span>
 </div>
-
 </div>
 
 <div class="card">
-
 <h2>Customer Details</h2>
-
-<input id="fullName" placeholder="Full Name">
-
-<input id="email" placeholder="Email Address">
-
-<input id="phone" placeholder="Phone Number">
-
-<textarea
-id="address"
-rows="4"
-placeholder="Delivery Address">
-</textarea>
-
+<input id="fullName" placeholder="Full Name *" required>
+<input id="email" placeholder="Email Address *" required>
+<input id="phone" placeholder="Phone Number *" required>
+<textarea id="address" rows="4" placeholder="Full Delivery Address *" required></textarea>
 <button class="checkout-btn" onclick="checkout()">
-Continue To Payment
+💳 Continue To Payment
 </button>
-
 </div>
-
 </div>
 
 <footer>
-Vapes4All © 2025-2026
+<p>Vapes4All © 2026</p>
+<p>18+ Only • All orders shipped via DPD Tracked</p>
 </footer>
 
 <script>
+// SAME basket key — shares across ALL pages
+let basket = JSON.parse(localStorage.getItem('vapes4all_basket') || '[]');
 
-let basket =
-JSON.parse(
-localStorage.getItem('vapes4all_basket')
-|| '[]'
-);
-
-function renderBasket(){
-
-const container =
-document.getElementById('basketItems');
-
-if(basket.length===0){
-
-container.innerHTML =
-'<div class="empty">Basket is empty</div>';
-
-updateTotals();
-
-return;
-
+function updateBasketCount() {
+const total = basket.reduce((sum, item) => sum + item.qty, 0);
+document.getElementById('basketCount').textContent = total;
 }
 
-container.innerHTML =
-basket.map((item,index)=>`
-
-<div class="item">
-
-<div>
-
-<strong>${item.name}</strong>
-
-<br>
-
-Qty: ${item.qty}
-
-</div>
-
-<div>
-
-£${(item.price*item.qty).toFixed(2)}
-
-<button class="remove"
-onclick="removeItem(${index})">
-
-X
-
-</button>
-
-</div>
-
-</div>
-
-`).join('');
-
+function renderBasket(){
+const container = document.getElementById('basketItems');
+if(basket.length === 0){
+container.innerHTML = '<div class="empty">Your basket is empty</div>';
 updateTotals();
-
+return;
+}
+container.innerHTML = basket.map((item, index) => `
+<div class="item">
+<div>
+<strong>${item.name}</strong>
+<br>Qty: ${item.qty} × £${item.price.toFixed(2)}
+</div>
+<div style="display:flex;align-items:center;gap:12px;">
+<strong>£${(item.price * item.qty).toFixed(2)}</strong>
+<button class="remove" onclick="removeItem(${index})">✕</button>
+</div>
+</div>
+`).join('');
+updateTotals();
 }
 
 function removeItem(index){
-
-basket.splice(index,1);
-
-localStorage.setItem(
-'vapes4all_basket',
-JSON.stringify(basket)
-);
-
+basket.splice(index, 1);
+localStorage.setItem('vapes4all_basket', JSON.stringify(basket));
+updateBasketCount();
 renderBasket();
-
 }
 
 function updateTotals(){
-
-let subtotal=0;
-
-basket.forEach(item=>{
-
-subtotal += item.price*item.qty;
-
+let subtotal = 0;
+basket.forEach(item => {
+subtotal += item.price * item.qty;
 });
-
-let delivery =
-subtotal >= 24 ? 0 : 2.99;
-
-document.getElementById('subtotal').innerText =
-subtotal.toFixed(2);
-
-document.getElementById('delivery').innerText =
-delivery.toFixed(2);
-
-document.getElementById('total').innerText =
-(subtotal+delivery).toFixed(2);
-
+let delivery = subtotal >= 23 ? 0 : 2.99;
+document.getElementById('subtotal').innerText = subtotal.toFixed(2);
+document.getElementById('delivery').innerText = delivery.toFixed(2);
+document.getElementById('total').innerText = (subtotal + delivery).toFixed(2);
 }
 
 function checkout(){
-
-if(basket.length===0){
-
-alert('Basket is empty');
-
+if(basket.length === 0){
+alert('⚠️ Your basket is empty');
 return;
-
+}
+// Basic validation
+const name = document.getElementById('fullName').value.trim();
+const email = document.getElementById('email').value.trim();
+const phone = document.getElementById('phone').value.trim();
+const address = document.getElementById('address').value.trim();
+if(!name || !email || !phone || !address){
+alert('⚠️ Please fill in all required fields');
+return;
+}
+alert('✅ Order details saved!\n\nStripe payment integration coming next.');
 }
 
-alert(
-'Basket saved ✅\n\nStripe payment page coming next.'
-);
-
-}
-
+// Load everything on page open
+updateBasketCount();
 renderBasket();
-
 </script>
 
 </body>
