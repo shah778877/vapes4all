@@ -3,433 +3,90 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Basket — Vapes4All</title>
+<title>Dojo Blast 10K Pods — Vapes4All</title>
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
-body{
-background:#f8f9fb;
-color:#222;
-}
-/* Top Banner */
-.top-banner{
-background:linear-gradient(90deg, #ff9500, #ffb347);
-color:white;
-text-align:center;
-padding:10px 20px;
-font-weight:bold;
-font-size:15px;
-}
-/* Header & Nav */
-header{
-background:white;
-box-shadow:0 2px 8px rgba(0,0,0,.06);
-padding:15px 25px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-flex-wrap:wrap;
-}
-.site-title{
-font-size:22px;
-font-weight:bold;
-color:#ff9500;
-text-decoration:none;
-}
-.nav-links a{
-color:#333;
-text-decoration:none;
-margin-left:15px;
-font-weight:bold;
-font-size:15px;
-}
-.nav-links a:hover, .nav-links a.active{
-color:#ff9500;
-}
-/* Main */
-.container{
-max-width:600px;
-margin:40px auto;
-padding:0 25px;
-}
-h1{
-font-size:26px;
-margin-bottom:30px;
-display:flex;
-align-items:center;
-gap:10px;
-}
-.basket-card{
-background:white;
-border-radius:12px;
-padding:30px;
-box-shadow:0 2px 10px rgba(0,0,0,.06);
-}
-.basket-empty{
-text-align:center;
-padding:40px;
-color:#888;
-font-size:17px;
-}
-.basket-item{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:12px 0;
-border-bottom:1px solid #eee;
-}
-.item-left{
-text-align:left;
-}
-.item-name{
-font-weight:bold;
-font-size:15px;
-}
-.item-qty{
-font-size:13px;
-color:#888;
-margin-top:3px;
-}
-.item-right{
-display:flex;
-align-items:center;
-gap:15px;
-}
-.item-price{
-font-weight:bold;
-color:#ff9500;
-font-size:16px;
-text-align:right;
-}
-.remove-btn{
-background:#ff4d4d;
-color:white;
-border:none;
-padding:6px 12px;
-border-radius:6px;
-cursor:pointer;
-font-size:13px;
-font-weight:bold;
-white-space:nowrap;
-}
-.remove-btn:hover{
-background:#e63939;
-}
-/* Deal Banner */
-.deal-applied{
-background:#f0fff4;
-border:1px solid #22c55e;
-border-radius:8px;
-padding:12px 15px;
-margin:15px 0;
-color:#166534;
-font-weight:bold;
-display:none;
-}
-/* Totals */
-.totals-row{
-display:flex;
-justify-content:space-between;
-padding:8px 0;
-font-size:15px;
-}
-.totals-row.total{
-font-size:18px;
-font-weight:bold;
-border-top:2px solid #eee;
-padding-top:15px;
-margin-top:10px;
-}
-.free-dpd-note{
-color:#22c55e;
-font-size:14px;
-margin:8px 0 20px;
-display:flex;
-align-items:center;
-gap:6px;
-}
-/* Buttons */
-.btn-row{
-display:flex;
-gap:12px;
-margin-top:25px;
-flex-wrap:wrap;
-}
-.clear-btn{
-background:#eee;
-color:#333;
-border:none;
-padding:13px 25px;
-border-radius:8px;
-font-weight:bold;
-cursor:pointer;
-font-size:15px;
-}
-.clear-btn:hover{
-background:#ddd;
-}
-.checkout-btn{
-background:#ff9500;
-color:white;
-border:none;
-padding:13px 30px;
-border-radius:8px;
-font-weight:bold;
-cursor:pointer;
-font-size:15px;
-flex:1;
-}
-.checkout-btn:hover{
-background:#e68600;
-}
-/* Checkout Form */
-.checkout-form{
-margin-top:30px;
-padding-top:25px;
-border-top:1px solid #eee;
-display:none;
-}
-.checkout-form h2{
-font-size:20px;
-margin-bottom:20px;
-color:#ff9500;
-}
-.form-group{
-margin-bottom:15px;
-}
-.form-group label{
-display:block;
-margin-bottom:6px;
-font-weight:bold;
-font-size:14px;
-}
-.form-group input, .form-group textarea{
-width:100%;
-padding:12px;
-border:1px solid #ddd;
-border-radius:8px;
-font-size:15px;
-}
-.pay-btn{
-background:#22c55e;
-color:white;
-border:none;
-padding:14px 30px;
-border-radius:8px;
-font-weight:bold;
-cursor:pointer;
-font-size:16px;
-width:100%;
-margin-top:10px;
-}
-.pay-btn:hover{
-background:#16a34a;
-}
-/* Mobile */
-@media(max-width:600px){
-.basket-item{flex-direction:column; align-items:flex-start; gap:8px;}
-.item-right{width:100%; justify-content:space-between;}
-.btn-row{flex-direction:column;}
-}
+*{margin:0; padding:0; box-sizing:border-box; font-family:Arial,sans-serif;}
+body{background:#f8f9fb; color:#222;}
+.top-banner{background:linear-gradient(90deg, #ff9500, #ffb347); color:white; text-align:center; padding:10px 20px; font-weight:bold; font-size:15px;}
+header{background:white; box-shadow:0 2px 8px rgba(0,0,0,.06); padding:15px 25px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;}
+.site-title{font-size:22px; font-weight:bold; color:#ff9500; text-decoration:none;}
+.nav-links a{color:#333; text-decoration:none; margin-left:15px; font-weight:bold; font-size:15px;}
+.nav-links a:hover, .nav-links a.active{color:#ff9500;}
+.basket-icon{position:fixed; top:70px; right:25px; background:#000; color:#fff; width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px; cursor:pointer; z-index:999;}
+.basket-count{position:absolute; top:-5px; right:-5px; background:#ff4d00; color:#fff; font-size:11px; font-weight:bold; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center;}
+.container{max-width:1100px; margin:40px auto; padding:0 25px; text-align:center;}
+.page-title{font-size:30px; margin-bottom:8px; color:#222;}
+.page-subtitle{font-size:15px; color:#666; margin-bottom:20px;}
+.deal-badge{display:inline-block; background:#22c55e; color:white; padding:10px 25px; border-radius:50px; font-weight:bold; margin-bottom:35px; font-size:15px;}
+.flavours-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px;}
+.flavour-card{background:white; border-radius:12px; padding:25px 20px; box-shadow:0 3px 10px rgba(0,0,0,.06); border-bottom:3px solid #ff9500; transition:.2s;}
+.flavour-card:hover{transform:translateY(-3px); box-shadow:0 5px 15px rgba(255,149,0,.15);}
+.flavour-name{font-size:16px; font-weight:bold; color:#222; margin-bottom:12px;}
+.flavour-price{font-size:18px; color:#ff9500; font-weight:bold; margin-bottom:15px;}
+.add-btn{width:100%; padding:11px; background:#ff9500; color:white; border:none; border-radius:8px; font-weight:bold; cursor:pointer; font-size:15px; transition:.2s;}
+.add-btn:hover{background:#e68600;}
+footer{text-align:center; padding:30px; color:#888; font-size:13px; margin-top:50px;}
+@media(max-width:768px){.basket-icon{top:auto; bottom:25px; right:25px;} .flavours-grid{grid-template-columns:repeat(2,1fr); gap:15px;}}
 </style>
 </head>
 <body>
-
-<div class="top-banner">
-🚚 FREE DPD TRACKED DELIVERY ON ORDERS £23+
+<div class="top-banner">🚚 FREE DPD TRACKED DELIVERY ON ORDERS £23+</div>
+<div class="basket-icon" id="basketIcon" onclick="window.location.href='checkout.html'">
+🛒 <span class="basket-count" id="basketCount">0</span>
 </div>
-
 <header>
 <a href="index.html" class="site-title">Vapes4All</a>
 <div class="nav-links">
 <a href="index.html">Home</a>
-<a href="dojo-units.html">10K Units</a>
-<a href="dojo-pods.html">10K Pods</a>
-<a href="ivg.html">IVG 10K</a>
-<a href="checkout.html" class="active" style="color:#ff9500">Basket</a>
+<a href="dojo-units.html">Units</a>
+<a href="dojo-pods.html" class="active" style="color:#ff9500">Pods</a>
+<a href="ivg.html">IVG</a>
+<a href="checkout.html">Basket</a>
 <a href="contact.html">Contact</a>
 </div>
 </header>
-
 <div class="container">
-<h1>Your Basket 🛒</h1>
+<h1 class="page-title">Dojo Blast 10K Pods</h1>
+<p class="page-subtitle">£4.99 Each • Any 6 For £20 • 20mg Nic Salt</p>
+<div class="deal-badge">✅ Any 6 Pods For £20</div>
 
-<div class="basket-card">
-<div class="basket-empty" id="emptyMsg">Your basket is empty</div>
-<div id="itemsList"></div>
-
-<div class="deal-applied" id="dealBanner"></div>
-
-<div id="totalsArea" style="display:none;">
-<div class="totals-row">
-<span>Subtotal</span>
-<span id="subtotal">£0.00</span>
-</div>
-<div class="totals-row">
-<span>DPD Tracked Delivery</span>
-<span id="delivery">£2.99</span>
-</div>
-<div class="free-dpd-note" id="freeNote" style="display:none;">
-✅ Delivery FREE — order £23+!
-</div>
-<div class="totals-row total">
-<span>Total</span>
-<span id="total">£0.00</span>
-</div>
-</div>
-
-<div class="btn-row" id="btnRow" style="display:none;">
-<button class="clear-btn" onclick="clearBasket()">Clear Basket</button>
-<button class="checkout-btn" onclick="showForm()">Proceed To Checkout →</button>
-</div>
-
-<div class="checkout-form" id="formArea">
-<h2>Delivery & Payment Details</h2>
-<form onsubmit="placeOrder(event)">
-<div class="form-group">
-<label>Full Name</label>
-<input type="text" required placeholder="Your full name">
-</div>
-<div class="form-group">
-<label>Email Address</label>
-<input type="email" required placeholder="your@email.com">
-</div>
-<div class="form-group">
-<label>Phone Number</label>
-<input type="tel" required placeholder="Your mobile">
-</div>
-<div class="form-group">
-<label>Full Address</label>
-<textarea rows="3" required placeholder="House, street, town, postcode"></textarea>
-</div>
-<button type="submit" class="pay-btn">Pay Now →</button>
-</form>
+<div class="flavours-grid">
+<div class="flavour-card"><h3 class="flavour-name">Lemon Cola</h3><p class="flavour-price">£4.99</p><button class="add-btn" onclick="addToBasket('Dojo Pods — Lemon Cola', 4.99)">Add To Basket</button></div>
+<div class="flavour-card"><h3 class="flavour-name">Vimberry</h3><p class="flavour-price">£4.99</p><button class="add-btn" onclick="addToBasket('Dojo Pods — Vimberry', 4.99)">Add To Basket</button></div>
+<div class="flavour-card"><h3 class="flavour-name">Cherry Cola</h3><p class="flavour-price">£4.99</p><button class="add-btn" onclick="addToBasket('Dojo Pods — Cherry Cola', 4.99)">Add To Basket</button></div>
+<div class="flavour-card"><h3 class="flavour-name">Ten Tangerines</h3><p class="flavour-price">£4.99</p><button class="add-btn" onclick="addToBasket('Dojo Pods — Ten Tangerines', 4.99)">Add To Basket</button></div>
+<div class="flavour-card"><h3 class="flavour-name">Pineapple Ice</h3><p class="flavour-price">£4.99</p><button class="add-btn" onclick="addToBasket('Dojo Pods — Pineapple Ice', 4.99)">Add To Basket</button></div>
+<div class="flavour-card"><h3 class="flavour-name">Blue Razz Lemonade</h3><p class="flavour-price">£4.99</p><button class="add-btn" onclick="addToBasket('Dojo Pods — Blue Razz Lemonade', 4.99)">Add To Basket</button></div>
+<div class="flavour-card"><h3 class="flavour-name">Banana Ice</h3><p class="flavour-price">£4.99</p><button class="add-btn" onclick="addToBasket('Dojo Pods — Banana Ice', 4.99)">Add To Basket</button></div>
+<div class="flavour-card"><h3 class="flavour-name">Lemon Lime</h3><p class="flavour-price">£4.99</p><button class="add-btn" onclick="addToBasket('Dojo Pods — Lemon Lime', 4.99)">Add To Basket</button></div>
+<div class="flavour-card"><h3 class="flavour-name">Cool Menthol</h3><p class="flavour-price">£4.99</p><button class="add-btn" onclick="addToBasket('Dojo Pods — Cool Menthol', 4.99)">Add To Basket</button></div>
+<div class="flavour-card"><h3 class="flavour-name">Triple Mango</h3><p class="flavour-price">£4.99</p><button class="add-btn" onclick="addToBasket('Dojo Pods — Triple Mango', 4.99)">Add To Basket</button></div>
+<div class="flavour-card"><h3 class="flavour-name">Pink Lemonade</h3><p class="flavour-price">£4.99</p><button class="add-btn" onclick="addToBasket('Dojo Pods — Pink Lemonade', 4.99)">Add To Basket</button></div>
+<div class="flavour-card"><h3 class="flavour-name">Fizzy Cherry</h3><p class="flavour-price">£4.99</p><button class="add-btn" onclick="addToBasket('Dojo Pods — Fizzy Cherry', 4.99)">Add To Basket</button></div>
+<div class="flavour-card"><h3 class="flavour-name">Juicy Peach</h3><p class="flavour-price">£4.99</p><button class="add-btn" onclick="addToBasket('Dojo Pods — Juicy Peach', 4.99)">Add To Basket</button></div>
+<div class="flavour-card"><h3 class="flavour-name">Black Grape</h3><p class="flavour-price">£4.99</p><button class="add-btn" onclick="addToBasket('Dojo Pods — Black Grape', 4.99)">Add To Basket</button></div>
+<div class="flavour-card"><h3 class="flavour-name">Huba</h3><p class="flavour-price">£4.99</p><button class="add-btn" onclick="addToBasket('Dojo Pods — Huba', 4.99)">Add To Basket</button></div>
+<div class="flavour-card"><h3 class="flavour-name">Strawberry Ice</h3><p class="flavour-price">£4.99</p><button class="add-btn" onclick="addToBasket('Dojo Pods — Strawberry Ice', 4.99)">Add To Basket</button></div>
+<div class="flavour-card"><h3 class="flavour-name">Double Apple</h3><p class="flavour-price">£4.99</p><button class="add-btn" onclick="addToBasket('Dojo Pods — Double Apple', 4.99)">Add To Basket</button></div>
+<div class="flavour-card"><h3 class="flavour-name">Watermelon Ice</h3><p class="flavour-price">£4.99</p><button class="add-btn" onclick="addToBasket('Dojo Pods — Watermelon Ice', 4.99)">Add To Basket</button></div>
+<div class="flavour-card"><h3 class="flavour-name">Blueberry Sour Raspberry</h3><p class="flavour-price">£4.99</p><button class="add-btn" onclick="addToBasket('Dojo Pods — Blueberry Sour Raspberry', 4.99)">Add To Basket</button></div>
+<div class="flavour-card"><h3 class="flavour-name">Strawberry Raspberry Cherry Ice</h3><p class="flavour-price">£4.99</p><button class="add-btn" onclick="addToBasket('Dojo Pods — Strawberry Raspberry Cherry Ice', 4.99)">Add To Basket</button></div>
+<div class="flavour-card"><h3 class="flavour-name">Fizzy Bru</h3><p class="flavour-price">£4.99</p><button class="add-btn" onclick="addToBasket('Dojo Pods — Fizzy Bru', 4.99)">Add To Basket</button></div>
+<div class="flavour-card"><h3 class="flavour-name">Pineapple Peach Mango</h3><p class="flavour-price">£4.99</p><button class="add-btn" onclick="addToBasket('Dojo Pods — Pineapple Peach Mango', 4.99)">Add To Basket</button></div>
 </div>
 </div>
-</div>
-
+<footer>Vapes4All © 2026 | 18+ Only</footer>
 <script>
 let basket = JSON.parse(localStorage.getItem('vapes4all_basket') || '[]');
-
-// RULES — EXACT DEALS
-const rules = {
-  units: { name: 'Dojo Blast 10K Unit', min: 3, dealPrice: 12.99, eachPrice: 6.99 },
-  pods: { name: 'Dojo Pods', min: 6, dealPrice: 20.00, eachPrice: 4.99 }
-};
-
-function render(){
-const empty = document.getElementById('emptyMsg');
-const list = document.getElementById('itemsList');
-const totals = document.getElementById('totalsArea');
-const btns = document.getElementById('btnRow');
-const dealBanner = document.getElementById('dealBanner');
-const formArea = document.getElementById('formArea');
-
-if(basket.length === 0){
-empty.style.display = 'block';
-list.innerHTML = '';
-totals.style.display = 'none';
-btns.style.display = 'none';
-dealBanner.style.display = 'none';
-formArea.style.display = 'none';
-return;
-}
-
-empty.style.display = 'none';
-totals.style.display = 'block';
-btns.style.display = 'flex';
-formArea.style.display = 'none';
-
-// Count items
-let unitsQty = 0, podsQty = 0;
-basket.forEach(item => {
-if(item.name.includes(rules.units.name)) unitsQty += item.qty;
-if(item.name.includes(rules.pods.name)) podsQty += item.qty;
-});
-
-// Calculate with deals
-let subtotal = 0;
-let dealText = '';
-
-// Units: 3 for £12.99
-if(unitsQty > 0){
-const sets = Math.floor(unitsQty / rules.units.min);
-const left = unitsQty % rules.units.min;
-subtotal += sets * rules.units.dealPrice + left * rules.units.eachPrice;
-if(sets > 0) dealText += `✅ ${unitsQty} Units → £${rules.units.dealPrice} per 3 applied! `;
-}
-
-// Pods: 6 for £20 — THIS IS WHAT WAS MISSING
-if(podsQty > 0){
-const sets = Math.floor(podsQty / rules.pods.min);
-const left = podsQty % rules.pods.min;
-subtotal += sets * rules.pods.dealPrice + left * rules.pods.eachPrice;
-if(sets > 0) dealText += `✅ ${podsQty} Pods → £${rules.pods.dealPrice} per 6 applied!`;
-}
-
-// Show deal
-dealBanner.style.display = dealText ? 'block' : 'none';
-dealBanner.textContent = dealText;
-
-// List items
-list.innerHTML = '';
-basket.forEach((item, i) => {
-list.innerHTML += `
-<div class="basket-item">
-<div class="item-left">
-<div class="item-name">${item.name}</div>
-<div class="item-qty">Qty: ${item.qty}</div>
-</div>
-<div class="item-right">
-<div class="item-price">£${(item.price * item.qty).toFixed(2)}</div>
-<button class="remove-btn" onclick="remove(${i})">Remove</button>
-</div>
-</div>
-`;
-});
-
-// Delivery
-let delivery = subtotal >= 23 ? 0 : 2.99;
-document.getElementById('freeNote').style.display = subtotal >= 23 ? 'flex' : 'none';
-document.getElementById('delivery').textContent = delivery === 0 ? 'FREE' : '£2.99';
-
-document.getElementById('subtotal').textContent = `£${subtotal.toFixed(2)}`;
-document.getElementById('total').textContent = `£${(subtotal + delivery).toFixed(2)}`;
-}
-
-function remove(idx){
-basket.splice(idx, 1);
+function updateBasketCount(){document.getElementById('basketCount').textContent = basket.reduce((s,i)=>s+i.qty,0);}
+function addToBasket(name,price){
+const found = basket.find(i=>i.name===name);
+if(found) found.qty++;
+else basket.push({name,price,qty:1});
 localStorage.setItem('vapes4all_basket', JSON.stringify(basket));
-render();
+updateBasketCount();
 }
-
-function clearBasket(){
-if(confirm('Clear your basket?')){
-basket = [];
-localStorage.setItem('vapes4all_basket', JSON.stringify(basket));
-render();
-}
-}
-
-function showForm(){
-document.getElementById('formArea').style.display = 'block';
-document.getElementById('formArea').scrollIntoView({behavior:'smooth'});
-}
-
-function placeOrder(e){
-e.preventDefault();
-alert('✅ Order submitted! Thank you — we will contact you shortly.');
-basket = [];
-localStorage.setItem('vapes4all_basket', JSON.stringify(basket));
-render();
-}
-
-render();
+updateBasketCount();
 </script>
-
 </body>
 </html>
