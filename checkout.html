@@ -677,7 +677,7 @@ footer {
         </button>
 
         <p class="payment-note">
-          Card and other eligible payment options are shown securely by Stripe. Delivery is confirmed before you pay.
+          Your age is checked securely by Yoti before Stripe shows eligible payment options.
         </p>
       </div>
     </aside>
@@ -691,16 +691,37 @@ const basketKey = "vapes4all_basket";
 // Set this to the deployed Worker URL only after Stripe approves vape sales.
 const paymentsApi = "";
 const paymentButton = document.getElementById("paymentButton");
+let ageVerifiedForPayment = false;
+
+async function checkCheckoutAge() {
+  if (!paymentsApi) return false;
+  const response = await fetch(paymentsApi + "/age-status", { credentials: "include" });
+  if (!response.ok) throw new Error("Could not check age verification.");
+  const result = await response.json();
+  ageVerifiedForPayment = result.verified === true;
+  paymentButton.textContent = ageVerifiedForPayment ? "Continue to secure payment →" : "Verify age to continue →";
+  return ageVerifiedForPayment;
+}
 let startingPayment = false;
 
 paymentButton.addEventListener("click", async () => {
   if (startingPayment || !paymentsApi) return;
   startingPayment = true;
   paymentButton.disabled = true;
-  paymentButton.textContent = "Connecting to secure checkout…";
+  paymentButton.textContent = "Checking age verification…";
   try {
+    if (!await checkCheckoutAge()) {
+      paymentButton.textContent = "Starting secure age check…";
+      const ageResponse = await fetch(paymentsApi + "/begin-age-check", { method: "POST", credentials: "include" });
+      const ageResult = await ageResponse.json();
+      if (!ageResponse.ok || !ageResult.url?.startsWith("https://age.yoti.com?")) throw new Error(ageResult.error || "Age check could not start.");
+      window.location.assign(ageResult.url);
+      return;
+    }
+    paymentButton.textContent = "Connecting to secure checkout…";
     const response = await fetch(paymentsApi + "/create-checkout-session", {
       method: "POST",
+      credentials: "include",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ basket: getBasket() })
     });
@@ -919,7 +940,7 @@ function renderBasket() {
 
   document.getElementById("basketCount").textContent = count;
   paymentButton.disabled = !paymentsApi || count === 0 || startingPayment;
-  if (!startingPayment) paymentButton.textContent = "Continue to secure payment →";
+  if (!startingPayment) paymentButton.textContent = ageVerifiedForPayment ? "Continue to secure payment →" : "Verify age to continue →";
   document.getElementById("clearBasket").hidden = count === 0;
   document.getElementById("itemCount").textContent =
     count + (count === 1 ? " item" : " items");
@@ -1045,6 +1066,13 @@ if (paymentParams.get("payment") === "success" && paymentsApi) {
       })
       .catch(() => window.alert("Could not confirm payment yet. Please check your email or contact us."));
   }
+}
+if (paymentParams.get("age") === "returned" && paymentsApi) {
+  checkCheckoutAge().then(verified => {
+    if (verified) window.alert("Age confirmed. You can now continue to secure payment.");
+    else window.alert("Age verification has not finished. Please try again.");
+  }).catch(() => window.alert("Could not confirm age. Please try again."));
+  window.history.replaceState({}, "", "checkout.html");
 }
 if (paymentParams.get("payment") === "cancelled") {
   window.history.replaceState({}, "", "checkout.html");
