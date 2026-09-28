@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Checkout | Vapes4All</title>
+<title>Vapes4All — Premium Vapes & Disposables</title>
 <style>
 *{
 margin:0;
@@ -15,7 +15,7 @@ body{
 background:#f8f9fb;
 color:#222;
 }
-/* Basket Icon — same as all product pages */
+/* Basket Icon — SAME across ALL pages */
 .basket-icon{
 position:fixed;
 top:20px;
@@ -31,6 +31,7 @@ justify-content:center;
 font-size:24px;
 cursor:pointer;
 z-index:999;
+box-shadow:0 4px 12px rgba(0,0,0,.15);
 }
 .basket-count{
 position:absolute;
@@ -63,6 +64,7 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 flex-wrap:wrap;
+gap:15px;
 }
 .logo{
 font-size:34px;
@@ -81,137 +83,131 @@ color:#333;
 font-weight:bold;
 transition:.2s;
 }
-.nav-links a:hover{
+.nav-links a:hover, .nav-links a.active{
 color:#ff9500;
 }
-.back-btn{
-display:inline-block;
-margin:20px;
-padding:10px 20px;
-background:#ff9500;
-color:white;
-text-decoration:none;
-border-radius:10px;
-font-weight:bold;
-border:none;
-cursor:pointer;
-transition:.2s;
-}
-.back-btn:hover{
-background:#e68600;
-}
-.container{
-max-width:1000px;
+.hero{
+text-align:center;
+padding:60px 20px 50px;
+max-width:1200px;
 margin:auto;
-padding:30px 20px;
 }
-h1{
+.hero h1{
+font-size:48px;
+margin-bottom:15px;
+color:#222;
+}
+.hero p{
+font-size:20px;
+color:#666;
 margin-bottom:30px;
-color:#ff9500;
+max-width:700px;
+margin-left:auto;
+margin-right:auto;
 }
-.card{
-background:white;
-padding:25px;
-border-radius:18px;
-margin-bottom:25px;
-box-shadow:0 8px 20px rgba(0,0,0,.08);
-}
-.notice{
-background:rgba(34,197,94,.08);
-border:1px solid #22c55e;
-padding:15px;
-border-radius:10px;
-margin-bottom:25px;
-color:#16a34a;
+.banner-deal{
+display:inline-block;
+padding:15px 35px;
+background:#22c55e;
+color:white;
+border-radius:50px;
 font-weight:bold;
+font-size:22px;
+margin-bottom:40px;
+box-shadow:0 6px 15px rgba(34,197,94,.25);
+}
+.features-bar{
+display:flex;
+justify-content:center;
+gap:40px;
+flex-wrap:wrap;
+margin-bottom:50px;
+padding:20px;
+background:white;
+border-radius:16px;
+box-shadow:0 4px 12px rgba(0,0,0,.06);
+}
+.feature{
 text-align:center;
 }
-.item{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:14px 0;
-border-bottom:1px solid #eee;
+.feature strong{
+display:block;
+font-size:18px;
+color:#ff9500;
+margin-bottom:5px;
 }
-.item:last-child{
-border-bottom:none;
+.feature span{
+color:#666;
+font-size:14px;
 }
-.remove{
-background:#ef4444;
-border:none;
-color:white;
-padding:8px 14px;
-border-radius:8px;
-cursor:pointer;
-font-weight:bold;
-transition:.2s;
+.heading{
+text-align:center;
+font-size:32px;
+margin:40px 0 30px;
+color:#222;
 }
-.remove:hover{
-background:#dc2626;
+.products-grid{
+max-width:1200px;
+margin:auto;
+padding:0 20px 60px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:25px;
 }
-.total-box{
+.product-card{
+background:white;
+padding:35px 25px;
+border-radius:18px;
+text-align:center;
+box-shadow:0 8px 20px rgba(0,0,0,.08);
+transition:.3s;
+text-decoration:none;
+color:inherit;
+display:block;
+}
+.product-card:hover{
+transform:translateY(-6px);
+}
+.product-card h2{
+font-size:24px;
+margin-bottom:12px;
+color:#ff9500;
+}
+.product-card .desc{
+color:#666;
+margin-bottom:20px;
+font-size:15px;
+}
+.product-card .price-deal{
 font-size:22px;
 font-weight:bold;
-padding:8px 0;
+color:#22c55e;
+margin-bottom:15px;
 }
-.total-box.delivery{
-color:#666;
-font-size:18px;
-}
-.total-box.final{
-font-size:26px;
-color:#ff9500;
-border-top:2px solid #eee;
-padding-top:15px;
-margin-top:10px;
-}
-input, textarea{
-width:100%;
-padding:14px;
-margin-top:12px;
-background:#f8f9fb;
-border:1px solid #ddd;
-border-radius:10px;
-color:#222;
-font-size:16px;
-}
-input:focus, textarea:focus{
-outline:none;
-border-color:#ff9500;
-}
-.checkout-btn{
-width:100%;
-padding:16px;
-margin-top:20px;
-background:#22c55e;
-border:none;
-border-radius:10px;
+.product-card .btn{
+display:inline-block;
+padding:12px 30px;
+background:#ff9500;
 color:white;
-font-size:18px;
 font-weight:bold;
-cursor:pointer;
+border-radius:10px;
+text-decoration:none;
 transition:.2s;
 }
-.checkout-btn:hover{
-background:#1db954;
-}
-.empty{
-text-align:center;
-color:#999;
-padding:40px 20px;
+.product-card .btn:hover{
+background:#e68600;
 }
 footer{
 text-align:center;
-padding:30px;
+padding:40px 20px;
 color:#666;
 border-top:1px solid #eee;
 margin-top:20px;
 }
 /* Mobile */
 @media(max-width:768px){
-.nav{
-gap:15px;
-}
+.hero h1{font-size:32px;}
+.banner-deal{font-size:18px; padding:12px 25px;}
 .basket-icon{
 top:auto;
 bottom:25px;
@@ -222,140 +218,93 @@ right:25px;
 </head>
 <body>
 
-<!-- Basket Icon — SAME as all pages -->
-<div class="basket-icon" id="basketIcon">
+<!-- Basket Icon — SAME across ALL pages -->
+<div class="basket-icon" id="basketIcon" onclick="window.location.href='checkout.html'">
 🛒
 <span class="basket-count" id="basketCount">0</span>
 </div>
 
-<a class="back-btn" href="index.html">
-← Back To Home
-</a>
-
 <header>
 <div class="nav">
-<a href="index.html" class="logo">
-Vapes4All
-</a>
+<a href="index.html" class="logo">Vapes4All</a>
 <div class="nav-links">
+<a href="index.html" class="active" style="color:#ff9500">Home</a>
 <a href="dojo-units.html">10K Units</a>
 <a href="dojo-pods.html">10K Pods</a>
 <a href="ivg.html">IVG 10K</a>
-<a href="checkout.html" style="color:#ff9500">Basket</a>
+<a href="checkout.html">Basket</a>
 <a href="contact.html">Contact</a>
 </div>
 </div>
 </header>
 
-<div class="container">
-<h1>Your Basket</h1>
-
-<div class="notice">
-🚚 Free DPD delivery on orders over £23 • Otherwise £2.99
+<section class="hero">
+<h1>Premium Vapes & Disposables</h1>
+<p>Top brands — Dojo, IVG & more • Fast Tracked Delivery • 18+ Only</p>
+<div class="banner-deal">
+🚚 FREE DPD DELIVERY ON ALL ORDERS £23+
 </div>
 
-<div class="card">
-<div id="basketItems"></div>
+<div class="features-bar">
+<div class="feature">
+<strong>£2.99</strong>
+<span>Under £23</span>
 </div>
+<div class="feature">
+<strong>DPD Tracked</strong>
+<span>Every Order</span>
+</div>
+<div class="feature">
+<strong>18+ Verified</strong>
+<span>UK Law Compliant</span>
+</div>
+<div class="feature">
+<strong>Same Day</strong>
+<span>Dispatch Before 9pm</span>
+</div>
+</div>
+</section>
 
-<div class="card">
-<div class="total-box">
-Subtotal: £<span id="subtotal">0.00</span>
-</div>
-<div class="total-box delivery">
-Delivery: £<span id="delivery">0.00</span>
-</div>
-<div class="total-box final">
-Total: £<span id="total">0.00</span>
-</div>
-</div>
+<h2 class="heading">Shop Our Range</h2>
+<section class="products-grid">
 
-<div class="card">
-<h2>Customer Details</h2>
-<input id="fullName" placeholder="Full Name *" required>
-<input id="email" placeholder="Email Address *" required>
-<input id="phone" placeholder="Phone Number *" required>
-<textarea id="address" rows="4" placeholder="Full Delivery Address *" required></textarea>
-<button class="checkout-btn" onclick="checkout()">
-💳 Continue To Payment
-</button>
-</div>
-</div>
+<a href="dojo-units.html" class="product-card">
+<h2>Dojo Blast 10K Units</h2>
+<p class="desc">Rechargeable disposables • 10,000 puffs • Powered by Vaporesso</p>
+<p class="price-deal">£6.99 each • Any 3 for £12.99</p>
+<span class="btn">Shop Units →</span>
+</a>
+
+<a href="dojo-pods.html" class="product-card">
+<h2>Dojo Blast 10K Pods</h2>
+<p class="desc">20mg Nic Salt • Fully compatible • All premium flavours</p>
+<p class="price-deal">£4.99 each • Any 6 for £20</p>
+<span class="btn">Shop Pods →</span>
+</a>
+
+<a href="ivg.html" class="product-card">
+<h2>IVG 10K Collection</h2>
+<p class="desc">Massive flavours • Premium disposables • Now HALF PRICE</p>
+<p class="price-deal">£4.99 each — Was £9.99</p>
+<span class="btn">Shop IVG →</span>
+</a>
+
+</section>
 
 <footer>
-<p>Vapes4All © 2026</p>
-<p>18+ Only • All orders shipped via DPD Tracked</p>
+<p><strong>Vapes4All © 2026</strong></p>
+<p style="margin:8px 0;">info@vapes4all.co.uk | All orders shipped via DPD Tracked</p>
+<p>⚠️ Strictly 18+ Only • By purchasing you confirm you are of legal age</p>
 </footer>
 
 <script>
-// SAME basket key — shares across ALL pages
+// Sync basket count — SAME across ALL pages
 let basket = JSON.parse(localStorage.getItem('vapes4all_basket') || '[]');
-
 function updateBasketCount() {
 const total = basket.reduce((sum, item) => sum + item.qty, 0);
 document.getElementById('basketCount').textContent = total;
 }
-
-function renderBasket(){
-const container = document.getElementById('basketItems');
-if(basket.length === 0){
-container.innerHTML = '<div class="empty">Your basket is empty</div>';
-updateTotals();
-return;
-}
-container.innerHTML = basket.map((item, index) => `
-<div class="item">
-<div>
-<strong>${item.name}</strong>
-<br>Qty: ${item.qty} × £${item.price.toFixed(2)}
-</div>
-<div style="display:flex;align-items:center;gap:12px;">
-<strong>£${(item.price * item.qty).toFixed(2)}</strong>
-<button class="remove" onclick="removeItem(${index})">✕</button>
-</div>
-</div>
-`).join('');
-updateTotals();
-}
-
-function removeItem(index){
-basket.splice(index, 1);
-localStorage.setItem('vapes4all_basket', JSON.stringify(basket));
 updateBasketCount();
-renderBasket();
-}
-
-function updateTotals(){
-let subtotal = 0;
-basket.forEach(item => {
-subtotal += item.price * item.qty;
-});
-let delivery = subtotal >= 23 ? 0 : 2.99;
-document.getElementById('subtotal').innerText = subtotal.toFixed(2);
-document.getElementById('delivery').innerText = delivery.toFixed(2);
-document.getElementById('total').innerText = (subtotal + delivery).toFixed(2);
-}
-
-function checkout(){
-if(basket.length === 0){
-alert('⚠️ Your basket is empty');
-return;
-}
-// Basic validation
-const name = document.getElementById('fullName').value.trim();
-const email = document.getElementById('email').value.trim();
-const phone = document.getElementById('phone').value.trim();
-const address = document.getElementById('address').value.trim();
-if(!name || !email || !phone || !address){
-alert('⚠️ Please fill in all required fields');
-return;
-}
-alert('✅ Order details saved!\n\nStripe payment integration coming next.');
-}
-
-// Load everything on page open
-updateBasketCount();
-renderBasket();
 </script>
 
 </body>
