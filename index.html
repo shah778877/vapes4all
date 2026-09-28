@@ -6,724 +6,985 @@
 <title>Vapes4All</title>
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
+:root {
+  --orange: #ff4d00;
+  --ink: #191919;
+  --muted: #656b73;
+  --line: #e8eaf0;
 }
 
-body{
-background:linear-gradient(180deg,#f7f8fb 0%,#ffffff 100%);
-color:#222;
-min-height:100vh;
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f7f8fb 0%, #fff 100%);
+  color: var(--ink);
+  font-family: Arial, sans-serif;
+}
+
+button,
+select {
+  font: inherit;
+}
+
+a {
+  color: inherit;
 }
 
 /* AGE VERIFICATION */
-.age-gate{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.94);
-display:flex;
-align-items:center;
-justify-content:center;
-z-index:9999;
-padding:20px;
+.age-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, .94);
 }
 
-.age-box{
-background:#fff;
-padding:42px 32px;
-border-radius:20px;
-text-align:center;
-max-width:440px;
-width:100%;
-box-shadow:0 20px 60px rgba(0,0,0,.35);
-border-top:5px solid #ff4d00;
+.age-gate[hidden] {
+  display: none;
 }
 
-.age-box h2{
-font-size:30px;
-color:#ff4d00;
-margin-bottom:15px;
+.age-box {
+  width: min(100%, 440px);
+  padding: 42px 32px;
+  border-top: 5px solid var(--orange);
+  border-radius: 20px;
+  background: #fff;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .35);
 }
 
-.age-box p{
-margin-bottom:25px;
-color:#555;
-font-size:16px;
-line-height:1.6;
+.age-box h2 {
+  margin: 0 0 15px;
+  color: var(--orange);
+  font-size: 30px;
 }
 
-.age-buttons{
-display:flex;
-gap:12px;
-flex-wrap:wrap;
-justify-content:center;
+.age-box p {
+  margin: 0 0 25px;
+  color: #555;
+  font-size: 16px;
+  line-height: 1.6;
 }
 
-.age-yes,
-.age-no{
-border:none;
-padding:14px 28px;
-border-radius:9px;
-font-size:16px;
-font-weight:bold;
-cursor:pointer;
-transition:.2s;
+.age-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
-.age-yes{
-background:#ff4d00;
-color:#fff;
+.age-buttons button,
+.age-buttons a {
+  padding: 14px 22px;
+  border: 0;
+  border-radius: 9px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.age-yes:hover{
-background:#df4300;
-transform:translateY(-2px);
+.age-yes {
+  background: var(--orange);
+  color: #fff;
 }
 
-.age-no{
-background:#e5e5e5;
-color:#333;
-}
-
-.age-no:hover{
-background:#d4d4d4;
+.age-no {
+  background: #e9eaec;
+  color: #333;
 }
 
 /* HEADER */
-header{
-background:#fff;
-box-shadow:0 3px 15px rgba(0,0,0,.05);
-position:sticky;
-top:0;
-z-index:100;
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, .97);
+  box-shadow: 0 3px 15px rgba(0, 0, 0, .05);
 }
 
-.top-nav{
-max-width:1280px;
-margin:0 auto;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:20px 90px 20px 25px;
+.top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  max-width: 1280px;
+  margin: auto;
+  padding: 18px 25px;
 }
 
-.site-title{
-font-size:28px;
-font-weight:900;
-letter-spacing:-1px;
-color:#111;
+.site-title {
+  flex: none;
+  color: #111;
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  text-decoration: none;
 }
 
-.site-title span{
-color:#ff4d00;
+.site-title span {
+  color: var(--orange);
 }
 
-.nav-links{
-display:flex;
-align-items:center;
-gap:8px;
+.nav-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
-.nav-links a{
-color:#333;
-text-decoration:none;
-padding:10px 12px;
-font-weight:bold;
-font-size:15px;
-border-radius:7px;
-transition:.2s;
+.nav-links a {
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: #333;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
 }
 
 .nav-links a:hover,
-.nav-links a.active{
-color:#ff4d00;
-background:#fff4ef;
+.nav-links a.active {
+  background: #fff1eb;
+  color: var(--orange);
 }
 
-/* BASKET */
-.basket-icon{
-position:fixed;
-top:16px;
-right:22px;
-background:#111;
-color:#fff;
-width:54px;
-height:54px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:22px;
-cursor:pointer;
-z-index:999;
-box-shadow:0 6px 16px rgba(0,0,0,.18);
-transition:.2s;
+.nav-links .basket-link {
+  background: #1c1c1c;
+  color: #fff;
 }
 
-.basket-icon:hover{
-background:#ff4d00;
-transform:scale(1.05);
+.nav-links .basket-link:hover {
+  background: var(--orange);
+  color: #fff;
 }
 
-.basket-count{
-position:absolute;
-top:-5px;
-right:-5px;
-background:#ff4d00;
-color:#fff;
-font-size:11px;
-font-weight:bold;
-width:21px;
-height:21px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-border:2px solid #fff;
+.basket-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  margin-left: 5px;
+  padding: 0 5px;
+  border-radius: 20px;
+  background: var(--orange);
+  color: #fff;
+  font-size: 11px;
 }
 
-/* MAIN */
-main{
-max-width:1280px;
-margin:0 auto;
-padding:55px 25px 30px;
+main {
+  max-width: 1280px;
+  margin: auto;
+  padding: 48px 25px 30px;
 }
 
-.hero{
-text-align:center;
-margin-bottom:45px;
+/* INTRO */
+.hero {
+  margin-bottom: 38px;
+  text-align: center;
 }
 
-.hero-badge{
-display:inline-block;
-background:#fff1eb;
-color:#ff4d00;
-font-weight:bold;
-font-size:13px;
-padding:8px 14px;
-border-radius:20px;
-margin-bottom:14px;
+.hero-badge {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: #fff1eb;
+  color: var(--orange);
+  font-size: 13px;
+  font-weight: 800;
 }
 
-.hero h1{
-font-size:46px;
-line-height:1.1;
-margin-bottom:15px;
-letter-spacing:-1.5px;
+.hero h1 {
+  margin: 0 0 15px;
+  font-size: clamp(34px, 4vw, 48px);
+  line-height: 1.1;
+  letter-spacing: -1.5px;
 }
 
-.hero h1 span{
-color:#ff4d00;
+.hero h1 span {
+  color: var(--orange);
 }
 
-.sub-heading{
-color:#666;
-font-size:17px;
-line-height:1.6;
-max-width:780px;
-margin:0 auto;
+.sub-heading {
+  max-width: 780px;
+  margin: 0 auto;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.6;
 }
 
-/* THREE LARGE PRODUCT BOXES */
-.product-grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:28px;
-max-width:1200px;
-margin:0 auto;
+/* SMARTER MINI CLEARANCE */
+.clearance {
+  max-width: 1200px;
+  margin: 0 auto 55px;
+  padding: 27px;
+  border: 1px solid #ececef;
+  border-radius: 23px;
+  background: #fff;
+  box-shadow: 0 12px 38px rgba(29, 38, 56, .07);
 }
 
-.product-card{
-background:#fff;
-border-radius:20px;
-padding:28px 24px 24px;
-text-align:center;
-box-shadow:0 8px 28px rgba(0,0,0,.08);
-text-decoration:none;
-color:inherit;
-display:flex;
-flex-direction:column;
-min-height:520px;
-border:1px solid #eee;
-transition:.25s ease;
-position:relative;
-overflow:hidden;
+.clearance-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
-.product-card::before{
-content:"";
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:5px;
-background:#ff4d00;
+.clearance-label {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: var(--orange);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
 }
 
-.product-card:hover{
-transform:translateY(-8px);
-box-shadow:0 18px 38px rgba(0,0,0,.14);
-border-color:#ffd4c2;
+.clearance-heading h2 {
+  margin: 0;
+  font-size: clamp(25px, 3vw, 34px);
+  letter-spacing: -.9px;
 }
 
-.product-image-wrap{
-background:#fafafa;
-border-radius:16px;
-height:285px;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:15px;
-margin-bottom:22px;
-overflow:hidden;
+.clearance-heading p {
+  max-width: 390px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
 }
 
-.product-img{
-width:100%;
-height:100%;
-object-fit:contain;
-transition:.3s ease;
+.clearance-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 17px;
 }
 
-.product-card:hover .product-img{
-transform:scale(1.05);
+.clearance-card {
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr);
+  align-items: center;
+  gap: 20px;
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 17px;
+  background: #fafbfc;
 }
 
-.product-name{
-font-size:22px;
-font-weight:800;
-margin-bottom:9px;
-color:#222;
+.clearance-picture {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 175px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #fff;
 }
 
-.product-desc{
-font-size:14px;
-color:#777;
-margin-bottom:13px;
-line-height:1.5;
+.clearance-picture img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
-.product-price{
-font-size:22px;
-color:#ff4d00;
-font-weight:900;
-margin-bottom:6px;
+.image-fallback {
+  padding: 12px;
+  color: var(--muted);
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
 }
 
-.product-deal{
-font-size:15px;
-color:#16a34a;
-font-weight:bold;
-margin-bottom:20px;
+.clearance-type {
+  display: inline-block;
+  margin-bottom: 7px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .05em;
+  text-transform: uppercase;
 }
 
-.view-btn{
-width:100%;
-padding:14px;
-background:#222;
-color:#fff;
-border:none;
-border-radius:10px;
-font-weight:bold;
-cursor:pointer;
-font-size:15px;
-transition:.2s;
-margin-top:auto;
+.clearance-card h3 {
+  margin: 0 0 7px;
+  font-size: 19px;
+  line-height: 1.3;
 }
 
-.product-card:hover .view-btn{
-background:#ff4d00;
+.clearance-price {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--orange);
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -1px;
 }
 
-/* FEATURE STRIP */
-.features{
-margin:50px auto 0;
-max-width:1200px;
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:16px;
+.clearance-price small {
+  color: #555;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0;
 }
 
-.feature{
-background:#111;
-color:#fff;
-padding:22px;
-border-radius:14px;
-text-align:center;
+.clearance-description {
+  margin: 0 0 13px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
 }
 
-.feature strong{
-display:block;
-font-size:17px;
-margin-bottom:5px;
+.clearance-card label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 800;
 }
 
-.feature span{
-color:#ccc;
-font-size:13px;
+.clearance-card select {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 11px 12px;
+  border: 1px solid #dfe2e8;
+  border-radius: 9px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 13px;
+  cursor: pointer;
 }
 
-/* FOOTER */
-footer{
-text-align:center;
-margin-top:50px;
-color:#888;
-font-size:13px;
-padding:28px 20px 35px;
-border-top:1px solid #eee;
+.clearance-card select:focus {
+  outline: 2px solid #ffd3c1;
+  border-color: var(--orange);
 }
 
-/* TABLET */
-@media(max-width:1000px){
-
-.product-grid{
-grid-template-columns:repeat(2,1fr);
+.clearance-add {
+  width: 100%;
+  padding: 11px 13px;
+  border: 0;
+  border-radius: 9px;
+  background: #1c1c1c;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
 }
 
-.product-card:last-child{
-grid-column:1 / -1;
-max-width:570px;
-width:100%;
-justify-self:center;
+.clearance-add:hover {
+  background: var(--orange);
 }
 
-.hero h1{
-font-size:38px;
+.clearance-add.added {
+  background: #167a48;
 }
 
+.clearance-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 17px;
 }
 
-/* MOBILE */
-@media(max-width:768px){
-
-.top-nav{
-padding:18px 18px;
-padding-right:18px;
-flex-direction:column;
-align-items:flex-start;
-gap:12px;
+.clearance-foot span {
+  color: var(--muted);
+  font-size: 12px;
 }
 
-.site-title{
-font-size:24px;
+.clearance-foot a {
+  color: var(--orange);
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
 }
 
-.nav-links{
-width:100%;
-overflow-x:auto;
-padding-bottom:4px;
+.clearance-foot a:hover {
+  text-decoration: underline;
 }
 
-.nav-links a{
-white-space:nowrap;
-font-size:14px;
-padding:8px 10px;
+/* MAIN PRODUCT CARDS */
+.collection-title {
+  max-width: 1200px;
+  margin: 0 auto 19px;
+  font-size: 27px;
+  letter-spacing: -.6px;
 }
 
-.basket-icon{
-top:auto;
-bottom:22px;
-right:22px;
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  max-width: 1200px;
+  margin: auto;
 }
 
-main{
-padding:38px 16px 25px;
+.product-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 520px;
+  overflow: hidden;
+  padding: 28px 24px 24px;
+  border: 1px solid #eee;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, .08);
+  color: inherit;
+  text-align: center;
+  text-decoration: none;
+  transition: transform .25s, box-shadow .25s;
 }
 
-.hero h1{
-font-size:34px;
+.product-card::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: var(--orange);
+  content: "";
 }
 
-.sub-heading{
-font-size:15px;
+.product-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, .13);
 }
 
-.product-grid{
-grid-template-columns:1fr;
-gap:22px;
+.product-image-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 285px;
+  margin-bottom: 22px;
+  padding: 15px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #fafafa;
 }
 
-.product-card,
-.product-card:last-child{
-grid-column:auto;
-max-width:none;
-min-height:500px;
+.product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
-.product-image-wrap{
-height:275px;
+.product-name {
+  margin: 0 0 9px;
+  font-size: 22px;
+  font-weight: 800;
 }
 
-.features{
-grid-template-columns:1fr;
+.product-desc {
+  margin: 0 0 13px;
+  color: #777;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
+.product-price {
+  margin: 0 0 6px;
+  color: var(--orange);
+  font-size: 22px;
+  font-weight: 900;
 }
 
-/* SMALL MOBILE */
-@media(max-width:420px){
-
-.hero h1{
-font-size:30px;
+.product-deal {
+  margin: 0 0 20px;
+  color: #16804b;
+  font-size: 15px;
+  font-weight: 700;
 }
 
-.product-card{
-padding:22px 18px;
+.view-btn {
+  display: block;
+  width: 100%;
+  margin-top: auto;
+  padding: 14px;
+  border-radius: 10px;
+  background: #222;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
 }
 
-.product-image-wrap{
-height:240px;
+.product-card:hover .view-btn {
+  background: var(--orange);
 }
 
+/* FOOTER FEATURES */
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 1200px;
+  margin: 50px auto 0;
+}
+
+.feature {
+  padding: 22px;
+  border-radius: 14px;
+  background: #111;
+  color: #fff;
+  text-align: center;
+}
+
+.feature strong {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 17px;
+}
+
+.feature span {
+  color: #ccc;
+  font-size: 13px;
+}
+
+footer {
+  margin-top: 50px;
+  padding: 28px 20px 35px;
+  border-top: 1px solid #eee;
+  color: #888;
+  text-align: center;
+  font-size: 13px;
+}
+
+.toast {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 500;
+  max-width: min(350px, calc(100vw - 44px));
+  padding: 14px 18px;
+  border-radius: 11px;
+  background: #1c1c1c;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .22);
+}
+
+.toast[hidden] {
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  .top-nav {
+    flex-wrap: wrap;
+  }
+
+  .nav-links {
+    width: 100%;
+  }
+
+  .clearance-card {
+    grid-template-columns: 130px minmax(0, 1fr);
+    gap: 13px;
+  }
+
+  .clearance-picture {
+    height: 155px;
+  }
+}
+
+@media (max-width: 850px) {
+  .clearance-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .clearance-card {
+    grid-template-columns: 170px minmax(0, 1fr);
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .product-card:last-child {
+    grid-column: 1 / -1;
+    width: 100%;
+    max-width: 570px;
+    justify-self: center;
+  }
+}
+
+@media (max-width: 720px) {
+  .top-nav {
+    gap: 12px;
+    padding: 15px 16px 10px;
+  }
+
+  .site-title {
+    font-size: 25px;
+  }
+
+  .nav-links {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 7px;
+    scrollbar-width: thin;
+  }
+
+  .nav-links a {
+    padding: 9px 10px;
+    font-size: 13px;
+  }
+
+  main {
+    padding: 38px 16px 25px;
+  }
+
+  .hero {
+    margin-bottom: 30px;
+  }
+
+  .sub-heading {
+    font-size: 15px;
+  }
+
+  .clearance {
+    padding: 18px;
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .product-card,
+  .product-card:last-child {
+    grid-column: auto;
+    max-width: none;
+    min-height: 500px;
+  }
+
+  .product-image-wrap {
+    height: 275px;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 470px) {
+  .clearance-card {
+    grid-template-columns: 1fr;
+  }
+
+  .clearance-picture {
+    height: 170px;
+  }
+
+  .clearance-price {
+    font-size: 29px;
+  }
+
+  .product-card {
+    padding: 22px 18px;
+  }
+
+  .product-image-wrap {
+    height: 240px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- AGE VERIFICATION -->
-<div class="age-gate" id="ageGate">
-<div class="age-box">
-<h2>⚠️ 18+ ONLY</h2>
-<p>
-This website contains nicotine products.<br>
-You must be aged 18 or over to enter.
-</p>
+<div class="age-gate" id="ageGate" hidden>
+  <div class="age-box">
+    <h2>18+ ONLY</h2>
+    <p>This website contains nicotine products.<br>You must be aged 18 or over to enter.</p>
 
-<div class="age-buttons">
-<button class="age-yes" onclick="confirmAge()">I Am 18+ ✅</button>
-<button class="age-no" onclick="leaveSite()">Under 18 — Leave</button>
-</div>
-</div>
+    <div class="age-buttons">
+      <button class="age-yes" id="confirmAge" type="button">I Am 18+</button>
+      <a class="age-no" href="https://www.google.com/">Under 18 — Leave</a>
+    </div>
+  </div>
 </div>
 
-<!-- BASKET -->
-<div
-class="basket-icon"
-id="basketIcon"
-onclick="window.location.href='checkout.html'"
-style="display:none;"
->
-🛒
-<span class="basket-count" id="basketCount">0</span>
-</div>
+<header>
+  <div class="top-nav">
+    <a class="site-title" href="index.html">VAPES<span>4ALL</span></a>
 
-<!-- HEADER -->
-<header id="mainNav" style="display:none;">
-<div class="top-nav">
-
-<div class="site-title">
-VAPES<span>4ALL</span>
-</div>
-
-<div class="nav-links">
-<a href="index.html" class="active">Home</a>
-<a href="dojo-units.html">Units</a>
-<a href="dojo-pods.html">Pods</a>
-<a href="ivg.html">IVG</a>
-<a href="contact.html">Contact</a>
-</div>
-
-</div>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="index.html" class="active" aria-current="page">Home</a>
+      <a href="dojo-units.html">Dojo Units</a>
+      <a href="dojo-pods.html">Dojo Pods</a>
+      <a href="ivg.html">IVG</a>
+      <a href="checkout.html" class="basket-link">
+        Basket / Checkout <span class="basket-number" id="basketCount">0</span>
+      </a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
 </header>
 
-<!-- MAIN CONTENT -->
-<main id="mainContent" style="display:none;">
+<main>
+  <section class="hero">
+    <span class="hero-badge">18+ VAPE STORE</span>
+    <h1>Premium Vapes.<br><span>Great Prices.</span></h1>
+    <p class="sub-heading">
+      Shop Dojo, IVG and Smarter Mini, with tracked delivery and offers across selected products.
+    </p>
+  </section>
 
-<section class="hero">
+  <!-- PODS LEFT, STARTER KITS RIGHT -->
+  <section class="clearance" aria-labelledby="clearanceTitle">
+    <div class="clearance-heading">
+      <div>
+        <span class="clearance-label">Smarter Mini • Crazy clearance</span>
+        <h2 id="clearanceTitle">A little price. A big deal.</h2>
+      </div>
+      <p>Choose your flavour below. Clearance prices apply while stock lasts.</p>
+    </div>
 
-<div class="hero-badge">
-18+ VAPE STORE
-</div>
+    <div class="clearance-grid">
 
-<h1>
-Premium Vapes.<br>
-<span>Great Prices.</span>
-</h1>
+      <!-- PODS: 50P PER PACK OF TWO -->
+      <article class="clearance-card">
+        <div class="clearance-picture">
+          <img
+            src="smarter-mini-pods.jpg"
+            alt="Smarter Mini pack of two replacement pods"
+            onerror="this.style.display='none'; this.nextElementSibling.hidden=false;"
+          >
+          <span class="image-fallback" hidden>Smarter Mini<br>Pod Pack</span>
+        </div>
 
-<p class="sub-heading">
-Shop Dojo, IVG and more with fast tracked delivery,
-great multi-buy deals and a growing range of flavours.
-</p>
+        <div>
+          <span class="clearance-type">Replacement pods • Pack of 2</span>
+          <h3>Smarter Mini Pods</h3>
+          <strong class="clearance-price">50p <small>per pack</small></strong>
+          <p class="clearance-description">Two pods in each pack. Select the flavour you want.</p>
 
-</section>
+          <label for="smarterPodFlavour">Choose pod flavour</label>
+          <select id="smarterPodFlavour">
+            <option>Lemon &amp; Lime</option>
+            <option>Watermelon Ice</option>
+            <option>Cherry Ice</option>
+            <option>Blueberry Ice</option>
+            <option>Wild Berries</option>
+            <option>Pineapple Ice</option>
+          </select>
 
-<!-- PRODUCT BOXES -->
-<section class="product-grid">
+          <button class="clearance-add" id="addSmarterPods" type="button">
+            Add pod pack to basket +
+          </button>
+        </div>
+      </article>
 
-<!-- DOJO BLAST 10K UNITS -->
-<a href="dojo-units.html" class="product-card">
+      <!-- STARTER KIT: £1 EACH -->
+      <article class="clearance-card">
+        <div class="clearance-picture">
+          <img
+            src="smarter-mini-kit.jpg"
+            alt="Smarter Mini starter kit"
+            onerror="this.style.display='none'; this.nextElementSibling.hidden=false;"
+          >
+          <span class="image-fallback" hidden>Smarter Mini<br>Starter Kit</span>
+        </div>
 
-<div class="product-image-wrap">
-<img
-src="dojo-units.jpg"
-alt="Dojo Blast 10K Units"
-class="product-img"
->
-</div>
+        <div>
+          <span class="clearance-type">Smarter Mini • Starter kit</span>
+          <h3>Smarter Mini Kit</h3>
+          <strong class="clearance-price">£1 <small>per kit</small></strong>
+          <p class="clearance-description">Starter kit with the device. Select the flavour you want.</p>
 
-<h3 class="product-name">
-Dojo Blast 10K Units
-</h3>
+          <label for="smarterKitFlavour">Choose kit flavour</label>
+          <select id="smarterKitFlavour">
+            <option>Watermelon Ice</option>
+            <option>Pineapple Ice</option>
+            <option>Lemon &amp; Lime</option>
+          </select>
 
-<p class="product-desc">
-Rechargeable disposables • 10,000 puffs
-</p>
+          <button class="clearance-add" id="addSmarterKit" type="button">
+            Add starter kit to basket +
+          </button>
+        </div>
+      </article>
 
-<p class="product-price">
-£6.99 each
-</p>
+    </div>
 
-<p class="product-deal">
-Any 3 for £12.99
-</p>
+    <div class="clearance-foot">
+      <span>Product pictures illustrate the range. The flavour you select is shown in your basket.</span>
+      <a href="checkout.html">View basket →</a>
+    </div>
+  </section>
 
-<button class="view-btn">
-View All Flavours →
-</button>
+  <h2 class="collection-title">Shop the collection</h2>
 
-</a>
+  <section class="product-grid" aria-label="Shop our products">
 
-<!-- DOJO BLAST PODS -->
-<a href="dojo-pods.html" class="product-card">
+    <a href="dojo-units.html" class="product-card">
+      <div class="product-image-wrap">
+        <img src="dojo-units.jpg" alt="Dojo Blast 10K Units" class="product-img">
+      </div>
 
-<div class="product-image-wrap">
-<img
-src="dojo-pods.jpg"
-alt="Dojo Blast 10K Pods"
-class="product-img"
->
-</div>
+      <h3 class="product-name">Dojo Blast 10K Units</h3>
+      <p class="product-desc">Choose from 22 flavours</p>
+      <p class="product-price">£6.99 each</p>
+      <p class="product-deal">Any 3 for £12.99</p>
+      <span class="view-btn">View All Flavours →</span>
+    </a>
 
-<h3 class="product-name">
-Dojo Blast 10K Pods
-</h3>
+    <a href="dojo-pods.html" class="product-card">
+      <div class="product-image-wrap">
+        <img src="dojo-pods.jpg" alt="Dojo Blast 10K Pods" class="product-img">
+      </div>
 
-<p class="product-desc">
-20mg Nic Salt • Fully compatible
-</p>
+      <h3 class="product-name">Dojo Blast 10K Pods</h3>
+      <p class="product-desc">Choose from 22 flavours</p>
+      <p class="product-price">£4.99 each</p>
+      <p class="product-deal">Any 6 for £20</p>
+      <span class="view-btn">View All Flavours →</span>
+    </a>
 
-<p class="product-price">
-£4.99 each
-</p>
+    <a href="ivg.html" class="product-card">
+      <div class="product-image-wrap">
+        <img src="ivg.jpg" alt="IVG collection" class="product-img">
+      </div>
 
-<p class="product-deal">
-Any 6 for £20
-</p>
+      <h3 class="product-name">IVG</h3>
+      <p class="product-desc">Choose from the ten available flavours</p>
+      <p class="product-price">£4.99 each</p>
+      <p class="product-deal">Explore the range</p>
+      <span class="view-btn">View All Flavours →</span>
+    </a>
 
-<button class="view-btn">
-View All Flavours →
-</button>
+  </section>
 
-</a>
+  <section class="features" aria-label="Store information">
+    <div class="feature">
+      <strong>🚚 Fast Delivery</strong>
+      <span>DPD tracked delivery</span>
+    </div>
 
-<!-- IVG SMART MAX -->
-<a href="ivg.html" class="product-card">
+    <div class="feature">
+      <strong>💷 Great Deals</strong>
+      <span>Offers across selected products</span>
+    </div>
 
-<div class="product-image-wrap">
-<img
-src="ivg.jpg"
-alt="IVG Smart Max"
-class="product-img"
->
-</div>
+    <div class="feature">
+      <strong>🔞 18+ Only</strong>
+      <span>Age restricted products for adults only</span>
+    </div>
+  </section>
 
-<h3 class="product-name">
-IVG Smart Max
-</h3>
-
-<p class="product-desc">
-Premium Rechargeable Kit • Half Price
-</p>
-
-<p class="product-price">
-£4.99 each
-</p>
-
-<p class="product-deal">
-Massive flavours range
-</p>
-
-<button class="view-btn">
-View All Flavours →
-</button>
-
-</a>
-
-</section>
-
-<!-- FEATURES -->
-<section class="features">
-
-<div class="feature">
-<strong>🚚 Fast Delivery</strong>
-<span>Tracked delivery on your order</span>
-</div>
-
-<div class="feature">
-<strong>💷 Great Deals</strong>
-<span>Multi-buy offers across selected products</span>
-</div>
-
-<div class="feature">
-<strong>🔞 18+ Only</strong>
-<span>Age restricted products for adults only</span>
-</div>
-
-</section>
-
-<footer>
-Vapes4All © 2026 | 18+ Only | All Rights Reserved
-</footer>
-
+  <footer>Vapes4All © 2026 | 18+ Only | All Rights Reserved</footer>
 </main>
 
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
 <script>
+const basketKey = "vapes4all_basket";
+let toastTimer;
 
-/* AGE GATE */
-function confirmAge(){
-
-document.getElementById('ageGate').style.display='none';
-
-document.getElementById('basketIcon').style.display='flex';
-
-document.getElementById('mainNav').style.display='block';
-
-document.getElementById('mainContent').style.display='block';
-
-localStorage.setItem('ageVerified','true');
-
+function getBasket() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(basketKey) || "[]");
+    return Array.isArray(saved) ? saved : [];
+  } catch {
+    return [];
+  }
 }
 
-function leaveSite(){
-window.location.href='https://www.google.com';
+function updateBasketCount() {
+  const count = getBasket().reduce(
+    (total, item) => total + (Number(item.qty) || 0),
+    0
+  );
+
+  document.getElementById("basketCount").textContent = count;
 }
 
-if(localStorage.getItem('ageVerified')==='true'){
-confirmAge();
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.hidden = false;
+
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.hidden = true;
+  }, 2600);
 }
 
-/* BASKET COUNT */
-let basket=JSON.parse(
-localStorage.getItem('vapes4all_basket') || '[]'
-);
+function addClearanceItem(name, price, button) {
+  const basket = getBasket();
+  const existing = basket.find(item => item.name === name);
 
-function updateBasketCount(){
+  if (existing) {
+    existing.qty = (Number(existing.qty) || 0) + 1;
+  } else {
+    basket.push({ name: name, price: price, qty: 1 });
+  }
 
-const total=basket.reduce(
-(sum,item)=>sum+(Number(item.qty)||0),
-0
-);
+  localStorage.setItem(basketKey, JSON.stringify(basket));
+  updateBasketCount();
+  showToast(name + " added to your basket");
 
-document.getElementById('basketCount').textContent=total;
+  const originalText = button.textContent;
+  button.textContent = "Added ✓";
+  button.classList.add("added");
 
+  setTimeout(() => {
+    button.textContent = originalText;
+    button.classList.remove("added");
+  }, 1100);
 }
+
+document.getElementById("addSmarterPods").addEventListener("click", event => {
+  const flavour = document.getElementById("smarterPodFlavour").value;
+
+  addClearanceItem(
+    "Smarter Mini Pod Pack (2 pods) — " + flavour,
+    0.50,
+    event.currentTarget
+  );
+});
+
+document.getElementById("addSmarterKit").addEventListener("click", event => {
+  const flavour = document.getElementById("smarterKitFlavour").value;
+
+  addClearanceItem(
+    "Smarter Mini Starter Kit — " + flavour,
+    1.00,
+    event.currentTarget
+  );
+});
+
+/* Show the age screen on a new browser session. */
+const ageGate = document.getElementById("ageGate");
+
+if (sessionStorage.getItem("ageVerifiedThisSession") !== "true") {
+  ageGate.hidden = false;
+}
+
+document.getElementById("confirmAge").addEventListener("click", () => {
+  sessionStorage.setItem("ageVerifiedThisSession", "true");
+  localStorage.setItem("ageVerified", "true");
+  ageGate.hidden = true;
+});
 
 updateBasketCount();
-
+window.addEventListener("storage", updateBasketCount);
 </script>
 
 </body>
