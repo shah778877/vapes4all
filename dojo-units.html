@@ -3,90 +3,925 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dojo Blast 10K Units — Vapes4All</title>
+<title>Dojo Blast 10K Units | Vapes4All</title>
+
 <style>
-*{margin:0; padding:0; box-sizing:border-box; font-family:Arial,sans-serif;}
-body{background:#f8f9fb; color:#222;}
-.top-banner{background:linear-gradient(90deg, #ff9500, #ffb347); color:white; text-align:center; padding:10px 20px; font-weight:bold; font-size:15px;}
-header{background:white; box-shadow:0 2px 8px rgba(0,0,0,.06); padding:15px 25px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;}
-.site-title{font-size:22px; font-weight:bold; color:#ff9500; text-decoration:none;}
-.nav-links a{color:#333; text-decoration:none; margin-left:15px; font-weight:bold; font-size:15px;}
-.nav-links a:hover, .nav-links a.active{color:#ff9500;}
-.basket-icon{position:fixed; top:70px; right:25px; background:#000; color:#fff; width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px; cursor:pointer; z-index:999;}
-.basket-count{position:absolute; top:-5px; right:-5px; background:#ff4d00; color:#fff; font-size:11px; font-weight:bold; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center;}
-.container{max-width:1100px; margin:40px auto; padding:0 25px; text-align:center;}
-.page-title{font-size:30px; margin-bottom:8px; color:#222;}
-.page-subtitle{font-size:15px; color:#666; margin-bottom:20px;}
-.deal-badge{display:inline-block; background:#22c55e; color:white; padding:10px 25px; border-radius:50px; font-weight:bold; margin-bottom:35px; font-size:15px;}
-.flavours-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px;}
-.flavour-card{background:white; border-radius:12px; padding:25px 20px; box-shadow:0 3px 10px rgba(0,0,0,.06); border-bottom:3px solid #ff9500; transition:.2s;}
-.flavour-card:hover{transform:translateY(-3px); box-shadow:0 5px 15px rgba(255,149,0,.15);}
-.flavour-name{font-size:16px; font-weight:bold; color:#222; margin-bottom:12px;}
-.flavour-price{font-size:18px; color:#ff9500; font-weight:bold; margin-bottom:15px;}
-.add-btn{width:100%; padding:11px; background:#ff9500; color:white; border:none; border-radius:8px; font-weight:bold; cursor:pointer; font-size:15px; transition:.2s;}
-.add-btn:hover{background:#e68600;}
-footer{text-align:center; padding:30px; color:#888; font-size:13px; margin-top:50px;}
-@media(max-width:768px){.basket-icon{top:auto; bottom:25px; right:25px;} .flavours-grid{grid-template-columns:repeat(2,1fr); gap:15px;}}
+:root {
+  --orange: #ff4d00;
+  --orange-dark: #df4300;
+  --ink: #191919;
+  --muted: #656b73;
+  --line: #e8eaf0;
+  --background: #f7f8fb;
+  --white: #fff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(180deg, #f7f8fb 0%, #fff 75%);
+  color: var(--ink);
+  font-family: Arial, sans-serif;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+/* AGE SCREEN */
+.age-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, .94);
+}
+
+.age-gate[hidden] {
+  display: none;
+}
+
+.age-box {
+  width: min(100%, 440px);
+  padding: 42px 32px;
+  border-top: 5px solid var(--orange);
+  border-radius: 20px;
+  background: #fff;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .35);
+}
+
+.age-box h2 {
+  margin: 0 0 15px;
+  color: var(--orange);
+  font-size: 30px;
+}
+
+.age-box p {
+  margin: 0 0 25px;
+  color: #555;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.age-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.age-actions button,
+.age-actions a {
+  display: inline-block;
+  padding: 14px 22px;
+  border: 0;
+  border-radius: 9px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.age-confirm {
+  background: var(--orange);
+  color: #fff;
+}
+
+.age-leave {
+  background: #e9eaec;
+  color: #333;
+}
+
+/* TOP BAR AND NAVIGATION */
+.announcement {
+  padding: 10px 20px;
+  background: #1c1c1c;
+  color: #fff;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, .97);
+  box-shadow: 0 3px 15px rgba(0, 0, 0, .05);
+}
+
+.top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  max-width: 1280px;
+  margin: auto;
+  padding: 18px 25px;
+}
+
+.site-title {
+  flex: none;
+  color: #111;
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  text-decoration: none;
+}
+
+.site-title span {
+  color: var(--orange);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.nav-links a {
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: #333;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background .2s, color .2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  background: #fff1eb;
+  color: var(--orange);
+}
+
+.nav-links .basket-link {
+  background: #1c1c1c;
+  color: #fff;
+}
+
+.nav-links .basket-link:hover {
+  background: var(--orange);
+  color: #fff;
+}
+
+.basket-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  margin-left: 5px;
+  padding: 0 5px;
+  border-radius: 20px;
+  background: var(--orange);
+  color: #fff;
+  font-size: 11px;
+}
+
+main {
+  max-width: 1200px;
+  margin: auto;
+  padding: 35px 25px 65px;
+}
+
+/* INTRO */
+.breadcrumb {
+  margin-bottom: 23px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.breadcrumb a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: var(--orange);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 35px;
+  overflow: hidden;
+  padding: 30px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 12px 38px rgba(29, 38, 56, .06);
+}
+
+.hero-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 375px;
+  padding: 22px;
+  border-radius: 19px;
+  background:
+    radial-gradient(circle at 48% 45%, #fff 0%, #fff5f0 62%, #f6f1ef 100%);
+}
+
+.hero-image img {
+  display: block;
+  max-width: 100%;
+  max-height: 355px;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 18px rgba(0, 0, 0, .12));
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 16px;
+  padding: 8px 12px;
+  border-radius: 30px;
+  background: #fff1eb;
+  color: var(--orange);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  margin: 0 0 13px;
+  font-size: clamp(35px, 4vw, 54px);
+  line-height: 1.08;
+  letter-spacing: -1.8px;
+}
+
+.hero h1 span {
+  color: var(--orange);
+}
+
+.hero-description {
+  max-width: 460px;
+  margin: 0 0 25px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.hero-prices {
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 17px;
+}
+
+.price-panel {
+  min-width: 150px;
+  padding: 15px 18px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: #fafbfc;
+}
+
+.price-panel.deal {
+  border-color: #ffd4c3;
+  background: #fff4ee;
+}
+
+.price-panel small {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.price-panel strong {
+  color: var(--ink);
+  font-size: 25px;
+}
+
+.price-panel.deal strong {
+  color: var(--orange);
+}
+
+.mix-note {
+  margin: 0;
+  color: #555;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* OFFER PROGRESS */
+.offer-strip {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 20px;
+  margin: 23px 0 45px;
+  padding: 19px 22px;
+  border: 1px solid #f2e2d9;
+  border-radius: 16px;
+  background: #fffaf7;
+}
+
+.offer-strip strong {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+.offer-strip p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.progress-dots {
+  display: flex;
+  gap: 7px;
+  margin-top: 11px;
+}
+
+.progress-dot {
+  width: 31px;
+  height: 7px;
+  border-radius: 8px;
+  background: #e4e5e8;
+}
+
+.progress-dot.filled {
+  background: var(--orange);
+}
+
+.offer-strip a {
+  display: inline-block;
+  padding: 12px 17px;
+  border-radius: 9px;
+  background: #1c1c1c;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.offer-strip a:hover {
+  background: var(--orange);
+}
+
+/* FLAVOURS */
+.section-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.section-head h2 {
+  margin: 0 0 7px;
+  font-size: 29px;
+  letter-spacing: -.7px;
+}
+
+.section-head p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.flavour-total {
+  flex: none;
+  padding: 9px 13px;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  background: #fff;
+  color: #555;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.flavours-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.flavour-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 190px;
+  padding: 19px;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 0 5px 18px rgba(29, 38, 56, .035);
+  transition: transform .2s, border-color .2s, box-shadow .2s;
+}
+
+.flavour-card:hover {
+  transform: translateY(-3px);
+  border-color: #ffc9b2;
+  box-shadow: 0 12px 26px rgba(29, 38, 56, .09);
+}
+
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.flavour-mark {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid #ffe0d2;
+  border-radius: 11px;
+  background: #fff5f0;
+  color: var(--orange);
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.card-type {
+  padding-top: 5px;
+  color: #858b94;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.flavour-card h3 {
+  flex: 1;
+  margin: 0 0 16px;
+  font-size: 17px;
+  line-height: 1.35;
+}
+
+.card-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.card-price {
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.add-btn {
+  flex: none;
+  padding: 10px 13px;
+  border: 0;
+  border-radius: 9px;
+  background: #1c1c1c;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background .2s, transform .2s;
+}
+
+.add-btn:hover {
+  background: var(--orange);
+  transform: translateY(-1px);
+}
+
+.add-btn.added {
+  background: #167a48;
+}
+
+.toast {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 500;
+  max-width: min(350px, calc(100vw - 44px));
+  padding: 14px 18px;
+  border-radius: 11px;
+  background: #1c1c1c;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .22);
+}
+
+.toast[hidden] {
+  display: none;
+}
+
+footer {
+  padding: 30px 20px;
+  border-top: 1px solid var(--line);
+  color: #7b8089;
+  text-align: center;
+  font-size: 13px;
+}
+
+@media (max-width: 1050px) {
+  .top-nav {
+    flex-wrap: wrap;
+  }
+
+  .nav-links {
+    width: 100%;
+  }
+
+  .flavours-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .top-nav {
+    gap: 12px;
+    padding: 15px 16px 10px;
+  }
+
+  .site-title {
+    font-size: 25px;
+  }
+
+  .nav-links {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 7px;
+    scrollbar-width: thin;
+  }
+
+  .nav-links a {
+    padding: 9px 10px;
+    font-size: 13px;
+  }
+
+  main {
+    padding: 23px 16px 48px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding: 17px;
+  }
+
+  .hero-image {
+    min-height: 260px;
+  }
+
+  .hero-image img {
+    max-height: 245px;
+  }
+
+  .hero-copy {
+    padding: 0 5px 9px;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  .offer-strip {
+    grid-template-columns: 1fr;
+    margin-bottom: 35px;
+  }
+
+  .offer-strip a {
+    width: fit-content;
+  }
+
+  .flavours-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 11px;
+  }
+
+  .flavour-card {
+    min-height: 185px;
+    padding: 14px;
+  }
+
+  .flavour-card h3 {
+    font-size: 15px;
+  }
+
+  .card-price {
+    font-size: 17px;
+  }
+
+  .add-btn {
+    padding: 9px 10px;
+  }
+}
+
+@media (max-width: 390px) {
+  .flavours-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .flavour-card {
+    min-height: 160px;
+  }
+}
 </style>
 </head>
-<body>
-<div class="top-banner">🚚 FREE DPD TRACKED DELIVERY ON ORDERS £23+</div>
-<div class="basket-icon" id="basketIcon" onclick="window.location.href='checkout.html'">
-🛒 <span class="basket-count" id="basketCount">0</span>
-</div>
-<header>
-<a href="index.html" class="site-title">Vapes4All</a>
-<div class="nav-links">
-<a href="index.html">Home</a>
-<a href="dojo-units.html" class="active" style="color:#ff9500">Units</a>
-<a href="dojo-pods.html">Pods</a>
-<a href="ivg.html">IVG</a>
-<a href="checkout.html">Basket</a>
-<a href="contact.html">Contact</a>
-</div>
-</header>
-<div class="container">
-<h1 class="page-title">Dojo Blast 10K Units</h1>
-<p class="page-subtitle">£6.99 Each • Any 3 For £12.99 • 10,000 Puffs</p>
-<div class="deal-badge">✅ Any 3 Units For £12.99</div>
 
-<div class="flavours-grid">
-<div class="flavour-card"><h3 class="flavour-name">Lemon Cola</h3><p class="flavour-price">£6.99</p><button class="add-btn" onclick="addToBasket('Dojo Unit — Lemon Cola', 6.99)">Add To Basket</button></div>
-<div class="flavour-card"><h3 class="flavour-name">Vimberry</h3><p class="flavour-price">£6.99</p><button class="add-btn" onclick="addToBasket('Dojo Unit — Vimberry', 6.99)">Add To Basket</button></div>
-<div class="flavour-card"><h3 class="flavour-name">Cherry Cola</h3><p class="flavour-price">£6.99</p><button class="add-btn" onclick="addToBasket('Dojo Unit — Cherry Cola', 6.99)">Add To Basket</button></div>
-<div class="flavour-card"><h3 class="flavour-name">Ten Tangerines</h3><p class="flavour-price">£6.99</p><button class="add-btn" onclick="addToBasket('Dojo Unit — Ten Tangerines', 6.99)">Add To Basket</button></div>
-<div class="flavour-card"><h3 class="flavour-name">Pineapple Ice</h3><p class="flavour-price">£6.99</p><button class="add-btn" onclick="addToBasket('Dojo Unit — Pineapple Ice', 6.99)">Add To Basket</button></div>
-<div class="flavour-card"><h3 class="flavour-name">Blue Razz Lemonade</h3><p class="flavour-price">£6.99</p><button class="add-btn" onclick="addToBasket('Dojo Unit — Blue Razz Lemonade', 6.99)">Add To Basket</button></div>
-<div class="flavour-card"><h3 class="flavour-name">Banana Ice</h3><p class="flavour-price">£6.99</p><button class="add-btn" onclick="addToBasket('Dojo Unit — Banana Ice', 6.99)">Add To Basket</button></div>
-<div class="flavour-card"><h3 class="flavour-name">Lemon Lime</h3><p class="flavour-price">£6.99</p><button class="add-btn" onclick="addToBasket('Dojo Unit — Lemon Lime', 6.99)">Add To Basket</button></div>
-<div class="flavour-card"><h3 class="flavour-name">Cool Menthol</h3><p class="flavour-price">£6.99</p><button class="add-btn" onclick="addToBasket('Dojo Unit — Cool Menthol', 6.99)">Add To Basket</button></div>
-<div class="flavour-card"><h3 class="flavour-name">Triple Mango</h3><p class="flavour-price">£6.99</p><button class="add-btn" onclick="addToBasket('Dojo Unit — Triple Mango', 6.99)">Add To Basket</button></div>
-<div class="flavour-card"><h3 class="flavour-name">Pink Lemonade</h3><p class="flavour-price">£6.99</p><button class="add-btn" onclick="addToBasket('Dojo Unit — Pink Lemonade', 6.99)">Add To Basket</button></div>
-<div class="flavour-card"><h3 class="flavour-name">Fizzy Cherry</h3><p class="flavour-price">£6.99</p><button class="add-btn" onclick="addToBasket('Dojo Unit — Fizzy Cherry', 6.99)">Add To Basket</button></div>
-<div class="flavour-card"><h3 class="flavour-name">Juicy Peach</h3><p class="flavour-price">£6.99</p><button class="add-btn" onclick="addToBasket('Dojo Unit — Juicy Peach', 6.99)">Add To Basket</button></div>
-<div class="flavour-card"><h3 class="flavour-name">Black Grape</h3><p class="flavour-price">£6.99</p><button class="add-btn" onclick="addToBasket('Dojo Unit — Black Grape', 6.99)">Add To Basket</button></div>
-<div class="flavour-card"><h3 class="flavour-name">Huba</h3><p class="flavour-price">£6.99</p><button class="add-btn" onclick="addToBasket('Dojo Unit — Huba', 6.99)">Add To Basket</button></div>
-<div class="flavour-card"><h3 class="flavour-name">Strawberry Ice</h3><p class="flavour-price">£6.99</p><button class="add-btn" onclick="addToBasket('Dojo Unit — Strawberry Ice', 6.99)">Add To Basket</button></div>
-<div class="flavour-card"><h3 class="flavour-name">Double Apple</h3><p class="flavour-price">£6.99</p><button class="add-btn" onclick="addToBasket('Dojo Unit — Double Apple', 6.99)">Add To Basket</button></div>
-<div class="flavour-card"><h3 class="flavour-name">Watermelon Ice</h3><p class="flavour-price">£6.99</p><button class="add-btn" onclick="addToBasket('Dojo Unit — Watermelon Ice', 6.99)">Add To Basket</button></div>
-<div class="flavour-card"><h3 class="flavour-name">Blueberry Sour Raspberry</h3><p class="flavour-price">£6.99</p><button class="add-btn" onclick="addToBasket('Dojo Unit — Blueberry Sour Raspberry', 6.99)">Add To Basket</button></div>
-<div class="flavour-card"><h3 class="flavour-name">Strawberry Raspberry Cherry Ice</h3><p class="flavour-price">£6.99</p><button class="add-btn" onclick="addToBasket('Dojo Unit — Strawberry Raspberry Cherry Ice', 6.99)">Add To Basket</button></div>
-<div class="flavour-card"><h3 class="flavour-name">Fizzy Bru</h3><p class="flavour-price">£6.99</p><button class="add-btn" onclick="addToBasket('Dojo Unit — Fizzy Bru', 6.99)">Add To Basket</button></div>
-<div class="flavour-card"><h3 class="flavour-name">Pineapple Peach Mango</h3><p class="flavour-price">£6.99</p><button class="add-btn" onclick="addToBasket('Dojo Unit — Pineapple Peach Mango', 6.99)">Add To Basket</button></div>
+<body>
+
+<div class="age-gate" id="ageGate" hidden>
+  <div class="age-box">
+    <h2>18+ ONLY</h2>
+    <p>This website contains nicotine products.<br>You must be aged 18 or over to enter.</p>
+    <div class="age-actions">
+      <button class="age-confirm" type="button" id="confirmAge">I Am 18+</button>
+      <a class="age-leave" href="https://www.google.com/">Under 18 — Leave</a>
+    </div>
+  </div>
 </div>
-</div>
-<footer>Vapes4All © 2026 | 18+ Only</footer>
+
+<div class="announcement">FREE DPD TRACKED DELIVERY ON ORDERS £23+</div>
+
+<header>
+  <div class="top-nav">
+    <a class="site-title" href="index.html">VAPES<span>4ALL</span></a>
+
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="dojo-units.html" class="active" aria-current="page">Dojo Units</a>
+      <a href="dojo-pods.html">Dojo Pods</a>
+      <a href="ivg.html">IVG</a>
+      <a href="checkout.html" class="basket-link">Basket / Checkout <span class="basket-number" id="basketCount">0</span></a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="breadcrumb"><a href="index.html">Home</a> / Dojo Units</div>
+
+  <section class="hero" aria-labelledby="pageTitle">
+    <div class="hero-image">
+      <img src="dojo-units.jpg" alt="Dojo Blast 10K unit">
+    </div>
+
+    <div class="hero-copy">
+      <span class="eyebrow">Choose your flavours</span>
+      <h1 id="pageTitle">Dojo Blast <span>10K Units</span></h1>
+      <p class="hero-description">
+        Pick your favourites from the 22 flavours below. Add any three units to your basket for the mix and match deal.
+      </p>
+
+      <div class="hero-prices">
+        <div class="price-panel">
+          <small>Single unit</small>
+          <strong>£6.99</strong>
+        </div>
+        <div class="price-panel deal">
+          <small>Any 3 units</small>
+          <strong>£12.99</strong>
+        </div>
+      </div>
+
+      <p class="mix-note">Mix different flavours or choose more than one of the same flavour.</p>
+    </div>
+  </section>
+
+  <section class="offer-strip" aria-label="Mix and match offer progress">
+    <div>
+      <strong id="dealHeading">Choose any 3 units for £12.99</strong>
+      <p id="dealMessage">Your flavours can be mixed and matched.</p>
+      <div class="progress-dots" aria-hidden="true">
+        <span class="progress-dot" id="dot1"></span>
+        <span class="progress-dot" id="dot2"></span>
+        <span class="progress-dot" id="dot3"></span>
+      </div>
+    </div>
+    <a href="checkout.html">View basket →</a>
+  </section>
+
+  <section aria-labelledby="flavoursTitle">
+    <div class="section-head">
+      <div>
+        <h2 id="flavoursTitle">Find your flavour</h2>
+        <p>Tap “Add +” for each unit you want. You can add the same flavour more than once.</p>
+      </div>
+      <span class="flavour-total">22 flavours</span>
+    </div>
+
+    <div class="flavours-grid" id="flavoursGrid"></div>
+  </section>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<footer>Vapes4All © 2026 | 18+ Only | All Rights Reserved</footer>
+
 <script>
-let basket = JSON.parse(localStorage.getItem('vapes4all_basket') || '[]');
-function updateBasketCount(){document.getElementById('basketCount').textContent = basket.reduce((s,i)=>s+i.qty,0);}
-function addToBasket(name,price){
-const found = basket.find(i=>i.name===name);
-if(found) found.qty++;
-else basket.push({name,price,qty:1});
-localStorage.setItem('vapes4all_basket', JSON.stringify(basket));
-updateBasketCount();
+const flavours = [
+  "Lemon Cola",
+  "Vimberry",
+  "Cherry Cola",
+  "Ten Tangerines",
+  "Pineapple Ice",
+  "Blue Razz Lemonade",
+  "Banana Ice",
+  "Lemon Lime",
+  "Cool Menthol",
+  "Triple Mango",
+  "Pink Lemonade",
+  "Fizzy Cherry",
+  "Juicy Peach",
+  "Black Grape",
+  "Huba",
+  "Strawberry Ice",
+  "Double Apple",
+  "Watermelon Ice",
+  "Blueberry Sour Raspberry",
+  "Strawberry Raspberry Cherry Ice",
+  "Fizzy Bru",
+  "Pineapple Peach Mango"
+];
+
+const basketKey = "vapes4all_basket";
+let toastTimer;
+
+function getBasket() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(basketKey) || "[]");
+    return Array.isArray(saved) ? saved : [];
+  } catch {
+    return [];
+  }
 }
-updateBasketCount();
+
+function getUnitCount(basket) {
+  return basket.reduce((total, item) => {
+    const name = String(item.name || "");
+    if (!name.startsWith("Dojo Unit — ")) return total;
+    return total + (Number(item.qty) || 0);
+  }, 0);
+}
+
+function updateBasketDisplay() {
+  const basket = getBasket();
+
+  const totalItems = basket.reduce(
+    (total, item) => total + (Number(item.qty) || 0),
+    0
+  );
+
+  document.getElementById("basketCount").textContent = totalItems;
+
+  const unitCount = getUnitCount(basket);
+  const completedDeals = Math.floor(unitCount / 3);
+  const progress = unitCount % 3;
+  const remaining = progress === 0 ? 3 : 3 - progress;
+
+  document.getElementById("dot1").classList.toggle("filled", progress >= 1);
+  document.getElementById("dot2").classList.toggle("filled", progress >= 2);
+  document.getElementById("dot3").classList.toggle("filled", progress >= 3);
+
+  if (unitCount === 0) {
+    document.getElementById("dealHeading").textContent =
+      "Choose any 3 units for £12.99";
+    document.getElementById("dealMessage").textContent =
+      "Your flavours can be mixed and matched.";
+  } else if (progress === 0) {
+    document.getElementById("dealHeading").textContent =
+      completedDeals + (completedDeals === 1 ? " deal" : " deals") + " selected";
+    document.getElementById("dealMessage").textContent =
+      unitCount + " units in your basket. Add 3 more for another £12.99 deal.";
+  } else {
+    document.getElementById("dealHeading").textContent =
+      remaining + (remaining === 1 ? " more unit" : " more units") +
+      " to complete your next deal";
+    document.getElementById("dealMessage").textContent =
+      unitCount + (unitCount === 1 ? " unit" : " units") +
+      " in your basket. Mix any flavours you like.";
+  }
+}
+
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.hidden = false;
+
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.hidden = true;
+  }, 2600);
+}
+
+function addToBasket(flavour, button) {
+  const basket = getBasket();
+  const name = "Dojo Unit — " + flavour;
+  const existing = basket.find(item => item.name === name);
+
+  if (existing) {
+    existing.qty = (Number(existing.qty) || 0) + 1;
+  } else {
+    basket.push({ name: name, price: 6.99, qty: 1 });
+  }
+
+  localStorage.setItem(basketKey, JSON.stringify(basket));
+  updateBasketDisplay();
+  showToast(flavour + " added to your basket");
+
+  button.textContent = "Added ✓";
+  button.classList.add("added");
+
+  setTimeout(() => {
+    button.textContent = "Add +";
+    button.classList.remove("added");
+  }, 1100);
+}
+
+function createFlavourCards() {
+  const grid = document.getElementById("flavoursGrid");
+
+  flavours.forEach(flavour => {
+    const card = document.createElement("article");
+    card.className = "flavour-card";
+
+    const top = document.createElement("div");
+    top.className = "card-top";
+
+    const mark = document.createElement("span");
+    mark.className = "flavour-mark";
+    mark.textContent = flavour.charAt(0).toUpperCase();
+
+    const type = document.createElement("span");
+    type.className = "card-type";
+    type.textContent = "Dojo 10K";
+
+    top.append(mark, type);
+
+    const title = document.createElement("h3");
+    title.textContent = flavour;
+
+    const bottom = document.createElement("div");
+    bottom.className = "card-bottom";
+
+    const price = document.createElement("span");
+    price.className = "card-price";
+    price.textContent = "£6.99";
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "add-btn";
+    button.textContent = "Add +";
+    button.setAttribute("aria-label", "Add " + flavour + " Dojo unit to basket");
+    button.addEventListener("click", () => addToBasket(flavour, button));
+
+    bottom.append(price, button);
+    card.append(top, title, bottom);
+    grid.appendChild(card);
+  });
+}
+
+const ageGate = document.getElementById("ageGate");
+
+if (localStorage.getItem("ageVerified") !== "true") {
+  ageGate.hidden = false;
+}
+
+document.getElementById("confirmAge").addEventListener("click", () => {
+  localStorage.setItem("ageVerified", "true");
+  ageGate.hidden = true;
+});
+
+createFlavourCards();
+updateBasketDisplay();
+
+window.addEventListener("storage", updateBasketDisplay);
 </script>
+
 </body>
 </html>
