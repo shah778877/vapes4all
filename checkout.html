@@ -708,6 +708,8 @@ paymentButton.addEventListener("click", async () => {
     if (!response.ok || !result.url || !result.url.startsWith("https://checkout.stripe.com/")) {
       throw new Error(result.error || "Payment could not be started.");
     }
+    sessionStorage.setItem("checkoutBasketSnapshot", JSON.stringify(getBasket()));
+    sessionStorage.setItem("checkoutSessionId", result.id);
     window.location.assign(result.url);
   } catch (error) {
     window.alert(error.message || "Payment could not be started. Please try again.");
@@ -1021,7 +1023,30 @@ document.getElementById("confirmAge").addEventListener("click", () => {
 });
 
 renderBasket();
-if (new URLSearchParams(location.search).get("payment") === "cancelled") {
+const paymentParams = new URLSearchParams(location.search);
+if (paymentParams.get("payment") === "success" && paymentsApi) {
+  const id = paymentParams.get("session_id");
+  const snapshot = sessionStorage.getItem("checkoutBasketSnapshot");
+  if (id && id === sessionStorage.getItem("checkoutSessionId")) {
+    fetch(paymentsApi + "/session-status?id=" + encodeURIComponent(id))
+      .then(response => response.json())
+      .then(result => {
+        if (result.paid) {
+          if (snapshot === JSON.stringify(getBasket())) saveBasket([]);
+          window.alert("Payment received. Thank you! Your order details are in Stripe.");
+          sessionStorage.removeItem("checkoutBasketSnapshot");
+          sessionStorage.removeItem("checkoutSessionId");
+          window.history.replaceState({}, "", "checkout.html");
+        } else if (result.pending) {
+          window.alert("Your payment is processing. Please check your email before trying again.");
+        } else {
+          window.alert("Payment could not be confirmed yet. Please check your email or contact us.");
+        }
+      })
+      .catch(() => window.alert("Could not confirm payment yet. Please check your email or contact us."));
+  }
+}
+if (paymentParams.get("payment") === "cancelled") {
   window.history.replaceState({}, "", "checkout.html");
 }
 window.addEventListener("storage", renderBasket);
