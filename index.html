@@ -14,6 +14,7 @@ font-family:Arial,sans-serif;
 body{
 background:#f8f9fb;
 color:#222;
+padding:20px;
 }
 /* Basket Icon */
 .basket-icon{
@@ -47,178 +48,155 @@ display:flex;
 align-items:center;
 justify-content:center;
 }
-/* Header */
-header{
-background:white;
-box-shadow:0 2px 10px rgba(0,0,0,.08);
-position:sticky;
-top:0;
-z-index:100;
-padding:15px 20px;
-}
-.nav-wrap{
-max-width:1200px;
-margin:0 auto;
+/* Header & Nav */
+.top-nav{
 display:flex;
 justify-content:space-between;
 align-items:center;
-flex-wrap:wrap;
-gap:15px;
+margin-bottom:40px;
+padding-bottom:15px;
+border-bottom:1px solid #eee;
 }
 .site-title{
-font-size:24px;
+font-size:22px;
 font-weight:bold;
 color:#222;
-text-decoration:none;
 }
 .nav-links a{
 color:#333;
 text-decoration:none;
-margin-left:20px;
+margin-left:15px;
 font-weight:bold;
 }
 .nav-links a:hover, .nav-links a.active{
-color:#ff9500;
+color:#ff4d00;
 }
-/* Main */
-.container{
-max-width:1200px;
-margin:0 auto;
-padding:40px 20px;
-}
-.page-heading{
-font-size:32px;
+h1{
+font-size:28px;
 margin-bottom:40px;
 }
+/* Product Grid — YOUR LAYOUT EXACTLY */
 .product-grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-gap:30px;
+grid-template-columns:repeat(3,1fr);
+gap:25px;
+max-width:1000px;
 }
 .product-card{
 background:white;
-border-radius:16px;
-padding:25px;
+border-radius:12px;
+padding:20px;
 text-align:center;
-box-shadow:0 4px 15px rgba(0,0,0,.06);
-transition:.3s;
+box-shadow:0 2px 8px rgba(0,0,0,.05);
 text-decoration:none;
 color:inherit;
 display:block;
 }
-.product-card:hover{
-transform:translateY(-5px);
-}
 .product-img{
 width:100%;
-height:180px;
+height:160px;
 object-fit:contain;
-border-radius:12px;
-margin-bottom:20px;
-background:#fff;
+margin-bottom:15px;
 }
 .product-name{
-font-size:20px;
+font-size:16px;
 font-weight:bold;
-margin-bottom:10px;
-color:#222;
+margin-bottom:8px;
 }
 .product-price{
-font-size:18px;
-color:#ff9500;
+font-size:15px;
+color:#ff4d00;
 margin-bottom:5px;
 font-weight:bold;
 }
 .product-deal{
-font-size:14px;
+font-size:13px;
 color:#22c55e;
-margin-bottom:20px;
+margin-bottom:15px;
 }
 .view-btn{
-display:inline-block;
 width:100%;
-padding:12px;
+padding:10px;
 background:#222;
 color:white;
-border-radius:10px;
+border:none;
+border-radius:6px;
 font-weight:bold;
-text-decoration:none;
-transition:.2s;
+cursor:pointer;
+font-size:14px;
 }
 .view-btn:hover{
-background:#ff9500;
+background:#ff4d00;
 }
 footer{
 text-align:center;
-padding:30px;
-color:#666;
-border-top:1px solid #eee;
-margin-top:40px;
+margin-top:50px;
+color:#888;
+font-size:13px;
 }
+/* Mobile */
 @media(max-width:768px){
 .product-grid{grid-template-columns:1fr;}
 .basket-icon{bottom:25px; right:25px; top:auto;}
-.nav-links a{margin-left:12px;}
 }
 </style>
 </head>
 <body>
 
+<!-- Basket Icon -->
 <div class="basket-icon" id="basketIcon" onclick="window.location.href='checkout.html'">
 🛒
 <span class="basket-count" id="basketCount">0</span>
 </div>
 
-<header>
-<div class="nav-wrap">
-<a href="index.html" class="site-title">VAPE STORE</a>
+<!-- Top Nav -->
+<div class="top-nav">
+<div class="site-title">VAPE STORE</div>
 <div class="nav-links">
-<a href="index.html" class="active" style="color:#ff9500">Home</a>
+<a href="index.html" class="active">Home</a>
 <a href="dojo-units.html">Units</a>
 <a href="dojo-pods.html">Pods</a>
 <a href="ivg.html">IVG</a>
 <a href="contact.html">Contact</a>
 </div>
 </div>
-</header>
 
-<div class="container">
-<h1 class="page-heading">VAPE STORE</h1>
+<!-- Main -->
+<h1>VAPE STORE</h1>
 
 <div class="product-grid">
 
-<!-- DOJO UNITS - YOUR IMAGE + CLICK TO FLAVOURS -->
+<!-- DOJO UNITS — YOUR IMAGE + BUTTON LINKS TO PAGE -->
 <a href="dojo-units.html" class="product-card">
-<img src="dojo-units-image.jpg" alt="Dojo Blast 10K Units" class="product-img">
-<h2 class="product-name">Dojo Blast 10K Units</h2>
+<img src="dojo-units.jpg" alt="Dojo Blast 10K Units" class="product-img">
+<h3 class="product-name">Dojo Blast 10K Units</h3>
 <p class="product-price">£6.99 each</p>
 <p class="product-deal">Any 3 for £12.99</p>
-<div class="view-btn">View All Flavours →</div>
+<button class="view-btn">View All Flavours →</button>
 </a>
 
-<!-- DOJO PODS - YOUR IMAGE + CLICK TO FLAVOURS -->
+<!-- DOJO PODS — YOUR IMAGE + BUTTON LINKS TO PAGE -->
 <a href="dojo-pods.html" class="product-card">
-<img src="dojo-pods-image.jpg" alt="Dojo Blast Pods" class="product-img">
-<h2 class="product-name">Dojo Blast Pods</h2>
+<img src="dojo-pods.jpg" alt="Dojo Blast Pods" class="product-img">
+<h3 class="product-name">Dojo Blast Pods</h3>
 <p class="product-price">£4.99 each</p>
 <p class="product-deal">Any 6 for £20</p>
-<div class="view-btn">View All Flavours →</div>
+<button class="view-btn">View All Flavours →</button>
 </a>
 
-<!-- IVG - YOUR IMAGE + CLICK TO FLAVOURS -->
+<!-- IVG — YOUR IMAGE + BUTTON LINKS TO PAGE -->
 <a href="ivg.html" class="product-card">
-<img src="ivg-image.jpg" alt="IVG Smart Max" class="product-img">
-<h2 class="product-name">IVG Smart Max</h2>
+<img src="ivg.jpg" alt="IVG Smart Max" class="product-img">
+<h3 class="product-name">IVG Smart Max</h3>
 <p class="product-price">£4.99 each</p>
 <p class="product-deal">Premium Rechargeable Kit</p>
-<div class="view-btn">View All Flavours →</div>
+<button class="view-btn">View All Flavours →</button>
 </a>
 
-</div>
 </div>
 
 <footer>
-<p>Vapes4All © 2026 | 18+ Only</p>
+Vapes4All © 2026 | 18+ Only
 </footer>
 
 <script>
