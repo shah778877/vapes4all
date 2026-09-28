@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dojo Blast 10K Pods — VAPE STORE</title>
+<title>Dojo Blast 10K Pods — Vapes4All</title>
 <style>
 *{
 margin:0;
@@ -38,11 +38,12 @@ flex-wrap:wrap;
 font-size:22px;
 font-weight:bold;
 color:#ff9500;
+text-decoration:none;
 }
 .nav-links a{
 color:#333;
 text-decoration:none;
-margin-left:18px;
+margin-left:15px;
 font-weight:bold;
 font-size:15px;
 }
@@ -81,7 +82,7 @@ display:flex;
 align-items:center;
 justify-content:center;
 }
-/* Main Content */
+/* Main Container */
 .container{
 max-width:1100px;
 margin:40px auto;
@@ -89,12 +90,12 @@ padding:0 25px;
 text-align:center;
 }
 .page-title{
-font-size:32px;
-margin-bottom:10px;
+font-size:30px;
+margin-bottom:8px;
 color:#222;
 }
 .page-subtitle{
-font-size:16px;
+font-size:15px;
 color:#666;
 margin-bottom:20px;
 }
@@ -105,30 +106,72 @@ color:white;
 padding:10px 25px;
 border-radius:50px;
 font-weight:bold;
-margin-bottom:40px;
+margin-bottom:35px;
 font-size:15px;
 }
-/* Flavours Grid */
+/* New Flavours Banner */
+.new-flavours-banner{
+background:white;
+border:2px solid #ff9500;
+border-radius:12px;
+padding:15px 25px;
+margin-bottom:30px;
+display:flex;
+flex-wrap:wrap;
+align-items:center;
+justify-content:center;
+gap:15px;
+}
+.new-flavours-title{
+font-weight:bold;
+color:#222;
+font-size:16px;
+}
+.flavour-tag{
+background:#f0f0f0;
+padding:6px 14px;
+border-radius:20px;
+font-size:14px;
+display:flex;
+align-items:center;
+gap:6px;
+}
+.new-badge{
+background:#2563eb;
+color:white;
+font-size:11px;
+padding:2px 6px;
+border-radius:4px;
+font-weight:bold;
+}
+/* Flavours Grid — MATCHES YOUR NICE PAGE */
 .flavours-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:25px;
+gap:20px;
 }
 .flavour-card{
 background:white;
 border-radius:12px;
 padding:25px 20px;
 box-shadow:0 3px 10px rgba(0,0,0,.06);
+border-bottom:3px solid #ff9500;
 transition:.2s;
 }
 .flavour-card:hover{
 transform:translateY(-3px);
 box-shadow:0 5px 15px rgba(255,149,0,.15);
 }
+.flavour-name-row{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:8px;
+margin-bottom:12px;
+}
 .flavour-name{
 font-size:16px;
 font-weight:bold;
-margin-bottom:10px;
 color:#222;
 }
 .flavour-price{
@@ -140,17 +183,17 @@ margin-bottom:15px;
 .add-btn{
 width:100%;
 padding:11px;
-background:#222;
+background:#ff9500;
 color:white;
 border:none;
 border-radius:8px;
 font-weight:bold;
 cursor:pointer;
-font-size:14px;
+font-size:15px;
 transition:.2s;
 }
 .add-btn:hover{
-background:#ff9500;
+background:#e68600;
 }
 /* Footer */
 footer{
@@ -164,6 +207,7 @@ margin-top:50px;
 @media(max-width:768px){
 .basket-icon{top:auto; bottom:25px; right:25px;}
 .flavours-grid{grid-template-columns:repeat(2,1fr); gap:15px;}
+.new-flavours-banner{flex-direction:column; text-align:center;}
 }
 </style>
 </head>
@@ -182,7 +226,7 @@ margin-top:50px;
 
 <!-- Header -->
 <header>
-<div class="site-title">VAPE STORE</div>
+<a href="index.html" class="site-title">Vapes4All</a>
 <div class="nav-links">
 <a href="index.html">Home</a>
 <a href="dojo-units.html">Units</a>
@@ -199,22 +243,39 @@ margin-top:50px;
 <p class="page-subtitle">£4.99 Each • Any 6 For £20 • 20mg Nic Salt</p>
 <div class="deal-badge">✅ Any 6 Pods For £20</div>
 
+<!-- NEW FLAVOURS BANNER — EXACTLY AS YOUR PAGE 2 -->
+<div class="new-flavours-banner">
+<span class="new-flavours-title">🆕 NEW FLAVOURS JUST LANDED</span>
+<span class="flavour-tag">Lemon Cola <span class="new-badge">NEW</span></span>
+<span class="flavour-tag">Vimberry <span class="new-badge">NEW</span></span>
+<span class="flavour-tag">Cherry Cola <span class="new-badge">NEW</span></span>
+</div>
+
 <div class="flavours-grid">
 
 <div class="flavour-card">
+<div class="flavour-name-row">
 <h3 class="flavour-name">Lemon Cola</h3>
+<span class="new-badge">NEW</span>
+</div>
 <p class="flavour-price">£4.99</p>
 <button class="add-btn" onclick="addToBasket('Dojo Pods — Lemon Cola', 4.99)">Add To Basket</button>
 </div>
 
 <div class="flavour-card">
+<div class="flavour-name-row">
 <h3 class="flavour-name">Vimberry</h3>
+<span class="new-badge">NEW</span>
+</div>
 <p class="flavour-price">£4.99</p>
 <button class="add-btn" onclick="addToBasket('Dojo Pods — Vimberry', 4.99)">Add To Basket</button>
 </div>
 
 <div class="flavour-card">
+<div class="flavour-name-row">
 <h3 class="flavour-name">Cherry Cola</h3>
+<span class="new-badge">NEW</span>
+</div>
 <p class="flavour-price">£4.99</p>
 <button class="add-btn" onclick="addToBasket('Dojo Pods — Cherry Cola', 4.99)">Add To Basket</button>
 </div>
@@ -257,7 +318,6 @@ Vapes4All © 2026 | 18+ Only
 </footer>
 
 <script>
-// Basket system — same as Units & IVG pages
 let basket = JSON.parse(localStorage.getItem('vapes4all_basket') || '[]');
 
 function updateBasketCount(){
