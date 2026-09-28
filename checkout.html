@@ -660,12 +660,12 @@ footer {
         <div class="divider"></div>
 
         <div class="summary-row total-row">
-          <span>Products total</span>
+          <span>Total to pay</span>
           <strong id="productsTotal">£0.00</strong>
         </div>
 
         <p class="delivery-note" id="totalNote">
-          Delivery will be calculated at checkout.
+          Delivery is £2.99 below £23, or free from £23.
         </p>
 
         <div class="delivery-progress" id="deliveryProgress">
@@ -748,6 +748,7 @@ const prices = {
 const unitDealPrice = 1299;
 const podDealPrice = 2000;
 const freeDeliveryThreshold = 2300;
+const paidDeliveryPrice = 299;
 
 function money(pence) {
   return "£" + (pence / 100).toFixed(2);
@@ -982,7 +983,7 @@ function renderBasket() {
     "−" + money(totals.savings);
 
   document.getElementById("productsTotal").textContent =
-    money(totals.productsTotal);
+    money(totals.productsTotal + (count > 0 && totals.productsTotal < freeDeliveryThreshold ? paidDeliveryPrice : 0));
 
   const details = document.getElementById("dealDetails");
   details.replaceChildren();
@@ -1023,12 +1024,12 @@ function renderBasket() {
     note.textContent =
       "Your products total includes all mix and match discounts.";
   } else {
-    delivery.textContent = "Calculated at checkout";
+    delivery.textContent = money(paidDeliveryPrice);
     progress.textContent =
       "Add " + money(freeDeliveryThreshold - totals.productsTotal) +
       " more in products for free DPD tracked delivery.";
     note.textContent =
-      "Delivery for orders below £23 will be shown at checkout.";
+      "£2.99 DPD tracked delivery is included in the total above.";
   }
 }
 
