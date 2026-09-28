@@ -245,6 +245,33 @@ main {
   font-size: 13px;
 }
 
+.basket-heading-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.clear-basket {
+  padding: 7px 10px;
+  border: 1px solid #e8c7bd;
+  border-radius: 8px;
+  background: #fff;
+  color: #a83217;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.clear-basket:hover {
+  background: #fff1eb;
+}
+
+.clear-basket[hidden] {
+  display: none;
+}
+
 /* ITEMS */
 .basket-item {
   display: grid;
@@ -592,7 +619,10 @@ footer {
     <section class="panel" aria-labelledby="basketHeading">
       <div class="panel-heading">
         <h2 id="basketHeading">Basket items</h2>
-        <span id="itemCount">0 items</span>
+        <div class="basket-heading-actions">
+          <span id="itemCount">0 items</span>
+          <button class="clear-basket" id="clearBasket" type="button" hidden>Clear basket</button>
+        </div>
       </div>
 
       <div id="basketItems"></div>
@@ -686,6 +716,14 @@ function saveBasket(basket) {
   localStorage.setItem(basketKey, JSON.stringify(basket));
   renderBasket();
 }
+
+function clearBasket() {
+  if (!getBasket().length) return;
+  if (!window.confirm("Clear all items from your basket?")) return;
+  saveBasket([]);
+}
+
+document.getElementById("clearBasket").addEventListener("click", clearBasket);
 
 function category(name) {
   if (name.startsWith("Dojo Unit — ")) return "unit";
@@ -851,6 +889,7 @@ function renderBasket() {
   );
 
   document.getElementById("basketCount").textContent = count;
+  document.getElementById("clearBasket").hidden = count === 0;
   document.getElementById("itemCount").textContent =
     count + (count === 1 ? " item" : " items");
 
