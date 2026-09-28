@@ -3,288 +3,684 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact Us — Vapes4All</title>
+<title>Contact Us | Vapes4All</title>
+
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
+:root {
+  --orange: #ff4d00;
+  --ink: #191919;
+  --muted: #656b73;
+  --line: #e8eaf0;
 }
-body{
-background:#f8f9fb;
-color:#222;
-line-height:1.6;
+
+* {
+  box-sizing: border-box;
 }
-/* Basket Icon — SAME across ALL pages */
-.basket-icon{
-position:fixed;
-top:20px;
-right:25px;
-background:#000;
-color:#fff;
-width:60px;
-height:60px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:24px;
-cursor:pointer;
-z-index:999;
-box-shadow:0 4px 12px rgba(0,0,0,.15);
+
+body {
+  margin: 0;
+  background: linear-gradient(180deg, #f7f8fb 0%, #fff 75%);
+  color: var(--ink);
+  font-family: Arial, sans-serif;
 }
-.basket-count{
-position:absolute;
-top:-5px;
-right:-5px;
-background:#ff4d00;
-color:#fff;
-font-size:12px;
-font-weight:bold;
-width:24px;
-height:24px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
+
+button,
+input,
+textarea {
+  font: inherit;
 }
-/* Header — MATCHES homepage & product pages */
-header{
-background:white;
-box-shadow:0 2px 10px rgba(0,0,0,.08);
-position:sticky;
-top:0;
-z-index:100;
-padding:15px 20px;
+
+a {
+  color: inherit;
 }
-.nav{
-max-width:1200px;
-margin:0 auto;
-display:flex;
-justify-content:space-between;
-align-items:center;
-flex-wrap:wrap;
-gap:15px;
+
+/* AGE SCREEN */
+.age-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, .94);
 }
-.logo{
-font-size:34px;
-font-weight:bold;
-color:#ff9500;
-text-decoration:none;
+
+.age-gate[hidden] {
+  display: none;
 }
-.nav-links{
-display:flex;
-gap:20px;
-flex-wrap:wrap;
+
+.age-box {
+  width: min(100%, 440px);
+  padding: 42px 32px;
+  border-top: 5px solid var(--orange);
+  border-radius: 20px;
+  background: #fff;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .35);
 }
-.nav-links a{
-text-decoration:none;
-color:#333;
-font-weight:bold;
-transition:.2s;
+
+.age-box h2 {
+  margin: 0 0 15px;
+  color: var(--orange);
+  font-size: 30px;
 }
-.nav-links a:hover, .nav-links a.active{
-color:#ff9500;
+
+.age-box p {
+  margin: 0 0 25px;
+  color: #555;
+  line-height: 1.6;
 }
-.back-btn{
-display:inline-block;
-margin:20px;
-padding:10px 20px;
-background:#ff9500;
-color:white;
-text-decoration:none;
-border-radius:10px;
-font-weight:bold;
-border:none;
-cursor:pointer;
-transition:.2s;
+
+.age-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
 }
-.back-btn:hover{
-background:#e68600;
+
+.age-actions button,
+.age-actions a {
+  padding: 14px 22px;
+  border: 0;
+  border-radius: 9px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
 }
-.container{
-max-width:800px;
-margin:0 auto;
-padding:30px 20px;
+
+.age-confirm {
+  background: var(--orange);
+  color: #fff;
 }
-h1{
-font-size:42px;
-color:#ff9500;
-margin-bottom:30px;
-text-align:center;
+
+.age-leave {
+  background: #e9eaec;
+  color: #333;
 }
-.contact-grid{
-display:grid;
-gap:25px;
-margin-bottom:40px;
+
+/* HEADER */
+.announcement {
+  padding: 10px 20px;
+  background: #1c1c1c;
+  color: #fff;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
 }
-.card{
-background:white;
-padding:25px;
-border-radius:18px;
-box-shadow:0 8px 20px rgba(0,0,0,.08);
-border-left:4px solid #ff9500;
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, .97);
+  box-shadow: 0 3px 15px rgba(0, 0, 0, .05);
 }
-.card h2{
-font-size:22px;
-margin-bottom:15px;
+
+.top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  max-width: 1280px;
+  margin: auto;
+  padding: 18px 25px;
 }
-.card p{
-margin-bottom:10px;
-color:#666;
+
+.site-title {
+  flex: none;
+  color: #111;
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  text-decoration: none;
 }
-.card a{
-color:#ff9500;
-text-decoration:none;
-font-weight:bold;
+
+.site-title span {
+  color: var(--orange);
 }
-.card a:hover{
-text-decoration:underline;
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
 }
-form{
-background:white;
-padding:30px;
-border-radius:18px;
-box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+.nav-links a {
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: #333;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
 }
-form h2{
-font-size:22px;
-margin-bottom:20px;
-color:#ff9500;
+
+.nav-links a:hover,
+.nav-links a.active {
+  background: #fff1eb;
+  color: var(--orange);
 }
-.form-group{
-margin-bottom:20px;
+
+.nav-links .basket-link {
+  background: #1c1c1c;
+  color: #fff;
 }
-label{
-display:block;
-margin-bottom:8px;
-font-weight:bold;
-color:#333;
+
+.nav-links .basket-link:hover {
+  background: var(--orange);
+  color: #fff;
 }
-input, textarea{
-width:100%;
-padding:14px;
-border:1px solid #ddd;
-border-radius:10px;
-font-size:16px;
-background:#f8f9fb;
+
+.basket-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  margin-left: 5px;
+  padding: 0 5px;
+  border-radius: 20px;
+  background: var(--orange);
+  color: #fff;
+  font-size: 11px;
 }
-input:focus, textarea:focus{
-outline:none;
-border-color:#ff9500;
+
+/* PAGE */
+main {
+  max-width: 1120px;
+  margin: auto;
+  padding: 35px 25px 75px;
 }
-button[type="submit"]{
-width:100%;
-padding:16px;
-background:#ff9500;
-color:white;
-border:none;
-border-radius:10px;
-font-size:18px;
-font-weight:bold;
-cursor:pointer;
-transition:.2s;
+
+.breadcrumb {
+  margin-bottom: 23px;
+  color: var(--muted);
+  font-size: 13px;
 }
-button[type="submit"]:hover{
-background:#e68600;
+
+.breadcrumb a {
+  color: var(--muted);
+  text-decoration: none;
 }
-footer{
-text-align:center;
-padding:30px;
-color:#666;
-border-top:1px solid #eee;
-margin-top:20px;
+
+.breadcrumb a:hover {
+  color: var(--orange);
 }
-/* Mobile */
-@media(max-width:768px){
-.basket-icon{
-top:auto;
-bottom:25px;
-right:25px;
+
+.page-heading {
+  margin-bottom: 31px;
 }
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  border-radius: 30px;
+  background: #fff1eb;
+  color: var(--orange);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.page-heading h1 {
+  margin: 0 0 10px;
+  font-size: clamp(36px, 4vw, 52px);
+  letter-spacing: -1.5px;
+}
+
+.page-heading h1 span {
+  color: var(--orange);
+}
+
+.page-heading p {
+  max-width: 620px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, .85fr) minmax(0, 1.15fr);
+  align-items: start;
+  gap: 22px;
+}
+
+.info-column {
+  display: grid;
+  gap: 17px;
+}
+
+.info-card,
+.form-card {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 10px 32px rgba(29, 38, 56, .05);
+}
+
+.info-card {
+  padding: 24px;
+}
+
+.info-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  background: #fff1eb;
+  color: var(--orange);
+  font-size: 21px;
+}
+
+.info-card h2 {
+  margin: 0 0 11px;
+  font-size: 20px;
+}
+
+.info-card p {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.info-card p:last-child {
+  margin-bottom: 0;
+}
+
+.email-link {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: var(--orange);
+  font-size: 17px;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+}
+
+.email-link:hover {
+  text-decoration: underline;
+}
+
+.hours-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.hours-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 11px;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+}
+
+.hours-row:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.hours-row span {
+  color: var(--muted);
+  text-align: right;
+}
+
+.delivery-card {
+  border-color: #f2e2d9;
+  background: #fffaf7;
+}
+
+.delivery-card strong {
+  color: var(--orange);
+}
+
+/* CONTACT FORM */
+.form-card {
+  padding: 28px;
+}
+
+.form-card h2 {
+  margin: 0 0 8px;
+  font-size: 25px;
+  letter-spacing: -.5px;
+}
+
+.form-intro {
+  margin: 0 0 25px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.form-group input,
+.form-group textarea {
+  display: block;
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #dfe2e8;
+  border-radius: 10px;
+  outline: none;
+  background: #fafbfc;
+  color: var(--ink);
+  font-size: 15px;
+}
+
+.form-group textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--orange);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(255, 77, 0, .1);
+}
+
+.send-button {
+  width: 100%;
+  padding: 15px 18px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--orange);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.send-button:hover {
+  background: #df4300;
+}
+
+.form-help {
+  margin: 13px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.form-status {
+  margin: 15px 0 0;
+  padding: 13px 14px;
+  border-radius: 10px;
+  background: #f4fbf6;
+  color: #276844;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.form-status[hidden] {
+  display: none;
+}
+
+footer {
+  padding: 30px 20px;
+  border-top: 1px solid var(--line);
+  color: #7b8089;
+  text-align: center;
+  font-size: 13px;
+}
+
+@media (max-width: 1050px) {
+  .top-nav {
+    flex-wrap: wrap;
+  }
+
+  .nav-links {
+    width: 100%;
+  }
+}
+
+@media (max-width: 760px) {
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .top-nav {
+    gap: 12px;
+    padding: 15px 16px 10px;
+  }
+
+  .site-title {
+    font-size: 25px;
+  }
+
+  .nav-links {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 7px;
+    scrollbar-width: thin;
+  }
+
+  .nav-links a {
+    padding: 9px 10px;
+    font-size: 13px;
+  }
+
+  main {
+    padding: 23px 16px 50px;
+  }
+
+  .form-card {
+    padding: 22px 17px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
 }
 </style>
 </head>
+
 <body>
 
-<!-- Basket Icon — SAME as every page -->
-<div class="basket-icon" id="basketIcon" onclick="window.location.href='checkout.html'">
-🛒
-<span class="basket-count" id="basketCount">0</span>
+<div class="age-gate" id="ageGate" hidden>
+  <div class="age-box">
+    <h2>18+ ONLY</h2>
+    <p>This website contains nicotine products.<br>You must be aged 18 or over to enter.</p>
+    <div class="age-actions">
+      <button class="age-confirm" type="button" id="confirmAge">I Am 18+</button>
+      <a class="age-leave" href="https://www.google.com/">Under 18 — Leave</a>
+    </div>
+  </div>
 </div>
 
-<a class="back-btn" href="index.html">← Back To Home</a>
+<div class="announcement">FREE DPD TRACKED DELIVERY ON ORDERS £23+</div>
 
 <header>
-<div class="nav">
-<a href="index.html" class="logo">Vapes4All</a>
-<div class="nav-links">
-<a href="index.html">Home</a>
-<a href="dojo-units.html">10K Units</a>
-<a href="dojo-pods.html">10K Pods</a>
-<a href="ivg.html">IVG 10K</a>
-<a href="checkout.html">Basket</a>
-<a href="contact.html" class="active" style="color:#ff9500">Contact</a>
-</div>
-</div>
+  <div class="top-nav">
+    <a class="site-title" href="index.html">VAPES<span>4ALL</span></a>
+
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="dojo-units.html">Dojo Units</a>
+      <a href="dojo-pods.html">Dojo Pods</a>
+      <a href="ivg.html">IVG</a>
+      <a href="checkout.html" class="basket-link">Basket / Checkout <span class="basket-number" id="basketCount">0</span></a>
+      <a href="contact.html" class="active" aria-current="page">Contact</a>
+    </nav>
+  </div>
 </header>
 
-<div class="container">
-<h1>Get In Touch</h1>
+<main>
+  <div class="breadcrumb"><a href="index.html">Home</a> / Contact</div>
 
-<div class="contact-grid">
-<div class="card">
-<h2>📧 Email Us</h2>
-<p>Any enquiries, orders or questions — drop us a message anytime:</p>
-<p><a href="mailto:info@vapes4all.co.uk">info@vapes4all.co.uk</a></p>
-<p style="margin-top:15px;">We aim to reply within 24 hours.</p>
-</div>
+  <div class="page-heading">
+    <span class="eyebrow">We're here to help</span>
+    <h1>Get in <span>touch</span></h1>
+    <p>Have a question about a product, delivery or your basket? Send us a message or email us directly.</p>
+  </div>
 
-<div class="card">
-<h2>🕒 Opening Hours</h2>
-<p><strong>Monday — Friday:</strong> 9:00am — 9:00pm</p>
-<p><strong>Saturday:</strong> 10:00am — 8:00pm</p>
-<p><strong>Sunday:</strong> 11:00am — 5:00pm</p>
-<p style="margin-top:15px; color:#ff9500; font-weight:bold;">🚚 Free DPD Delivery on all orders £23+</p>
-</div>
-</div>
+  <div class="contact-layout">
+    <div class="info-column">
+      <section class="info-card">
+        <div class="info-icon" aria-hidden="true">✉</div>
+        <h2>Email us</h2>
+        <p>For enquiries, orders or questions:</p>
+        <a class="email-link" href="mailto:info@vapes4all.co.uk">info@vapes4all.co.uk</a>
+        <p>We aim to reply within 24 hours.</p>
+      </section>
 
-<form onsubmit="alert('✅ Message sent! We\'ll get back to you within 24 hours.'); this.reset(); return false;">
-<h2>Send Us A Message</h2>
-<div class="form-group">
-<label>Your Full Name</label>
-<input type="text" required placeholder="Enter your name">
-</div>
-<div class="form-group">
-<label>Email Address</label>
-<input type="email" required placeholder="your@email.com">
-</div>
-<div class="form-group">
-<label>Phone Number</label>
-<input type="tel" required placeholder="Your mobile number">
-</div>
-<div class="form-group">
-<label>Your Message</label>
-<textarea rows="5" required placeholder="How can we help?"></textarea>
-</div>
-<button type="submit">Send Message →</button>
-</form>
-</div>
+      <section class="info-card">
+        <div class="info-icon" aria-hidden="true">◷</div>
+        <h2>Opening hours</h2>
+        <div class="hours-list">
+          <div class="hours-row">
+            <strong>Monday – Friday</strong>
+            <span>9:00am – 9:00pm</span>
+          </div>
+          <div class="hours-row">
+            <strong>Saturday</strong>
+            <span>10:00am – 8:00pm</span>
+          </div>
+          <div class="hours-row">
+            <strong>Sunday</strong>
+            <span>11:00am – 5:00pm</span>
+          </div>
+        </div>
+      </section>
 
-<footer>
-<p>Vapes4All © 2026 | info@vapes4all.co.uk | 18+ Only</p>
-<p>All orders shipped via DPD Tracked</p>
-</footer>
+      <section class="info-card delivery-card">
+        <div class="info-icon" aria-hidden="true">↗</div>
+        <h2>Delivery</h2>
+        <p><strong>Free DPD tracked delivery</strong> on orders of £23 or more after discounts.</p>
+      </section>
+    </div>
+
+    <section class="form-card" aria-labelledby="formHeading">
+      <h2 id="formHeading">Send a message</h2>
+      <p class="form-intro">Fill this in and we'll prepare an email with your details and message.</p>
+
+      <form id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fullName">Full name</label>
+            <input id="fullName" name="fullName" type="text" autocomplete="name" placeholder="Your name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone number</label>
+          <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="Your phone number" required>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Your message</label>
+          <textarea id="message" name="message" placeholder="How can we help?" required></textarea>
+        </div>
+
+        <button class="send-button" type="submit">Open email to send message →</button>
+
+        <p class="form-help">
+          Your email app will open with the message filled in. Please press Send in your email app to deliver it.
+        </p>
+
+        <p class="form-status" id="formStatus" role="status" hidden>
+          Your email draft should now be open. Please check it and press Send. If nothing opened, email info@vapes4all.co.uk directly.
+        </p>
+      </form>
+    </section>
+  </div>
+</main>
+
+<footer>Vapes4All © 2026 | info@vapes4all.co.uk | 18+ Only</footer>
 
 <script>
-// Basket synced with ALL pages
-let basket = JSON.parse(localStorage.getItem('vapes4all_basket') || '[]');
-function updateBasketCount(){
-const total = basket.reduce((sum,item) => sum + item.qty, 0);
-document.getElementById('basketCount').textContent = total;
+const ageGate = document.getElementById("ageGate");
+
+if (localStorage.getItem("ageVerified") !== "true") {
+  ageGate.hidden = false;
 }
+
+document.getElementById("confirmAge").addEventListener("click", () => {
+  localStorage.setItem("ageVerified", "true");
+  ageGate.hidden = true;
+});
+
+function getBasketCount() {
+  try {
+    const basket = JSON.parse(localStorage.getItem("vapes4all_basket") || "[]");
+    if (!Array.isArray(basket)) return 0;
+
+    return basket.reduce(
+      (total, item) => total + (Number(item.qty) || 0),
+      0
+    );
+  } catch {
+    return 0;
+  }
+}
+
+function updateBasketCount() {
+  document.getElementById("basketCount").textContent = getBasketCount();
+}
+
+document.getElementById("contactForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const name = document.getElementById("fullName").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const message = document.getElementById("message").value.trim();
+
+  const subject = "Vapes4All website enquiry";
+  const body = [
+    "Hello Vapes4All,",
+    "",
+    message,
+    "",
+    "Name: " + name,
+    "Email: " + email,
+    "Phone: " + phone
+  ].join("\n");
+
+  const emailLink =
+    "mailto:info@vapes4all.co.uk" +
+    "?subject=" + encodeURIComponent(subject) +
+    "&body=" + encodeURIComponent(body);
+
+  document.getElementById("formStatus").hidden = false;
+  window.location.href = emailLink;
+});
+
 updateBasketCount();
+window.addEventListener("storage", updateBasketCount);
 </script>
 
 </body>
