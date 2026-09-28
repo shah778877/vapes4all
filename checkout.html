@@ -677,7 +677,7 @@ footer {
         </button>
 
         <p class="payment-note">
-          Secure payment through Stripe will be connected here.
+          Card and other eligible payment options are shown securely by Stripe. Delivery is confirmed before you pay.
         </p>
       </div>
     </aside>
@@ -688,6 +688,33 @@ footer {
 
 <script>
 const basketKey = "vapes4all_basket";
+// Set this to the deployed Worker URL only after Stripe approves vape sales.
+const paymentsApi = "";
+const paymentButton = document.getElementById("paymentButton");
+let startingPayment = false;
+
+paymentButton.addEventListener("click", async () => {
+  if (startingPayment || !paymentsApi) return;
+  startingPayment = true;
+  paymentButton.disabled = true;
+  paymentButton.textContent = "Connecting to secure checkout…";
+  try {
+    const response = await fetch(paymentsApi + "/create-checkout-session", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ basket: getBasket() })
+    });
+    const result = await response.json();
+    if (!response.ok || !result.url || !result.url.startsWith("https://checkout.stripe.com/")) {
+      throw new Error(result.error || "Payment could not be started.");
+    }
+    window.location.assign(result.url);
+  } catch (error) {
+    window.alert(error.message || "Payment could not be started. Please try again.");
+    startingPayment = false;
+    renderBasket();
+  }
+});
 
 const prices = {
   unit: 699,
@@ -889,6 +916,8 @@ function renderBasket() {
   );
 
   document.getElementById("basketCount").textContent = count;
+  paymentButton.disabled = !paymentsApi || count === 0 || startingPayment;
+  if (!startingPayment) paymentButton.textContent = "Continue to secure payment →";
   document.getElementById("clearBasket").hidden = count === 0;
   document.getElementById("itemCount").textContent =
     count + (count === 1 ? " item" : " items");
@@ -992,6 +1021,9 @@ document.getElementById("confirmAge").addEventListener("click", () => {
 });
 
 renderBasket();
+if (new URLSearchParams(location.search).get("payment") === "cancelled") {
+  window.history.replaceState({}, "", "checkout.html");
+}
 window.addEventListener("storage", renderBasket);
 </script>
 
